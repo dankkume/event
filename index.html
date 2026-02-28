@@ -59,16 +59,16 @@
     }
 
     .info-box {
-        background-color: #F7F9FF; /* 아주 연한 푸른색 (깔끔하고 신뢰감 있는 톤) */
-        border: none; /* 테두리 제거 */
-        border-radius: 18px; /* 더 둥글게 */
-        padding: 24px 20px; /* 패딩 증가 */
-        margin: 24px auto 36px; /* 마진 증가 */
-        max-width: 760px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08); /* 그림자 진하게 (입체감 부여) */
-        font-size: 1rem; /* 글자 크기 약간 키움 */
-        line-height: 1.6; /* 줄 간격 넓게 */
-        text-align: center; /* 텍스트 정렬을 중앙에서 왼쪽으로 변경 (가독성 향상) */
+      background-color: #F7F9FF;
+      border: none;
+      border-radius: 18px;
+      padding: 24px 20px;
+      margin: 24px auto 36px;
+      max-width: 760px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      font-size: 1rem;
+      line-height: 1.6;
+      text-align: center;
     }
 
     .info-box strong {
@@ -76,16 +76,15 @@
       font-weight: 800;
     }
 
-        /* 주의사항 문구 영역 스타일 추가 */
     .info-box .warning-text {
-        display: block;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px dashed #D8D8D8; /* 점선으로 구분 */
-        font-size: 0.95rem;
-        line-height: 1.5;
-        color: #E64A19; /* 눈에 띄는 빨간색 계열 */
-        font-weight: 500;
+      display: block;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px dashed #D8D8D8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #E64A19;
+      font-weight: 500;
     }
 
     /* ---------------- iframe (폼 영역) ---------------- */
@@ -114,12 +113,45 @@
       width: 100%;
       margin-top: 40px;
     }
-    
+
     .footer-deco img {
       display: block;
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
+    }
+
+    /* =====================================================
+       🌸 벚꽃(꽃잎) 떨어지는 효과
+       - 이미지: cherry_blossom.png (투명 PNG)
+       - 클릭/스크롤 방해 없음
+       ===================================================== */
+    .sakura {
+      position: fixed;
+      top: -40px;
+      z-index: 9999;
+      pointer-events: none;
+      user-select: none;
+      will-change: transform;
+      animation-name: sakuraFall;
+      animation-timing-function: linear;
+    }
+
+    .sakura img {
+      display: block;
+      width: 24px;     /* JS에서 랜덤으로 덮어씀 */
+      height: auto;
+    }
+
+    @keyframes sakuraFall {
+      0% {
+        transform: translate3d(0, -40px, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(0, 110vh, 0) rotate(360deg);
+        opacity: 0.8;
+      }
     }
   </style>
 
@@ -139,15 +171,49 @@
     window.addEventListener("message", function (event) {
       if (!event.data || event.data.type !== "formSubmitted") return;
 
-      // (1) 안내 문구 박스 숨기기
       const infoBox = document.querySelector(".info-box");
-      if (infoBox) {
-        infoBox.style.display = "none";
-      }
+      if (infoBox) infoBox.style.display = "none";
 
-      // (2) 페이지 최상단으로 부드럽게 이동
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    /* =====================================================
+       🌸 벚꽃(꽃잎) 떨어지는 효과 JS
+       ===================================================== */
+    function createSakura() {
+      const sakura = document.createElement("div");
+      sakura.className = "sakura";
+      sakura.innerHTML = "<img src='cherry_blossom.png' alt='' aria-hidden='true' />";
+
+      // 화면 너비 기준 랜덤 시작 위치
+      sakura.style.left = (Math.random() * window.innerWidth) + "px";
+
+      // 떨어지는 속도(초): 6~10초
+      sakura.style.animationDuration = (6 + Math.random() * 4) + "s";
+
+      // 살짝 흔들리는 느낌을 주기 위해 좌우 이동값 추가(간단 버전)
+      // (fall 애니메이션은 transform을 쓰기 때문에, 좌우 흔들림은 marginLeft로 처리)
+      sakura.style.marginLeft = (-10 + Math.random() * 20) + "px";
+
+      // 크기(px): PC 18~30 / 모바일 14~24
+      const isMobile = window.innerWidth < 768;
+      const minSize = isMobile ? 14 : 18;
+      const maxSize = isMobile ? 24 : 30;
+
+      document.body.appendChild(sakura);
+
+      const img = sakura.querySelector("img");
+      img.style.width = (minSize + Math.random() * (maxSize - minSize)) + "px";
+
+      // 너무 똑같아 보이지 않게 회전 시작각 랜덤 (CSS rotate와 합쳐짐 느낌)
+      sakura.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+
+      // 제거 (최대 지속 시간보다 넉넉하게)
+      setTimeout(() => sakura.remove(), 12000);
+    }
+
+    // 생성 간격(ms): 700ms (은은하게) / 더 은은하게 하려면 1000~1200 추천
+    setInterval(createSakura, 700);
   </script>
 </head>
 
@@ -155,35 +221,35 @@
   <div class="page-wrapper">
 
     <header class="banner-wrapper">
-    <picture class="banner-picture">
-      <source media="(max-width: 768px)" srcset="banner-01.png" />
-      <img src="banner-01.png" alt="단꿈e 특별 사은품 증정 이벤트" />
-    </picture>
+      <picture class="banner-picture">
+        <source media="(max-width: 768px)" srcset="banner-01.png" />
+        <img src="banner-01.png" alt="단꿈e 특별 사은품 증정 이벤트" />
+      </picture>
     </header>
 
     <main class="content-wrapper">
 
       <section class="info-box">
-          <p>
-              종합 프리패스[12개월 수강권] 결제 고객님께<br>
-              <strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.
-          </p>
-          
-          <p>
-              하단 사은품 선택 항목에서<br>
-              <strong>수령을 희망하는 2종</strong>을 선택해 주세요.
-          </p>
-      
-          <p>
-              선택하신 사은품은 <strong>4월 30일(목)</strong> 이후 <br>순차 발송될 예정이며,
-              정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 <br>정보를 정확하게 입력 부탁드립니다.
-          </p>
-      
-          <div class="warning-text">
-              <p style="font-weight: 700;">필수 확인 사항</p>
-              <span style="display: block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
-              <span style="display: block;">※ 신청이 여러 번 접수된 경우, 가장 마지막으로 제출된 신청 내용을 기준으로 사은품이 발송됩니다.</span>
-          </div>
+        <p>
+          종합 프리패스[12개월 수강권] 결제 고객님께<br>
+          <strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.
+        </p>
+
+        <p>
+          하단 사은품 선택 항목에서<br>
+          <strong>수령을 희망하는 2종</strong>을 선택해 주세요.
+        </p>
+
+        <p>
+          선택하신 사은품은 <strong>4월 30일(목)</strong> 이후 <br>순차 발송될 예정이며,
+          정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 <br>정보를 정확하게 입력 부탁드립니다.
+        </p>
+
+        <div class="warning-text">
+          <p style="font-weight: 700;">필수 확인 사항</p>
+          <span style="display: block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
+          <span style="display: block;">※ 신청이 여러 번 접수된 경우, 가장 마지막으로 제출된 신청 내용을 기준으로 사은품이 발송됩니다.</span>
+        </div>
       </section>
 
       <div class="iframe-container">
