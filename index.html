@@ -39,7 +39,7 @@
       margin: 0 auto;
     }
 
-    /* 배너 이미지 공통 */
+    /* 배너 공통 */
     .banner-stack img{
       width: 100%;
       height: auto;
@@ -47,57 +47,74 @@
       border-radius: 12px;
     }
 
-    /* overlay(나무) 레이어는 위에 올리기 */
+    /* base */
+    .banner-base{
+      position: relative;
+      z-index: 1;
+    }
+
+    /* overlay(나무) */
     .banner-tree{
       position: absolute;
-      left: 0;
-      top: 0;
+      top: -1px;
+      left: -1px;
+      width: calc(100% + 2px);  /* 🔥 경계선(세로줄) 제거 */
       pointer-events: none;
       user-select: none;
       will-change: transform;
+      z-index: 2;
     }
 
-    /* 🌿 왼쪽 나무 흔들림 */
+    /* 🌿 왼쪽 나무: 흔들림(업그레이드) */
     .tree-left{
       transform-origin: 0% 0%;
-      animation: swayLeft 4.8s ease-in-out infinite;
+      animation: swayLeft 5s ease-in-out infinite;
     }
 
-    /* 🌿 오른쪽 나무 흔들림 */
+    /* 🌿 오른쪽 나무: 흔들림(업그레이드) */
     .tree-right{
       transform-origin: 100% 0%;
-      animation: swayRight 5.6s ease-in-out infinite;
+      animation: swayRight 6.2s ease-in-out infinite;
     }
 
-    /* 너무 과하면 어색하니 1도 내외로 */
+    /* ✅ 봄바람 느낌: 각도 + 좌우/상하 미세 이동 */
     @keyframes swayLeft{
-      0%   { transform: rotate(0deg) translateY(0px); }
-      50%  { transform: rotate(1.2deg) translateY(1px); }
-      100% { transform: rotate(0deg) translateY(0px); }
+      0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
+      25%  { transform: rotate(1.8deg) translateX(2px) translateY(1px); }
+      50%  { transform: rotate(2.8deg) translateX(3px) translateY(2px); }
+      75%  { transform: rotate(1.5deg) translateX(2px) translateY(1px); }
+      100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
     }
 
     @keyframes swayRight{
-      0%   { transform: rotate(0deg) translateY(0px); }
-      50%  { transform: rotate(-1.0deg) translateY(1px); }
-      100% { transform: rotate(0deg) translateY(0px); }
+      0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
+      25%  { transform: rotate(-1.6deg) translateX(-2px) translateY(1px); }
+      50%  { transform: rotate(-2.4deg) translateX(-3px) translateY(2px); }
+      75%  { transform: rotate(-1.3deg) translateX(-2px) translateY(1px); }
+      100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
     }
 
-    @media (max-width: 768px) {
-      .banner-stack { max-width: 92%; }
+    @media (max-width: 768px){
+      .banner-stack{ max-width: 92%; }
 
-      /* 모바일에선 흔들림 더 약하게 */
-      .tree-left { animation-duration: 5.2s; }
-      .tree-right { animation-duration: 6.2s; }
+      /* 모바일에서는 살짝 약하게 */
+      .tree-left{ animation-duration: 5.6s; }
+      .tree-right{ animation-duration: 6.8s; }
 
       @keyframes swayLeft{
-        0%{ transform: rotate(0deg); }
-        50%{ transform: rotate(0.8deg); }
-        100%{ transform: rotate(0deg); }
+        0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
+        25%  { transform: rotate(1.2deg) translateX(1px) translateY(1px); }
+        50%  { transform: rotate(2.0deg) translateX(2px) translateY(1px); }
+        75%  { transform: rotate(1.0deg) translateX(1px) translateY(1px); }
+        100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
       }
+
       @keyframes swayRight{
-        0%{ transform: rotate(0deg); }
-        50%{ transform: rotate(-0.7deg); }
-        100%{ transform: rotate(0deg); }
+        0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
+        25%  { transform: rotate(-1.1deg) translateX(-1px) translateY(1px); }
+        50%  { transform: rotate(-1.7deg) translateX(-2px) translateY(1px); }
+        75%  { transform: rotate(-0.9deg) translateX(-1px) translateY(1px); }
+        100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
       }
     }
 
@@ -111,7 +128,7 @@
     }
 
     .info-box {
-      background-color: #F7F9FF;
+      background-color: #FFF4F8;
       border: none;
       border-radius: 18px;
       padding: 24px 20px;
@@ -174,8 +191,7 @@
     }
 
     /* =====================================================
-       🌸 벚꽃(꽃잎) 떨어지는 효과
-       - 이미지: cherry_blossom.png (투명 PNG)
+       🌸 꽃잎 떨어지는 효과 (cherry_blossom.png)
        ===================================================== */
     .sakura {
       position: fixed;
@@ -190,7 +206,6 @@
 
     .sakura img {
       display: block;
-      width: 24px;     /* JS에서 랜덤으로 덮어씀 */
       height: auto;
     }
 
@@ -207,7 +222,7 @@
   </style>
 
   <script>
-    // 1. iframe 높이 조절 (기존 기능)
+    // 1. iframe 높이 조절
     window.addEventListener("message", function (event) {
       if (!event.data || event.data.type !== "setHeight") return;
 
@@ -225,27 +240,22 @@
       const infoBox = document.querySelector(".info-box");
       if (infoBox) infoBox.style.display = "none";
 
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    /* =====================================================
-       🌸 벚꽃(꽃잎) 떨어지는 효과 JS
-       ===================================================== */
+    /* 🌸 꽃잎 생성 */
     function createSakura() {
       const sakura = document.createElement("div");
       sakura.className = "sakura";
       sakura.innerHTML = "<img src='cherry_blossom.png' alt='' aria-hidden='true' />";
 
-      // 화면 너비 기준 랜덤 시작 위치
       sakura.style.left = (Math.random() * window.innerWidth) + "px";
-
-      // 떨어지는 속도(초): 6~10초
       sakura.style.animationDuration = (6 + Math.random() * 4) + "s";
 
-      // transform을 쓰므로 좌우 흔들림은 marginLeft로 간단 처리
+      // 좌우 흔들림 느낌(간단)
       sakura.style.marginLeft = (-10 + Math.random() * 20) + "px";
 
-      // 크기(px): PC 18~30 / 모바일 14~24
+      // 크기: PC 18~30 / 모바일 14~24
       const isMobile = window.innerWidth < 768;
       const minSize = isMobile ? 14 : 18;
       const maxSize = isMobile ? 24 : 30;
@@ -258,11 +268,10 @@
       // 회전 시작각 랜덤
       sakura.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
 
-      // 제거
       setTimeout(() => sakura.remove(), 12000);
     }
 
-    // 생성 간격(ms): 700ms (더 은은하게: 1000~1200)
+    // 생성 간격(ms): 은은 900~1200 / 지금은 700(조금 풍성)
     setInterval(createSakura, 700);
   </script>
 </head>
@@ -270,16 +279,11 @@
 <body>
   <div class="page-wrapper">
 
-    <!-- ✅ 레이어 배너로 교체 + 나무 흔들림 적용 -->
+    <!-- ✅ 배너: 3레이어 + 나무 흔들림 -->
     <header class="banner-wrapper">
       <div class="banner-stack">
-        <!-- base: 배경+텍스트 -->
         <img src="banner_01.png" class="banner-base" alt="단꿈e 특별 사은품 증정 이벤트" />
-
-        <!-- overlay: 왼쪽 나무 -->
         <img src="banner_02.png" class="banner-tree tree-left" alt="" aria-hidden="true" />
-
-        <!-- overlay: 오른쪽 나무 -->
         <img src="banner_03.png" class="banner-tree tree-right" alt="" aria-hidden="true" />
       </div>
     </header>
