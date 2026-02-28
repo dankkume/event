@@ -26,51 +26,17 @@
     /* ---------------- 배너 영역 ---------------- */
     .banner-wrapper {
       width: 100%;
-      padding: 16px 0 8px;
+      padding: 10px 0 4px;
       display: flex;
       justify-content: center;
-
-      /* 🌸 봄 이벤트 느낌: 상단 배경 살짝 그라데이션 */
-      background: linear-gradient(180deg, rgba(255,244,248,0.65) 0%, rgba(255,255,255,0) 90%);
     }
 
-    /* ✅ 레이어 배너 스택 + 프레임(경계선 감춤) */
+    /* ✅ 레이어 배너 스택 */
     .banner-stack{
       position: relative;
       width: 100%;
       max-width: 960px;
       margin: 0 auto;
-
-      /* 프레임/카드화 */
-      border-radius: 18px;
-      overflow: hidden;                 /* ✅ 레이어 경계 잘라내기 */
-      border: 6px solid #ffffff;        /* ✅ 디자인톤 맞춘 프레임 두께 */
-      box-shadow: 0 14px 36px rgba(0,0,0,0.10);
-
-      /* 살짝 글로우(봄 느낌) */
-      background: rgba(255,255,255,0.6);
-    }
-
-    /* ✨ 배너 위를 가끔 스윽 지나가는 은은한 빛(스파클) */
-    .banner-stack::after{
-      content:"";
-      position:absolute;
-      inset:-20%;
-      pointer-events:none;
-      background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0) 42%),
-                  radial-gradient(circle at 70% 20%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 40%);
-      opacity: 0.0;
-      animation: sparkle 6.8s ease-in-out infinite;
-      z-index: 3;
-      mix-blend-mode: screen;
-    }
-
-    @keyframes sparkle{
-      0%   { opacity: 0; transform: translateY(0px); }
-      20%  { opacity: 0.6; }
-      40%  { opacity: 0.15; transform: translateY(2px); }
-      60%  { opacity: 0.55; }
-      100% { opacity: 0; transform: translateY(0px); }
     }
 
     /* 배너 공통 */
@@ -78,6 +44,7 @@
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 12px;
     }
 
     /* base */
@@ -89,22 +56,22 @@
     /* overlay(나무) */
     .banner-tree{
       position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
+      top: -1px;
+      left: -1px;
+      width: calc(100% + 2px);  /* 🔥 경계선(세로줄) 제거 */
       pointer-events: none;
       user-select: none;
       will-change: transform;
       z-index: 2;
     }
 
-    /* 🌿 왼쪽 나무: 흔들림(더 잘 보이게) */
+    /* 🌿 왼쪽 나무: 흔들림(업그레이드) */
     .tree-left{
       transform-origin: 0% 0%;
       animation: swayLeft 5s ease-in-out infinite;
     }
 
-    /* 🌿 오른쪽 나무: 흔들림(더 잘 보이게) */
+    /* 🌿 오른쪽 나무: 흔들림(업그레이드) */
     .tree-right{
       transform-origin: 100% 0%;
       animation: swayRight 6.2s ease-in-out infinite;
@@ -113,37 +80,39 @@
     /* ✅ 봄바람 느낌: 각도 + 좌우/상하 미세 이동 */
     @keyframes swayLeft{
       0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      25%  { transform: rotate(2.0deg) translateX(3px) translateY(1px); }
-      50%  { transform: rotate(3.0deg) translateX(4px) translateY(2px); }
-      75%  { transform: rotate(1.6deg) translateX(2px) translateY(1px); }
+      25%  { transform: rotate(1.8deg) translateX(2px) translateY(1px); }
+      50%  { transform: rotate(2.8deg) translateX(3px) translateY(2px); }
+      75%  { transform: rotate(1.5deg) translateX(2px) translateY(1px); }
       100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
     }
 
     @keyframes swayRight{
       0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      25%  { transform: rotate(-1.9deg) translateX(-3px) translateY(1px); }
-      50%  { transform: rotate(-2.7deg) translateX(-4px) translateY(2px); }
+      25%  { transform: rotate(-1.6deg) translateX(-2px) translateY(1px); }
+      50%  { transform: rotate(-2.4deg) translateX(-3px) translateY(2px); }
       75%  { transform: rotate(-1.3deg) translateX(-2px) translateY(1px); }
       100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
     }
 
     @media (max-width: 768px){
-      .banner-stack{ max-width: 92%; border-radius: 16px; border-width: 6px; }
-      .banner-stack::after{ animation-duration: 8.2s; }
+      .banner-stack{ max-width: 92%; }
 
       /* 모바일에서는 살짝 약하게 */
+      .tree-left{ animation-duration: 5.6s; }
+      .tree-right{ animation-duration: 6.8s; }
+
       @keyframes swayLeft{
         0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-        25%  { transform: rotate(1.4deg) translateX(2px) translateY(1px); }
-        50%  { transform: rotate(2.2deg) translateX(3px) translateY(1px); }
+        25%  { transform: rotate(1.2deg) translateX(1px) translateY(1px); }
+        50%  { transform: rotate(2.0deg) translateX(2px) translateY(1px); }
         75%  { transform: rotate(1.0deg) translateX(1px) translateY(1px); }
         100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
       }
 
       @keyframes swayRight{
         0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-        25%  { transform: rotate(-1.2deg) translateX(-2px) translateY(1px); }
-        50%  { transform: rotate(-1.9deg) translateX(-3px) translateY(1px); }
+        25%  { transform: rotate(-1.1deg) translateX(-1px) translateY(1px); }
+        50%  { transform: rotate(-1.7deg) translateX(-2px) translateY(1px); }
         75%  { transform: rotate(-0.9deg) translateX(-1px) translateY(1px); }
         100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
       }
@@ -154,18 +123,18 @@
       width: 100%;
       max-width: 880px;
       margin: 0 auto;
-      padding: 18px 16px 40px;
+      padding: 20px 16px 40px;
       text-align: center;
     }
 
     .info-box {
-      background-color: #FFF4F8;
+      background-color: #F7F9FF;
       border: none;
       border-radius: 18px;
       padding: 24px 20px;
       margin: 24px auto 36px;
       max-width: 760px;
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       font-size: 1rem;
       line-height: 1.6;
       text-align: center;
@@ -282,8 +251,11 @@
 
       sakura.style.left = (Math.random() * window.innerWidth) + "px";
       sakura.style.animationDuration = (6 + Math.random() * 4) + "s";
+
+      // 좌우 흔들림 느낌(간단)
       sakura.style.marginLeft = (-10 + Math.random() * 20) + "px";
 
+      // 크기: PC 18~30 / 모바일 14~24
       const isMobile = window.innerWidth < 768;
       const minSize = isMobile ? 14 : 18;
       const maxSize = isMobile ? 24 : 30;
@@ -293,10 +265,13 @@
       const img = sakura.querySelector("img");
       img.style.width = (minSize + Math.random() * (maxSize - minSize)) + "px";
 
+      // 회전 시작각 랜덤
       sakura.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+
       setTimeout(() => sakura.remove(), 12000);
     }
 
+    // 생성 간격(ms): 은은 900~1200 / 지금은 700(조금 풍성)
     setInterval(createSakura, 700);
   </script>
 </head>
@@ -304,7 +279,7 @@
 <body>
   <div class="page-wrapper">
 
-    <!-- ✅ 배너: 3레이어 + 나무 흔들림 + 프레임 + 스파클 -->
+    <!-- ✅ 배너: 3레이어 + 나무 흔들림 -->
     <header class="banner-wrapper">
       <div class="banner-stack">
         <img src="banner_01.png" class="banner-base" alt="단꿈e 특별 사은품 증정 이벤트" />
@@ -315,7 +290,6 @@
 
     <main class="content-wrapper">
 
-      <!-- ✅ 인포박스 그대로 유지 -->
       <section class="info-box">
         <p>
           종합 프리패스[12개월 수강권] 결제 고객님께<br>
