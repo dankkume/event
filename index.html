@@ -131,7 +131,7 @@
       margin: 24px auto 36px;
       max-width: 760px;
       box-shadow: 0 6px 24px rgba(255, 150, 180, 0.15);
-      font-size: 1rem;
+      font-size: clamp(0.95rem, 2.5vw, 1rem);
       line-height: 1.8;
       text-align: center;
     }
@@ -150,7 +150,7 @@
       margin-top: 18px;
       padding-top: 16px;
       border-top: 1.5px dashed rgba(255, 150, 180, 0.5);
-      font-size: 0.95rem;
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
       line-height: 1.7;
       color: #c0392b;
       font-weight: 500;
@@ -173,7 +173,7 @@
 
     @media (max-width: 768px) {
       .iframe-container iframe {
-        min-height: 1000px;
+        min-height: 1250px;
       }
     }
 
@@ -260,6 +260,14 @@
       // iframe src 분기
       const iframe = document.getElementById("giftFormFrame");
       iframe.src = isNew ? GAS_NEW : GAS_OLD;
+
+      // ✅ min-height 분기 (사은품 없으면 폼이 짧아짐)
+      const isMobile = window.innerWidth <= 768;
+      if (isNew) {
+        iframe.style.minHeight = isMobile ? "600px" : "800px";
+      } else {
+        iframe.style.minHeight = isMobile ? "1250px" : "2000px";
+      }
 
       // 안내 문구 분기
       const infoContent = document.getElementById("infoContent");
