@@ -251,8 +251,11 @@
       </p>`;
 
     document.addEventListener("DOMContentLoaded", function () {
-      const now   = new Date();
-      const isNew = now >= new Date("2026-04-01T00:00:00+09:00"); // 한국 시간 기준
+      const params = new URLSearchParams(window.location.search);
+      const preview = params.get("preview");
+
+      const now = new Date();
+      const isNew = preview === "new" || (!preview && now >= new Date("2026-04-01T00:00:00+09:00"));
 
       // iframe src 분기
       const iframe = document.getElementById("giftFormFrame");
