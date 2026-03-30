@@ -58,26 +58,23 @@
       position: absolute;
       top: -1px;
       left: -1px;
-      width: calc(100% + 2px);  /* 🔥 경계선(세로줄) 제거 */
+      width: calc(100% + 2px);
       pointer-events: none;
       user-select: none;
       will-change: transform;
       z-index: 2;
     }
 
-    /* 🌿 왼쪽 나무: 흔들림(업그레이드) */
     .tree-left{
       transform-origin: 0% 0%;
       animation: swayLeft 5s ease-in-out infinite;
     }
 
-    /* 🌿 오른쪽 나무: 흔들림(업그레이드) */
     .tree-right{
       transform-origin: 100% 0%;
       animation: swayRight 6.2s ease-in-out infinite;
     }
 
-    /* ✅ 봄바람 느낌: 각도 + 좌우/상하 미세 이동 */
     @keyframes swayLeft{
       0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
       25%  { transform: rotate(1.8deg) translateX(2px) translateY(1px); }
@@ -97,7 +94,6 @@
     @media (max-width: 768px){
       .banner-stack{ max-width: 92%; }
 
-      /* 모바일에서는 살짝 약하게 */
       .tree-left{ animation-duration: 5.6s; }
       .tree-right{ animation-duration: 6.8s; }
 
@@ -128,31 +124,35 @@
     }
 
     .info-box {
-      background-color: #FFF4F8;
-      border: none;
-      border-radius: 18px;
-      padding: 24px 20px;
+      background: linear-gradient(135deg, #fff0f5 0%, #fce4f0 40%, #fef3e2 100%);
+      border: 1.5px solid rgba(255, 182, 210, 0.5);
+      border-radius: 24px;
+      padding: 28px 24px;
       margin: 24px auto 36px;
       max-width: 760px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 6px 24px rgba(255, 150, 180, 0.15);
       font-size: 1rem;
-      line-height: 1.6;
+      line-height: 1.8;
       text-align: center;
     }
 
     .info-box strong {
-      color: #5B40F5;
+      color: #d63384;
       font-weight: 800;
+    }
+
+    .info-box p + p {
+      margin-top: 10px;
     }
 
     .info-box .warning-text {
       display: block;
-      margin-top: 15px;
-      padding-top: 15px;
-      border-top: 1px dashed #D8D8D8;
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1.5px dashed rgba(255, 150, 180, 0.5);
       font-size: 0.95rem;
-      line-height: 1.5;
-      color: #E64A19;
+      line-height: 1.7;
+      color: #c0392b;
       font-weight: 500;
     }
 
@@ -173,7 +173,7 @@
 
     @media (max-width: 768px) {
       .iframe-container iframe {
-        min-height: 1250px;
+        min-height: 1000px;
       }
     }
 
@@ -191,7 +191,7 @@
     }
 
     /* =====================================================
-       🌸 꽃잎 떨어지는 효과 (cherry_blossom.png)
+       🌸 꽃잎 떨어지는 효과
        ===================================================== */
     .sakura {
       position: fixed;
@@ -222,7 +222,48 @@
   </style>
 
   <script>
-    // 1. iframe 높이 조절
+    // 1. 날짜 분기 - 4월 1일 기준 iframe src 자동 전환
+    const GAS_OLD = "https://script.google.com/macros/s/AKfycbzuw-vJIFvx5y4X5IGygbkRtMwBxEh6l17CKQjOQRw36zSEReamhs5S5hqWNq0L7KBI/exec"; // 기존 (사은품 2종)
+    const GAS_NEW = "https://script.google.com/macros/s/AKfycby2gPMQDhyagAv1fSR-V7rLHaquVI4ggoNS-vD2GwvUmZQiQCvoqkqWH2mlMi56JRo9/exec"; // 신규 (웰컴키트)
+
+    const INFO_OLD = `
+      <p>
+        종합 프리패스[12개월 수강권] 결제 고객님께<br>
+        <strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.
+      </p>
+      <p>
+        하단 사은품 선택 항목에서<br>
+        <strong>수령을 희망하는 2종</strong>을 선택해 주세요.
+      </p>
+      <p>
+        선택하신 사은품은 <strong>4월 30일(목)</strong> 이후 <br>순차 발송될 예정이며,
+        정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 <br>정보를 정확하게 입력 부탁드립니다.
+      </p>`;
+
+    const INFO_NEW = `
+      <p>
+        종합 프리패스[12개월 수강권] 결제 고객님께<br>
+        <strong>웰컴 키트</strong>가 지급될 예정입니다.
+      </p>
+      <p style="margin-top: 12px;">
+        정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>
+        정보를 정확하게 입력 부탁드립니다.
+      </p>`;
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const now   = new Date();
+      const isNew = now >= new Date("2026-04-01T00:00:00+09:00"); // 한국 시간 기준
+
+      // iframe src 분기
+      const iframe = document.getElementById("giftFormFrame");
+      iframe.src = isNew ? GAS_NEW : GAS_OLD;
+
+      // 안내 문구 분기
+      const infoContent = document.getElementById("infoContent");
+      infoContent.innerHTML = isNew ? INFO_NEW : INFO_OLD;
+    });
+
+    // 2. iframe 높이 조절
     window.addEventListener("message", function (event) {
       if (!event.data || event.data.type !== "setHeight") return;
 
@@ -233,7 +274,7 @@
       iframe.style.height = newHeight + "px";
     });
 
-    // 2. 제출 완료 처리 (안내 박스 숨김 + 상단 이동)
+    // 3. 제출 완료 처리 (안내 박스 숨김 + 상단 이동)
     window.addEventListener("message", function (event) {
       if (!event.data || event.data.type !== "formSubmitted") return;
 
@@ -251,11 +292,8 @@
 
       sakura.style.left = (Math.random() * window.innerWidth) + "px";
       sakura.style.animationDuration = (6 + Math.random() * 4) + "s";
-
-      // 좌우 흔들림 느낌(간단)
       sakura.style.marginLeft = (-10 + Math.random() * 20) + "px";
 
-      // 크기: PC 18~30 / 모바일 14~24
       const isMobile = window.innerWidth < 768;
       const minSize = isMobile ? 14 : 18;
       const maxSize = isMobile ? 24 : 30;
@@ -265,13 +303,11 @@
       const img = sakura.querySelector("img");
       img.style.width = (minSize + Math.random() * (maxSize - minSize)) + "px";
 
-      // 회전 시작각 랜덤
       sakura.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
 
       setTimeout(() => sakura.remove(), 12000);
     }
 
-    // 생성 간격(ms): 은은 900~1200 / 지금은 700(조금 풍성)
     setInterval(createSakura, 700);
   </script>
 </head>
@@ -279,7 +315,7 @@
 <body>
   <div class="page-wrapper">
 
-    <!-- ✅ 배너: 3레이어 + 나무 흔들림 -->
+    <!-- 배너: 3레이어 + 나무 흔들림 (변경 없음) -->
     <header class="banner-wrapper">
       <div class="banner-stack">
         <img src="banner_01.png" class="banner-base" alt="단꿈e 특별 사은품 증정 이벤트" />
@@ -291,25 +327,11 @@
     <main class="content-wrapper">
 
       <section class="info-box">
-        <p>
-          종합 프리패스[12개월 수강권] 결제 고객님께<br>
-          <strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.
-        </p>
-
-        <p>
-          하단 사은품 선택 항목에서<br>
-          <strong>수령을 희망하는 2종</strong>을 선택해 주세요.
-        </p>
-
-        <p>
-          선택하신 사은품은 <strong>4월 30일(목)</strong> 이후 <br>순차 발송될 예정이며,
-          정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 <br>정보를 정확하게 입력 부탁드립니다.
-        </p>
-
+        <div id="infoContent"></div>
         <div class="warning-text">
           <p style="font-weight: 700;">필수 확인 사항</p>
           <span style="display: block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
-          <span style="display: block;">※ 신청이 여러 번 접수된 경우, 가장 마지막으로 제출된 신청 내용을 기준으로 사은품이 발송됩니다.</span>
+          <span style="display: block;">※ 주소 입력을 완료하지 못하신 경우, 단꿈e 고객센터(<strong>1670-0285</strong>)로 문의해 주세요.</span>
         </div>
       </section>
 
@@ -317,7 +339,7 @@
         <iframe
           id="giftFormFrame"
           src="https://script.google.com/macros/s/AKfycbzuw-vJIFvx5y4X5IGygbkRtMwBxEh6l17CKQjOQRw36zSEReamhs5S5hqWNq0L7KBI/exec"
-          title="단꿈e 1주년 사은품 신청 폼">
+          title="단꿈e 사은품 신청 폼">
         </iframe>
       </div>
 
