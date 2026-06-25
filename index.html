@@ -5,401 +5,411 @@
   <title>단꿈e 사은품 신청</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, system-ui, "Noto Sans KR", sans-serif;
-      background-color: #ffffff;
-      color: #333;
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Noto Sans KR", sans-serif;
+      background: linear-gradient(180deg, #cfeafb 0px, #ddf1fb 200px, #eaf6fc 440px, #e7f5f5 100%);
+      color: #25282b;
       line-height: 1.4;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
+    .wrap { min-height: 100vh; display: flex; flex-direction: column; }
 
-    .page-wrapper {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    /* ---------------- 배너 영역 ---------------- */
-    .banner-wrapper {
-      width: 100%;
-      padding: 10px 0 4px;
-      display: flex;
-      justify-content: center;
-    }
-
-    /* ✅ 레이어 배너 스택 */
-    .banner-stack{
+    /* ===== 배너 ===== */
+    .banner {
       position: relative;
       width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
+      height: clamp(240px, 30vw, 380px);
+      overflow: hidden;
+      box-shadow: 0 8px 22px rgba(31,140,180,.2);
     }
+    .water { position: absolute; inset: 0; z-index: 0; }
+    .deco { position: absolute; pointer-events: none; }
+    .deco svg, .deco > div { display: block; width: 100%; height: auto; }
 
-    /* 배너 공통 */
-    .banner-stack img{
-      width: 100%;
-      height: auto;
-      display: block;
-      border-radius: 12px;
+    .text-dim {
+      position: absolute; inset: 0; z-index: 6; pointer-events: none;
+      background: radial-gradient(62% 72% at 50% 50%, rgba(7,62,88,.36) 0%, rgba(7,62,88,.14) 46%, transparent 72%);
     }
-
-    /* base */
-    .banner-base{
-      position: relative;
-      z-index: 1;
+    .text-block {
+      position: absolute; inset: 0; z-index: 8; pointer-events: none;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 0 14%;
     }
-
-    /* overlay(나무) */
-    .banner-tree{
-      position: absolute;
-      top: -1px;
-      left: -1px;
-      width: calc(100% + 2px);
-      pointer-events: none;
-      user-select: none;
-      will-change: transform;
-      z-index: 2;
+    .logo { height: auto; filter: drop-shadow(0 2px 7px rgba(255,255,255,.9)); }
+    .eyebrow {
+      display: inline-block; padding: 5px 16px; border-radius: 999px; background: #fff;
+      color: #0f88a0; font-size: clamp(.72rem,2vw,.92rem); font-weight: 700; letter-spacing: -.01em;
+      box-shadow: 0 4px 12px rgba(0,80,110,.18);
     }
-
-    .tree-left{
-      transform-origin: 0% 0%;
-      animation: swayLeft 5s ease-in-out infinite;
+    .headline {
+      margin-top: clamp(8px,1.6vw,14px); font-size: clamp(1.7rem,5.6vw,3rem); font-weight: 800;
+      letter-spacing: -.03em; color: #fff; white-space: nowrap;
+      text-shadow: 0 2px 4px rgba(3,42,62,.6), 0 6px 18px rgba(3,42,62,.45);
     }
+    .headline .accent { color: #ffd84d; }
+    .hello-script { font-family: 'Pacifico', cursive; font-size: clamp(1.9rem,6vw,3.3rem); color: #fff; transform: rotate(-4deg); text-shadow: 0 3px 10px rgba(0,85,115,.45); line-height: 1; }
+    .hello-summer { margin-top: clamp(2px,.6vw,6px); font-size: clamp(2.4rem,8.4vw,4.7rem); font-weight: 800; letter-spacing: .02em; color: #ffd84d; -webkit-text-stroke: 2.5px #fff; text-shadow: 0 5px 12px rgba(0,85,115,.4); line-height: .92; }
 
-    .tree-right{
-      transform-origin: 100% 0%;
-      animation: swayRight 6.2s ease-in-out infinite;
-    }
-
-    @keyframes swayLeft{
-      0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      25%  { transform: rotate(1.8deg) translateX(2px) translateY(1px); }
-      50%  { transform: rotate(2.8deg) translateX(3px) translateY(2px); }
-      75%  { transform: rotate(1.5deg) translateX(2px) translateY(1px); }
-      100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
-    }
-
-    @keyframes swayRight{
-      0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      25%  { transform: rotate(-1.6deg) translateX(-2px) translateY(1px); }
-      50%  { transform: rotate(-2.4deg) translateX(-3px) translateY(2px); }
-      75%  { transform: rotate(-1.3deg) translateX(-2px) translateY(1px); }
-      100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
-    }
-
-    @media (max-width: 768px){
-      .banner-stack{ max-width: 92%; }
-
-      .tree-left{ animation-duration: 5.6s; }
-      .tree-right{ animation-duration: 6.8s; }
-
-      @keyframes swayLeft{
-        0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-        25%  { transform: rotate(1.2deg) translateX(1px) translateY(1px); }
-        50%  { transform: rotate(2.0deg) translateX(2px) translateY(1px); }
-        75%  { transform: rotate(1.0deg) translateX(1px) translateY(1px); }
-        100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      }
-
-      @keyframes swayRight{
-        0%   { transform: rotate(0deg) translateX(0px) translateY(0px); }
-        25%  { transform: rotate(-1.1deg) translateX(-1px) translateY(1px); }
-        50%  { transform: rotate(-1.7deg) translateX(-2px) translateY(1px); }
-        75%  { transform: rotate(-0.9deg) translateX(-1px) translateY(1px); }
-        100% { transform: rotate(0deg) translateX(0px) translateY(0px); }
-      }
-    }
-
-    /* ---------------- 본문 영역 ---------------- */
-    .content-wrapper {
-      width: 100%;
-      max-width: 880px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-      text-align: center;
-    }
-
+    /* ===== 본문 ===== */
+    main { width: 100%; background: #fff; padding: clamp(26px,4.5vw,46px) 16px clamp(30px,4vw,46px); }
+    .inner { max-width: 760px; margin: 0 auto; text-align: center; }
     .info-box {
-      background: linear-gradient(135deg, #fff0f5 0%, #fce4f0 40%, #fef3e2 100%);
-      border: 1.5px solid rgba(255, 182, 210, 0.5);
-      border-radius: 24px;
-      padding: 28px 24px;
-      margin: 24px auto 36px;
-      max-width: 760px;
-      box-shadow: 0 6px 24px rgba(255, 150, 180, 0.15);
-      font-size: clamp(0.95rem, 2.5vw, 1rem);
-      line-height: 1.8;
-      text-align: center;
+      background: linear-gradient(135deg,#e9fcff 0%,#d7f4f4 46%,#e8f6ff 100%);
+      border: 1.5px solid rgba(38,199,191,.4); border-radius: 20px; padding: 28px 24px;
+      margin: 0 auto 28px; max-width: 740px; box-shadow: 0 4px 16px rgba(38,199,191,.12);
+      font-size: clamp(.95rem,2.5vw,1rem); line-height: 1.8;
+    }
+    .info-box strong { color: #00827c; font-weight: 800; }
+    .info-box p + p { margin-top: 10px; }
+    .warning {
+      margin-top: 18px; padding-top: 16px; border-top: 1.5px dashed rgba(38,199,191,.5);
+      font-size: clamp(.85rem,2.2vw,.95rem); line-height: 1.7; color: #c0392b; font-weight: 500;
+    }
+    .warning strong { color: #c0392b; }
+    .iframe-wrap { width: 100%; margin: 0 auto; }
+    .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0 20px; gap: 14px; }
+    .spinner { width: 36px; height: 36px; border: 3px solid rgba(38,199,191,.3); border-top: 3px solid #00bab1; border-radius: 50%; animation: spin .9s linear infinite; }
+    .loading-text { font-size: 14px; color: #00827c; font-weight: 600; letter-spacing: .03em; }
+    iframe { width: 100%; border: 0; display: block; opacity: 0; transition: opacity .3s ease, height .25s ease; }
+
+    /* ===== 푸터 ===== */
+    footer { width: 100%; margin-top: auto; position: relative; overflow: hidden; height: clamp(140px,19vw,200px); }
+    .footer-text {
+      position: absolute; bottom: clamp(16px,2.6vw,26px); left: 0; right: 0; text-align: center;
+      color: rgba(255,255,255,.97); font-size: clamp(.74rem,1.8vw,.92rem); font-weight: 700;
+      letter-spacing: .02em; z-index: 4; text-shadow: 0 2px 6px rgba(0,90,120,.4);
     }
 
-    .info-box strong {
-      color: #d63384;
-      font-weight: 800;
-    }
+    /* ===== 버블 ===== */
+    #bubbleLayer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 55; }
 
-    .info-box p + p {
-      margin-top: 10px;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes swayL { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(3deg); } }
+    @keyframes swayR { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-3deg); } }
+    @keyframes bobA { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-9px) rotate(calc(var(--rot,0deg) + 3deg)); } }
+    @keyframes bobB { 0%,100% { transform: translate(-50%,0) rotate(0deg); } 50% { transform: translate(-50%,-10px) rotate(2deg); } }
+    @keyframes floatRot { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-7px) rotate(calc(var(--rot,0deg) - 4deg)); } }
+    @keyframes bubbleRise { 0% { transform: translateY(0) translateX(0); opacity: 0; } 12% { opacity:.7; } 85% { opacity:.45; } 100% { transform: translateY(-112vh) translateX(24px); opacity: 0; } }
 
-    .info-box .warning-text {
-      display: block;
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1.5px dashed rgba(255, 150, 180, 0.5);
-      font-size: clamp(0.85rem, 2.2vw, 0.95rem);
-      line-height: 1.7;
-      color: #c0392b;
-      font-weight: 500;
-    }
-
-    /* ---------------- 로딩 스피너 ---------------- */
-    .loading-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 0 20px;
-      gap: 14px;
-    }
-
-    .loading-spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid rgba(255, 150, 180, 0.3);
-      border-top: 3px solid #ff6b9d;
-      border-radius: 50%;
-      animation: spin 0.9s linear infinite;
-    }
-
-    .loading-text {
-      font-size: 14px;
-      color: #d63384;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ---------------- iframe (폼 영역) ---------------- */
-    .iframe-container {
-      width: 100%;
-      max-width: 880px;
-      margin: 0 auto;
-    }
-
-    .iframe-container iframe {
-      width: 100%;
-      border: 0;
-      display: block;
-      min-height: 2000px;
-      transition: height 0.25s ease;
-    }
-
-    @media (max-width: 768px) {
-      .iframe-container iframe {
-        min-height: 1250px;
-      }
-    }
-
-    /* ---------------- Bottom Decoration ---------------- */
-    .footer-deco {
-      width: 100%;
-      margin-top: 40px;
-    }
-
-    .footer-deco img {
-      display: block;
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    /* =====================================================
-       🌸 꽃잎 떨어지는 효과
-       ===================================================== */
-    .sakura {
-      position: fixed;
-      top: -40px;
-      z-index: 9999;
-      pointer-events: none;
-      user-select: none;
-      will-change: transform;
-      animation-name: sakuraFall;
-      animation-timing-function: linear;
-    }
-
-    .sakura img {
-      display: block;
-      height: auto;
-    }
-
-    @keyframes sakuraFall {
-      0% {
-        transform: translate3d(0, -40px, 0) rotate(0deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate3d(0, 110vh, 0) rotate(360deg);
-        opacity: 0.8;
-      }
-    }
+    .is-hidden { display: none !important; }
   </style>
-
-  <script>
-    // 1. 날짜 분기 - 4월 1일 기준 iframe src 자동 전환
-    const GAS_OLD = "https://script.google.com/macros/s/AKfycbzuw-vJIFvx5y4X5IGygbkRtMwBxEh6l17CKQjOQRw36zSEReamhs5S5hqWNq0L7KBI/exec"; // 기존 (사은품 2종)
-    const GAS_NEW = "https://script.google.com/macros/s/AKfycby2gPMQDhyagAv1fSR-V7rLHaquVI4ggoNS-vD2GwvUmZQiQCvoqkqWH2mlMi56JRo9/exec"; // 신규 (웰컴키트)
-
-    const INFO_OLD = `
-      <p>
-        종합 프리패스[12개월 수강권] 결제 고객님께<br>
-        <strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.
-      </p>
-      <p>
-        하단 사은품 선택 항목에서<br>
-        <strong>수령을 희망하는 2종</strong>을 선택해 주세요.
-      </p>
-      <p>
-                정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 <br>정보를 정확하게 입력 부탁드립니다.
-      </p>`;
-
-    const INFO_NEW = `
-      <p>
-        종합 프리패스[12개월 수강권] 결제 고객님께<br>
-        <strong>웰컴 키트</strong>가 지급될 예정입니다.
-      </p>
-      <p style="margin-top: 12px;">
-        정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>
-        정보를 정확하게 입력 부탁드립니다.
-      </p>`;
-
-    document.addEventListener("DOMContentLoaded", function () {
-      const params = new URLSearchParams(window.location.search);
-      const preview = params.get("preview");
-
-      const now = new Date();
-      const isNew = preview === "new" || (!preview && now >= new Date("2026-04-01T00:00:00+09:00"));
-
-      // iframe src 분기
-      const iframe = document.getElementById("giftFormFrame");
-      iframe.src = isNew ? GAS_NEW : GAS_OLD;
-
-      // ✅ min-height 분기 (사은품 없으면 폼이 짧아짐)
-      const isMobile = window.innerWidth <= 768;
-      if (isNew) {
-        iframe.style.minHeight = isMobile ? "0px" : "0px";
-        iframe.style.height = isMobile ? "600px" : "800px";
-      } else {
-        iframe.style.minHeight = isMobile ? "1250px" : "2000px";
-      }
-
-      // 안내 문구 분기
-      const infoContent = document.getElementById("infoContent");
-      infoContent.innerHTML = isNew ? INFO_NEW : INFO_OLD;
-    });
-
-    // 2. iframe 높이 조절
-    window.addEventListener("message", function (event) {
-      if (!event.data || event.data.type !== "setHeight") return;
-
-      const iframe = document.getElementById("giftFormFrame");
-      if (!iframe) return;
-
-      const newHeight = Math.max(event.data.height, 300);
-      iframe.style.minHeight = "0px";
-      iframe.style.height = newHeight + "px";
-    });
-
-    // 3. 제출 완료 처리 (안내 박스 숨김 + 상단 이동)
-    window.addEventListener("message", function (event) {
-      if (!event.data || event.data.type !== "formSubmitted") return;
-
-      const infoBox = document.querySelector(".info-box");
-      if (infoBox) infoBox.style.display = "none";
-
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    });
-
-    /* 🌸 꽃잎 생성 */
-    function createSakura() {
-      const sakura = document.createElement("div");
-      sakura.className = "sakura";
-      sakura.innerHTML = "<img src='cherry_blossom.png' alt='' aria-hidden='true' />";
-
-      sakura.style.left = (Math.random() * window.innerWidth) + "px";
-      sakura.style.animationDuration = (6 + Math.random() * 4) + "s";
-      sakura.style.marginLeft = (-10 + Math.random() * 20) + "px";
-
-      const isMobile = window.innerWidth < 768;
-      const minSize = isMobile ? 14 : 18;
-      const maxSize = isMobile ? 24 : 30;
-
-      document.body.appendChild(sakura);
-
-      const img = sakura.querySelector("img");
-      img.style.width = (minSize + Math.random() * (maxSize - minSize)) + "px";
-
-      sakura.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
-
-      setTimeout(() => sakura.remove(), 12000);
-    }
-
-    setInterval(createSakura, 700);
-  </script>
 </head>
 
 <body>
-  <div class="page-wrapper">
+  <div id="bubbleLayer"></div>
 
-    <!-- 배너: 3레이어 + 나무 흔들림 (변경 없음) -->
-    <header class="banner-wrapper">
-      <div class="banner-stack">
-        <img src="banner_01.png" class="banner-base" alt="단꿈e 특별 사은품 증정 이벤트" />
-        <img src="banner_02.png" class="banner-tree tree-left" alt="" aria-hidden="true" />
-        <img src="banner_03.png" class="banner-tree tree-right" alt="" aria-hidden="true" />
+  <div class="wrap">
+
+    <!-- ===================== 배너 ===================== -->
+    <header class="banner">
+      <div class="water"></div>
+
+      <!-- 잔물결 -->
+      <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.55;">
+        <g stroke="rgba(255,255,255,.4)" stroke-width="2.4" fill="none" stroke-linecap="round">
+          <path d="M30 38 q16 -7 32 0 t32 0"></path><path d="M250 30 q16 -7 32 0 t32 0"></path>
+          <path d="M150 90 q18 -8 36 0 t36 0"></path><path d="M40 130 q16 -7 32 0 t32 0"></path>
+          <path d="M280 150 q16 -7 32 0 t32 0"></path><path d="M210 178 q16 -7 32 0 t32 0"></path>
+          <path d="M110 56 q12 -5 24 0 t24 0"></path>
+        </g>
+      </svg>
+
+      <!-- 기본 잎 -->
+      <div class="deco" style="top:-9%; left:-4%; width:clamp(96px,17vw,184px); z-index:4; transform-origin:50% 100%; animation:swayL 6s ease-in-out infinite;">
+        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-28deg);">
+          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
+          <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        </svg>
+      </div>
+      <div class="deco" style="bottom:-11%; right:-4%; width:clamp(100px,18vw,196px); z-index:4; transform-origin:50% 0%; animation:swayR 7s ease-in-out infinite;">
+        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(155deg);">
+          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
+          <path d="M60 192 L60 12" stroke="#0d5234" stroke-width="3" fill="none" stroke-linecap="round"></path>
+        </svg>
+      </div>
+
+      <!-- 추가 잎 -->
+      <div class="leaf-extra" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
+        <div class="deco" style="top:-7%; right:-6%; width:clamp(86px,15vw,168px); transform-origin:50% 100%; animation:swayR 6.6s ease-in-out infinite;">
+          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(46deg) scaleX(-1);">
+            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#2aa56a"></path>
+            <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="deco" style="bottom:-8%; left:-5%; width:clamp(82px,14vw,150px); transform-origin:50% 0%; animation:swayL 7.4s ease-in-out infinite;">
+          <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(8deg);">
+            <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#176f47"></path>
+            <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
+              <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
+            </g>
+          </svg>
+        </div>
+        <div class="deco" style="top:28%; right:-6%; width:clamp(78px,13vw,140px); transform-origin:100% 50%; animation:swayR 8s ease-in-out infinite;">
+          <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(-14deg);">
+            <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#1c8455"></path>
+            <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
+              <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 튜브 · 서프보드 -->
+      <div class="decor-floats" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
+        <div class="deco" style="top:-15%; left:13%; width:clamp(74px,13vw,128px); --rot:18deg; animation:floatRot 7s ease-in-out infinite;">
+          <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#ff6fae 0 45deg,#ffd1e6 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 33%,#000 34%); mask:radial-gradient(circle,transparent 33%,#000 34%); box-shadow:0 6px 16px rgba(190,40,110,.25);"></div>
+        </div>
+        <div class="deco" style="bottom:-24%; left:50%; width:clamp(130px,24vw,250px); animation:bobB 8s ease-in-out infinite;">
+          <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#9466d6 0 45deg,#ddccf7 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 36%,#000 37%); mask:radial-gradient(circle,transparent 36%,#000 37%); box-shadow:0 8px 20px rgba(110,60,180,.25);"></div>
+        </div>
+        <div class="deco" style="top:-10%; right:8%; width:clamp(34px,6vw,58px); --rot:34deg; animation:floatRot 9s ease-in-out infinite;">
+          <svg viewBox="0 0 80 200" style="overflow:visible;">
+            <path d="M40 4 C58 30 60 100 56 150 C53 180 46 196 40 196 C34 196 27 180 24 150 C20 100 22 30 40 4 Z" fill="#e23b34"></path>
+            <path d="M40 8 L40 192" stroke="#fff" stroke-width="2.4"></path>
+            <g fill="#fff"><path d="M40 70 L54 92 L40 86 L26 92 Z"></path><path d="M40 96 L54 118 L40 112 L26 118 Z"></path><path d="M40 122 L54 144 L40 138 L26 144 Z"></path></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 불가사리 · 오렌지 · 아이스크림 -->
+      <div class="decor-fun" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
+        <div class="deco" style="top:18%; left:17%; width:clamp(34px,6vw,52px); --rot:-8deg; animation:bobA 6.2s ease-in-out infinite;">
+          <svg viewBox="0 0 100 100" style="overflow:visible;">
+            <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
+            <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
+          </svg>
+        </div>
+        <div class="deco" style="bottom:22%; right:24%; width:clamp(36px,6.5vw,56px); --rot:12deg; animation:bobA 7s ease-in-out infinite;">
+          <svg viewBox="0 0 100 100" style="overflow:visible;">
+            <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
+            <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
+          </svg>
+        </div>
+        <div class="deco" style="top:8%; right:20%; width:clamp(32px,5.5vw,50px); --rot:0deg; animation:bobA 6.6s ease-in-out infinite;">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
+            <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
+            <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
+          </svg>
+        </div>
+        <div class="deco" style="bottom:10%; left:5%; width:clamp(34px,6vw,54px); --rot:0deg; animation:bobA 7.4s ease-in-out infinite;">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
+            <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
+            <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
+          </svg>
+        </div>
+        <div class="deco" style="top:33%; left:4%; width:clamp(28px,5vw,46px); --rot:-12deg; animation:bobA 6.8s ease-in-out infinite;">
+          <svg viewBox="0 0 70 152" style="overflow:visible;">
+            <rect x="28" y="104" width="14" height="46" rx="6" fill="#d6a05c"></rect>
+            <rect x="6" y="6" width="58" height="116" rx="27" fill="#ff7fb0"></rect>
+            <path d="M12 30 C12 16 24 8 35 8 C28 16 24 24 24 36 Z" fill="#ffa6cb" opacity="0.85"></path>
+            <g fill="#ec3f86"><circle cx="26" cy="40" r="3"></circle><circle cx="42" cy="56" r="3"></circle><circle cx="30" cy="74" r="3"></circle><circle cx="46" cy="86" r="2.6"></circle><circle cx="34" cy="98" r="2.6"></circle></g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- 텍스트 -->
+      <div class="text-dim"></div>
+      <div class="text-block">
+        <div class="headline-brand" style="display:flex; flex-direction:column; align-items:center;">
+          <img class="logo" src="dankkume-logo.png" alt="단꿈e" style="width:clamp(74px,12vw,112px); margin-bottom:clamp(8px,1.6vw,14px);" />
+          <span class="eyebrow">신규 결제 고객님께 드리는</span>
+          <h1 class="headline">특별 <span class="accent">사은품</span> 증정</h1>
+        </div>
+        <div class="headline-hello is-hidden" style="display:flex; flex-direction:column; align-items:center;">
+          <span class="hello-script">Hello</span>
+          <span class="hello-summer">SUMMER</span>
+          <img class="logo" src="dankkume-logo.png" alt="단꿈e" style="width:clamp(60px,9vw,86px); margin-top:clamp(8px,1.6vw,14px);" />
+        </div>
       </div>
     </header>
 
-    <main class="content-wrapper">
+    <!-- ===================== 본문 ===================== -->
+    <main>
+      <div class="inner">
+        <section class="info-box" id="infoBox">
+          <div id="infoContent"></div>
+          <div class="warning">
+            <p style="font-weight:700;">필수 확인 사항</p>
+            <span style="display:block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
+            <span style="display:block;">※ 주소 입력을 완료하지 못하신 경우, 단꿈e 고객센터(<strong>1670-0285</strong>)로 문의해 주세요.</span>
+          </div>
+        </section>
 
-      <section class="info-box">
-        <div id="infoContent"></div>
-        <div class="warning-text">
-          <p style="font-weight: 700;">필수 확인 사항</p>
-          <span style="display: block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
-          <span style="display: block;">※ 주소 입력을 완료하지 못하신 경우, 단꿈e 고객센터(<strong>1670-0285</strong>)로 문의해 주세요.</span>
+        <div class="iframe-wrap">
+          <div class="loading" id="loadingWrap">
+            <div class="spinner"></div>
+            <div class="loading-text">잠시만 기다려 주세요...</div>
+          </div>
+          <iframe id="giftFormFrame" src="" title="단꿈e 사은품 신청 폼"></iframe>
         </div>
-      </section>
-
-      <div class="iframe-container">
-        <div class="loading-wrap" id="loadingWrap">
-          <div class="loading-spinner"></div>
-          <div class="loading-text">🌸 잠시만 기다려 주세요...</div>
-        </div>
-        <iframe
-          id="giftFormFrame"
-          src=""
-          title="단꿈e 사은품 신청 폼"
-          style="opacity: 0; transition: opacity 0.3s ease;"
-          onload="
-            document.getElementById('loadingWrap').style.display='none';
-            document.getElementById('giftFormFrame').style.opacity='1';
-          ">
-        </iframe>
       </div>
-
-      <footer class="footer-deco">
-        <img src="banner-02.png" alt="" />
-      </footer>
-
     </main>
 
+    <!-- ===================== 푸터 ===================== -->
+    <footer>
+      <div class="water"></div>
+      <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.5;">
+        <g stroke="rgba(255,255,255,.4)" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <path d="M40 60 q16 -7 32 0 t32 0"></path><path d="M240 50 q16 -7 32 0 t32 0"></path><path d="M150 92 q16 -7 32 0 t32 0"></path>
+        </g>
+      </svg>
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
+        <path d="M-180,42 q90,28 180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 L1620,-10 L-180,-10 Z" fill="#ffffff"></path>
+      </svg>
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
+        <path d="M-180,52 q90,28 180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 L1620,40 L-180,40 Z" fill="rgba(255,255,255,.55)"></path>
+      </svg>
+      <div class="deco" style="bottom:-26%; left:-2%; width:clamp(76px,13vw,140px); z-index:3; transform-origin:50% 100%; animation:swayL 7s ease-in-out infinite;">
+        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(8deg);">
+          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
+        </svg>
+      </div>
+      <div class="deco" style="bottom:-30%; right:-2%; width:clamp(80px,14vw,150px); z-index:3; transform-origin:50% 100%; animation:swayR 8s ease-in-out infinite;">
+        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-10deg) scaleX(-1);">
+          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
+        </svg>
+      </div>
+      <div class="footer-text">초등공부 신의 한 수 · 단꿈e</div>
+    </footer>
+
   </div>
+
+  <script>
+    /* =====================================================
+       단꿈e 사은품 신청 — 디자인 설정 (원하는 값으로 변경하세요)
+       water    : "turquoise" | "deepblue" | "teal" | "lagoon"
+       density  : "full" | "medium" | "minimal"
+       headline : "brand" | "hello"
+       ===================================================== */
+    var CONFIG = { water: "turquoise", density: "full", headline: "brand" };
+
+    var WATERS = {
+      turquoise: "linear-gradient(165deg,#86e3ea 0%,#3fc8d8 45%,#1fa6cb 100%)",
+      deepblue:  "linear-gradient(165deg,#7cd0f7 0%,#3a98e6 48%,#1f6fd0 100%)",
+      teal:      "linear-gradient(165deg,#7fe0d4 0%,#2cc1b6 48%,#0f9a92 100%)",
+      lagoon:    "linear-gradient(165deg,#9fe9cf 0%,#3fcfb4 46%,#159fbf 100%)"
+    };
+
+    /* === Google Apps Script 폼 주소 (날짜 분기) === */
+    var GAS_OLD = "https://script.google.com/macros/s/AKfycbzuw-vJIFvx5y4X5IGygbkRtMwBxEh6l17CKQjOQRw36zSEReamhs5S5hqWNq0L7KBI/exec";
+    var GAS_NEW = "https://script.google.com/macros/s/AKfycby2gPMQDhyagAv1fSR-V7rLHaquVI4ggoNS-vD2GwvUmZQiQCvoqkqWH2mlMi56JRo9/exec";
+
+    var INFO_OLD =
+      '<p>종합 프리패스[12개월 수강권] 결제 고객님께<br><strong>단꿈아이 대모험 시리즈 2종</strong>이 지급될 예정입니다.</p>' +
+      '<p>하단 사은품 선택 항목에서<br><strong>수령을 희망하는 2종</strong>을 선택해 주세요.</p>' +
+      '<p>정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>정보를 정확하게 입력 부탁드립니다.</p>';
+    var INFO_NEW =
+      '<p>종합 프리패스[12개월 수강권] 결제 고객님께<br><strong>웰컴 키트</strong>가 지급될 예정입니다.</p>' +
+      '<p style="margin-top:12px;">정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>정보를 정확하게 입력 부탁드립니다.</p>';
+
+    /* === 디자인 설정 적용 === */
+    (function applyConfig() {
+      var grad = WATERS[CONFIG.water] || WATERS.turquoise;
+      var waters = document.querySelectorAll(".water");
+      for (var i = 0; i < waters.length; i++) waters[i].style.background = grad;
+
+      if (CONFIG.density !== "full") {
+        document.querySelector(".decor-fun").classList.add("is-hidden");
+      }
+      if (CONFIG.density === "minimal") {
+        document.querySelector(".decor-floats").classList.add("is-hidden");
+        document.querySelector(".leaf-extra").classList.add("is-hidden");
+      }
+
+      if (CONFIG.headline === "hello") {
+        document.querySelector(".headline-brand").classList.add("is-hidden");
+        document.querySelector(".headline-hello").classList.remove("is-hidden");
+      }
+    })();
+
+    /* === iframe 폼 분기 + 안내 문구 === */
+    document.addEventListener("DOMContentLoaded", function () {
+      var params = new URLSearchParams(window.location.search);
+      var preview = params.get("preview");
+      var now = new Date();
+      var isNew = preview === "new" || (!preview && now >= new Date("2026-04-01T00:00:00+09:00"));
+
+      var iframe = document.getElementById("giftFormFrame");
+      iframe.src = isNew ? GAS_NEW : GAS_OLD;
+
+      var isMobile = window.innerWidth <= 768;
+      iframe.style.height = (isNew ? (isMobile ? 600 : 800) : (isMobile ? 1250 : 2000)) + "px";
+
+      document.getElementById("infoContent").innerHTML = isNew ? INFO_NEW : INFO_OLD;
+    });
+
+    /* === iframe 로드 완료 === */
+    document.getElementById("giftFormFrame").addEventListener("load", function () {
+      document.getElementById("loadingWrap").style.display = "none";
+      this.style.opacity = "1";
+    });
+
+    /* === 자식(구글 폼) → 부모 메시지 처리 === */
+    window.addEventListener("message", function (event) {
+      var d = event.data;
+      if (!d) return;
+      var iframe = document.getElementById("giftFormFrame");
+      if (d.type === "setHeight" && iframe) {
+        iframe.style.height = Math.max(d.height, 300) + "px";
+      } else if (d.type === "formSubmitted") {
+        var box = document.getElementById("infoBox");
+        if (box) box.style.display = "none";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        postHeightToParent();
+      }
+    });
+
+    /* === 이 페이지가 임베드된 경우, 전체 높이를 부모에 전달 (잘림 방지) === */
+    var lastH = 0;
+    function postHeightToParent() {
+      try {
+        if (!window.parent || window.parent === window) return;
+        var h = Math.ceil(document.documentElement.scrollHeight);
+        if (h && h !== lastH) {
+          lastH = h;
+          window.parent.postMessage({ type: "setHeight", height: h }, "*");
+        }
+      } catch (e) {}
+    }
+    window.addEventListener("load", postHeightToParent);
+    window.addEventListener("resize", postHeightToParent);
+    if (typeof ResizeObserver !== "undefined") {
+      new ResizeObserver(postHeightToParent).observe(document.documentElement);
+    }
+    setInterval(postHeightToParent, 1000);
+
+    /* === 물방울 버블 === */
+    (function bubbles() {
+      var layer = document.getElementById("bubbleLayer");
+      function spawn() {
+        var b = document.createElement("div");
+        var size = 8 + Math.random() * 20;
+        b.style.cssText = [
+          "position:fixed", "bottom:-30px",
+          "left:" + (Math.random() * 100) + "vw",
+          "width:" + size + "px", "height:" + size + "px",
+          "border-radius:50%",
+          "background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.9), rgba(160,230,245,.35) 48%, rgba(120,205,228,.12) 72%)",
+          "border:1px solid rgba(255,255,255,.55)",
+          "box-shadow:inset 0 0 6px rgba(255,255,255,.5)",
+          "pointer-events:none",
+          "animation:bubbleRise " + (8 + Math.random() * 5) + "s linear forwards"
+        ].join(";");
+        layer.appendChild(b);
+        setTimeout(function () { b.remove(); }, 14000);
+      }
+      setInterval(spawn, 850);
+    })();
+  </script>
 </body>
 </html>
