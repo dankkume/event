@@ -7,20 +7,93 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" />
   <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
+
+  <script>
+    /* =====================================================
+       시즌 분기 — 2026-09-01 00:00 (KST) 부터 가을 테마
+       ?season=summer / ?season=autumn 으로 미리보기 가능
+       ===================================================== */
+    (function () {
+      var AUTUMN_START = new Date("2026-09-01T00:00:00+09:00");
+      var q = new URLSearchParams(location.search).get("season");
+      var isAutumn = q === "autumn" || (q !== "summer" && new Date() >= AUTUMN_START);
+      document.documentElement.classList.add(isAutumn ? "season-autumn" : "season-summer");
+      window.__IS_AUTUMN__ = isAutumn;
+    })();
+  </script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== 시즌 토큰 ===== */
+    :root {
+      --page-bg: linear-gradient(180deg, #cfeafb 0px, #ddf1fb 200px, #eaf6fc 440px, #e7f5f5 100%);
+      --water-grad: linear-gradient(165deg,#7cd0f7 0%,#3a98e6 48%,#1f6fd0 100%);
+      --banner-shadow: rgba(31,140,180,.2);
+      --dim: radial-gradient(62% 72% at 50% 50%, rgba(7,62,88,.36) 0%, rgba(7,62,88,.14) 46%, transparent 72%);
+      --eyebrow-fg: #0f88a0;
+      --eyebrow-shadow: rgba(0,80,110,.18);
+      --accent: #ffd84d;
+      --headline-shadow-1: rgba(3,42,62,.6);
+      --headline-shadow-2: rgba(3,42,62,.45);
+      --info-bg: linear-gradient(135deg,#e9fcff 0%,#d7f4f4 46%,#e8f6ff 100%);
+      --info-border: rgba(38,199,191,.4);
+      --info-strong: #00827c;
+      --info-shadow: rgba(38,199,191,.12);
+      --divider: rgba(38,199,191,.5);
+      --spinner: #00bab1;
+      --spinner-track: rgba(38,199,191,.3);
+      --footer-text-shadow: rgba(0,90,120,.4);
+      --headline-fg: #fff;
+      --stroke-fg: #fff;
+      --footer-grad: var(--water-grad);
+      --footer-fg: rgba(255,255,255,.97);
+      --link: #0f88a0;
+      --link-hover: #00827c;
+    }
+    html.season-autumn {
+      --page-bg: linear-gradient(180deg, #f9e7cd 0px, #fbeedb 200px, #fdf5e9 440px, #fbf3e7 100%);
+      --water-grad: linear-gradient(165deg,#f2e7d1 0%,#ecdfc5 55%,#e6d6b8 100%);
+      --banner-shadow: rgba(180,120,60,.2);
+      --dim: radial-gradient(46% 58% at 50% 50%, rgba(246,238,222,.9) 0%, rgba(246,238,222,.55) 55%, transparent 78%);
+      --eyebrow-fg: #c0561d;
+      --eyebrow-shadow: rgba(140,60,20,.2);
+      --accent: #a8443a;
+      --headline-shadow-1: rgba(255,255,255,.95);
+      --headline-shadow-2: rgba(255,255,255,.8);
+      --info-bg: linear-gradient(135deg,#fff6e6 0%,#fbe9cf 46%,#fff3e2 100%);
+      --info-border: rgba(226,140,58,.45);
+      --info-strong: #b8541b;
+      --info-shadow: rgba(226,140,58,.14);
+      --divider: rgba(226,140,58,.55);
+      --spinner: #e2762a;
+      --spinner-track: rgba(226,140,58,.3);
+      --footer-text-shadow: rgba(255,255,255,.85);
+      --headline-fg: #4a3323;
+      --stroke-fg: #fffdf7;
+      --footer-grad: linear-gradient(165deg,#eddfc2 0%,#e5d2ae 55%,#dcc79c 100%);
+      --footer-fg: #6b4a2c;
+      --link: #c0561d;
+      --link-hover: #8a3d12;
+    }
+
     body {
-      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, "Noto Sans KR", sans-serif;
-      background: linear-gradient(180deg, #cfeafb 0px, #ddf1fb 200px, #eaf6fc 440px, #e7f5f5 100%);
+      font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, "Noto Sans KR", sans-serif;
+      background: var(--page-bg);
       color: #25282b;
       line-height: 1.4;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
+    a { color: var(--link); }
+    a:hover { color: var(--link-hover); }
     .wrap { min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* ===== 시즌별 표시/숨김 ===== */
+    html.season-summer .only-autumn { display: none !important; }
+    html.season-autumn .only-summer { display: none !important; }
 
     /* ===== 배너 ===== */
     .banner {
@@ -28,16 +101,14 @@
       width: 100%;
       height: clamp(240px, 30vw, 380px);
       overflow: hidden;
-      box-shadow: 0 8px 22px rgba(31,140,180,.2);
+      box-shadow: 0 8px 22px var(--banner-shadow);
     }
-    .water { position: absolute; inset: 0; z-index: 0; }
+    .water { position: absolute; inset: 0; z-index: 0; background: var(--water-grad); }
+    footer .water { background: var(--footer-grad); }
     .deco { position: absolute; pointer-events: none; }
     .deco svg, .deco > div { display: block; width: 100%; height: auto; }
 
-    .text-dim {
-      position: absolute; inset: 0; z-index: 6; pointer-events: none;
-      background: radial-gradient(62% 72% at 50% 50%, rgba(7,62,88,.36) 0%, rgba(7,62,88,.14) 46%, transparent 72%);
-    }
+    .text-dim { position: absolute; inset: 0; z-index: 6; pointer-events: none; background: var(--dim); }
     .text-block {
       position: absolute; inset: 0; z-index: 8; pointer-events: none;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -46,49 +117,49 @@
     .logo { height: auto; filter: drop-shadow(0 2px 7px rgba(255,255,255,.9)); }
     .eyebrow {
       display: inline-block; padding: 5px 16px; border-radius: 999px; background: #fff;
-      color: #0f88a0; font-size: clamp(.72rem,2vw,.92rem); font-weight: 700; letter-spacing: -.01em;
-      box-shadow: 0 4px 12px rgba(0,80,110,.18);
+      color: var(--eyebrow-fg); font-size: clamp(.72rem,2vw,.92rem); font-weight: 700; letter-spacing: -.01em;
+      box-shadow: 0 4px 12px var(--eyebrow-shadow);
     }
     .headline {
       margin-top: clamp(8px,1.6vw,14px); font-size: clamp(1.7rem,5.6vw,3rem); font-weight: 800;
-      letter-spacing: -.03em; color: #fff; white-space: nowrap;
-      text-shadow: 0 2px 4px rgba(3,42,62,.6), 0 6px 18px rgba(3,42,62,.45);
+      letter-spacing: -.03em; color: var(--headline-fg); white-space: nowrap;
+      text-shadow: 0 2px 4px var(--headline-shadow-1), 0 6px 18px var(--headline-shadow-2);
     }
-    .headline .accent { color: #ffd84d; }
-    .hello-script { font-family: 'Pacifico', cursive; font-size: clamp(1.9rem,6vw,3.3rem); color: #fff; transform: rotate(-4deg); text-shadow: 0 3px 10px rgba(0,85,115,.45); line-height: 1; }
-    .hello-summer { margin-top: clamp(2px,.6vw,6px); font-size: clamp(2.4rem,8.4vw,4.7rem); font-weight: 800; letter-spacing: .02em; color: #ffd84d; -webkit-text-stroke: 2.5px #fff; text-shadow: 0 5px 12px rgba(0,85,115,.4); line-height: .92; }
+    .headline .accent { color: var(--accent); }
+    .hello-script { font-family: 'Pacifico', cursive; font-size: clamp(1.9rem,6vw,3.3rem); color: var(--headline-fg); transform: rotate(-4deg); text-shadow: 0 3px 10px var(--headline-shadow-2); line-height: 1; }
+    .hello-season { margin-top: clamp(2px,.6vw,6px); font-size: clamp(2.4rem,8.4vw,4.7rem); font-weight: 800; letter-spacing: .02em; color: var(--accent); -webkit-text-stroke: 2.5px var(--stroke-fg); text-shadow: 0 5px 12px var(--headline-shadow-2); line-height: .92; }
 
     /* ===== 본문 ===== */
     main { width: 100%; background: #fff; padding: clamp(26px,4.5vw,46px) 16px clamp(30px,4vw,46px); }
     .inner { max-width: 760px; margin: 0 auto; text-align: center; }
     .info-box {
-      background: linear-gradient(135deg,#e9fcff 0%,#d7f4f4 46%,#e8f6ff 100%);
-      border: 1.5px solid rgba(38,199,191,.4); border-radius: 20px; padding: 28px 24px;
-      margin: 0 auto 28px; max-width: 740px; box-shadow: 0 4px 16px rgba(38,199,191,.12);
+      background: var(--info-bg);
+      border: 1.5px solid var(--info-border); border-radius: 20px; padding: 28px 24px;
+      margin: 0 auto 28px; max-width: 740px; box-shadow: 0 4px 16px var(--info-shadow);
       font-size: clamp(.95rem,2.5vw,1rem); line-height: 1.8;
     }
-    .info-box strong { color: #00827c; font-weight: 800; }
+    .info-box strong { color: var(--info-strong); font-weight: 800; }
     .info-box p + p { margin-top: 10px; }
     .warning {
-      margin-top: 18px; padding-top: 16px; border-top: 1.5px dashed rgba(38,199,191,.5);
+      margin-top: 18px; padding-top: 16px; border-top: 1.5px dashed var(--divider);
       font-size: clamp(.85rem,2.2vw,.95rem); line-height: 1.7; color: #c0392b; font-weight: 500;
     }
     .warning strong { color: #c0392b; }
     .iframe-wrap { width: 100%; margin: 0 auto; }
     .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0 20px; gap: 14px; }
-    .spinner { width: 36px; height: 36px; border: 3px solid rgba(38,199,191,.3); border-top: 3px solid #00bab1; border-radius: 50%; animation: spin .9s linear infinite; }
-    .loading-text { font-size: 14px; color: #00827c; font-weight: 600; letter-spacing: .03em; }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--spinner-track); border-top: 3px solid var(--spinner); border-radius: 50%; animation: spin .9s linear infinite; }
+    .loading-text { font-size: 14px; color: var(--info-strong); font-weight: 600; letter-spacing: .03em; }
     iframe { width: 100%; border: 0; display: block; opacity: 0; transition: opacity .3s ease, height .25s ease; }
 
     /* ===== 푸터 ===== */
     footer { width: 100%; margin-top: auto; position: relative; overflow: hidden; height: clamp(140px,19vw,200px); }
     .footer-text {
       position: absolute; bottom: clamp(16px,2.6vw,26px); left: 0; right: 0; text-align: center;
-      color: rgba(255,255,255,.97); font-size: clamp(.74rem,1.8vw,.92rem); font-weight: 700;
-      letter-spacing: .02em; z-index: 4; text-shadow: 0 2px 6px rgba(0,90,120,.4);
+      color: var(--footer-fg); font-size: clamp(.74rem,1.8vw,.92rem); font-weight: 700;
+      letter-spacing: .02em; z-index: 4; text-shadow: 0 2px 6px var(--footer-text-shadow);
     }
 
-    /* ===== 버블 ===== */
+    /* ===== 파티클(버블 / 낙엽) ===== */
     #bubbleLayer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 55; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
@@ -98,6 +169,13 @@
     @keyframes bobB { 0%,100% { transform: translate(-50%,0) rotate(0deg); } 50% { transform: translate(-50%,-10px) rotate(2deg); } }
     @keyframes floatRot { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-7px) rotate(calc(var(--rot,0deg) - 4deg)); } }
     @keyframes bubbleRise { 0% { transform: translateY(0) translateX(0); opacity: 0; } 12% { opacity:.7; } 85% { opacity:.45; } 100% { transform: translateY(-112vh) translateX(24px); opacity: 0; } }
+    @keyframes leafFall {
+      0%   { transform: translateY(-12vh) translateX(0) rotate(0deg); opacity: 0; }
+      10%  { opacity: .95; }
+      50%  { transform: translateY(45vh) translateX(var(--dx,40px)) rotate(calc(var(--spin,540deg) / 2)); }
+      90%  { opacity: .85; }
+      100% { transform: translateY(115vh) translateX(0) rotate(var(--spin,540deg)); opacity: 0; }
+    }
 
     .is-hidden { display: none !important; }
   </style>
@@ -112,8 +190,8 @@
     <header class="banner">
       <div class="water"></div>
 
-      <!-- 잔물결 -->
-      <svg viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.55;">
+      <!-- 잔물결 (여름) -->
+      <svg class="only-summer" viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.55;">
         <g stroke="rgba(255,255,255,.4)" stroke-width="2.4" fill="none" stroke-linecap="round">
           <path d="M30 38 q16 -7 32 0 t32 0"></path><path d="M250 30 q16 -7 32 0 t32 0"></path>
           <path d="M150 90 q18 -8 36 0 t36 0"></path><path d="M40 130 q16 -7 32 0 t32 0"></path>
@@ -122,113 +200,173 @@
         </g>
       </svg>
 
-      <!-- 기본 잎 -->
-      <div class="deco" style="top:-9%; left:-4%; width:clamp(96px,17vw,184px); z-index:4; transform-origin:50% 100%; animation:swayL 6s ease-in-out infinite;">
-        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-28deg);">
-          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
-          <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
-        </svg>
-      </div>
-      <div class="deco" style="bottom:-11%; right:-4%; width:clamp(100px,18vw,196px); z-index:4; transform-origin:50% 0%; animation:swayR 7s ease-in-out infinite;">
-        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(155deg);">
-          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
-          <path d="M60 192 L60 12" stroke="#0d5234" stroke-width="3" fill="none" stroke-linecap="round"></path>
-        </svg>
-      </div>
+      <!-- 흩날리는 결 (가을) -->
+      <svg class="only-autumn" viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.4;">
+        <g stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M18 44 q40 -14 80 0 t80 -2"></path>
+          <path d="M210 26 q40 -14 80 0 t80 -2"></path>
+          <path d="M60 118 q46 -16 92 0 t92 -2"></path>
+          <path d="M180 168 q40 -14 80 0 t80 -2"></path>
+        </g>
+      </svg>
 
-      <!-- 추가 잎 -->
-      <div class="leaf-extra" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
-        <div class="deco" style="top:-7%; right:-6%; width:clamp(86px,15vw,168px); transform-origin:50% 100%; animation:swayR 6.6s ease-in-out infinite;">
-          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(46deg) scaleX(-1);">
-            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#2aa56a"></path>
+      <!-- ============ 여름 장식 ============ -->
+      <div class="only-summer" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
+        <div class="deco" style="top:-9%; left:-4%; width:clamp(96px,17vw,184px); transform-origin:50% 100%; animation:swayL 6s ease-in-out infinite;">
+          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-28deg);">
+            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
             <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
           </svg>
         </div>
-        <div class="deco" style="bottom:-8%; left:-5%; width:clamp(82px,14vw,150px); transform-origin:50% 0%; animation:swayL 7.4s ease-in-out infinite;">
-          <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(8deg);">
-            <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#176f47"></path>
-            <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
-              <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
-            </g>
+        <div class="deco" style="bottom:-11%; right:-4%; width:clamp(100px,18vw,196px); transform-origin:50% 0%; animation:swayR 7s ease-in-out infinite;">
+          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(155deg);">
+            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
+            <path d="M60 192 L60 12" stroke="#0d5234" stroke-width="3" fill="none" stroke-linecap="round"></path>
           </svg>
         </div>
-        <div class="deco" style="top:28%; right:-6%; width:clamp(78px,13vw,140px); transform-origin:100% 50%; animation:swayR 8s ease-in-out infinite;">
-          <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(-14deg);">
-            <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#1c8455"></path>
-            <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
-              <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
-            </g>
-          </svg>
+
+        <div class="leaf-extra" style="position:absolute; inset:0; pointer-events:none;">
+          <div class="deco" style="top:-7%; right:-6%; width:clamp(86px,15vw,168px); transform-origin:50% 100%; animation:swayR 6.6s ease-in-out infinite;">
+            <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(46deg) scaleX(-1);">
+              <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#2aa56a"></path>
+              <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
+            </svg>
+          </div>
+          <div class="deco" style="bottom:-8%; left:-5%; width:clamp(82px,14vw,150px); transform-origin:50% 0%; animation:swayL 7.4s ease-in-out infinite;">
+            <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(8deg);">
+              <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#176f47"></path>
+              <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
+                <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
+              </g>
+            </svg>
+          </div>
+          <div class="deco" style="top:28%; right:-6%; width:clamp(78px,13vw,140px); transform-origin:100% 50%; animation:swayR 8s ease-in-out infinite;">
+            <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(-14deg);">
+              <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#1c8455"></path>
+              <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
+                <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="decor-floats" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
+          <div class="deco" style="top:-15%; left:13%; width:clamp(74px,13vw,128px); --rot:18deg; animation:floatRot 7s ease-in-out infinite;">
+            <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#ff6fae 0 45deg,#ffd1e6 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 33%,#000 34%); mask:radial-gradient(circle,transparent 33%,#000 34%); box-shadow:0 6px 16px rgba(190,40,110,.25);"></div>
+          </div>
+          <div class="deco" style="bottom:-24%; left:50%; width:clamp(130px,24vw,250px); animation:bobB 8s ease-in-out infinite;">
+            <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#9466d6 0 45deg,#ddccf7 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 36%,#000 37%); mask:radial-gradient(circle,transparent 36%,#000 37%); box-shadow:0 8px 20px rgba(110,60,180,.25);"></div>
+          </div>
+          <div class="deco" style="top:-10%; right:8%; width:clamp(34px,6vw,58px); --rot:34deg; animation:floatRot 9s ease-in-out infinite;">
+            <svg viewBox="0 0 80 200" style="overflow:visible;">
+              <path d="M40 4 C58 30 60 100 56 150 C53 180 46 196 40 196 C34 196 27 180 24 150 C20 100 22 30 40 4 Z" fill="#e23b34"></path>
+              <path d="M40 8 L40 192" stroke="#fff" stroke-width="2.4"></path>
+              <g fill="#fff"><path d="M40 70 L54 92 L40 86 L26 92 Z"></path><path d="M40 96 L54 118 L40 112 L26 118 Z"></path><path d="M40 122 L54 144 L40 138 L26 144 Z"></path></g>
+            </svg>
+          </div>
+        </div>
+
+        <div class="decor-fun" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
+          <div class="deco" style="top:18%; left:17%; width:clamp(34px,6vw,52px); --rot:-8deg; animation:bobA 6.2s ease-in-out infinite;">
+            <svg viewBox="0 0 100 100" style="overflow:visible;">
+              <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
+              <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
+            </svg>
+          </div>
+          <div class="deco" style="bottom:22%; right:24%; width:clamp(36px,6.5vw,56px); --rot:12deg; animation:bobA 7s ease-in-out infinite;">
+            <svg viewBox="0 0 100 100" style="overflow:visible;">
+              <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
+              <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
+            </svg>
+          </div>
+          <div class="deco" style="top:8%; right:20%; width:clamp(32px,5.5vw,50px); --rot:0deg; animation:bobA 6.6s ease-in-out infinite;">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
+              <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
+              <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
+            </svg>
+          </div>
+          <div class="deco" style="bottom:10%; left:5%; width:clamp(34px,6vw,54px); --rot:0deg; animation:bobA 7.4s ease-in-out infinite;">
+            <svg viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
+              <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
+              <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
+            </svg>
+          </div>
+          <div class="deco" style="top:33%; left:4%; width:clamp(28px,5vw,46px); --rot:-12deg; animation:bobA 6.8s ease-in-out infinite;">
+            <svg viewBox="0 0 70 152" style="overflow:visible;">
+              <rect x="28" y="104" width="14" height="46" rx="6" fill="#d6a05c"></rect>
+              <rect x="6" y="6" width="58" height="116" rx="27" fill="#ff7fb0"></rect>
+              <path d="M12 30 C12 16 24 8 35 8 C28 16 24 24 24 36 Z" fill="#ffa6cb" opacity="0.85"></path>
+              <g fill="#ec3f86"><circle cx="26" cy="40" r="3"></circle><circle cx="42" cy="56" r="3"></circle><circle cx="30" cy="74" r="3"></circle><circle cx="46" cy="86" r="2.6"></circle><circle cx="34" cy="98" r="2.6"></circle></g>
+            </svg>
+          </div>
         </div>
       </div>
 
-      <!-- 튜브 · 서프보드 -->
-      <div class="decor-floats" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
-        <div class="deco" style="top:-15%; left:13%; width:clamp(74px,13vw,128px); --rot:18deg; animation:floatRot 7s ease-in-out infinite;">
-          <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#ff6fae 0 45deg,#ffd1e6 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 33%,#000 34%); mask:radial-gradient(circle,transparent 33%,#000 34%); box-shadow:0 6px 16px rgba(190,40,110,.25);"></div>
-        </div>
-        <div class="deco" style="bottom:-24%; left:50%; width:clamp(130px,24vw,250px); animation:bobB 8s ease-in-out infinite;">
-          <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#9466d6 0 45deg,#ddccf7 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 36%,#000 37%); mask:radial-gradient(circle,transparent 36%,#000 37%); box-shadow:0 8px 20px rgba(110,60,180,.25);"></div>
-        </div>
-        <div class="deco" style="top:-10%; right:8%; width:clamp(34px,6vw,58px); --rot:34deg; animation:floatRot 9s ease-in-out infinite;">
-          <svg viewBox="0 0 80 200" style="overflow:visible;">
-            <path d="M40 4 C58 30 60 100 56 150 C53 180 46 196 40 196 C34 196 27 180 24 150 C20 100 22 30 40 4 Z" fill="#e23b34"></path>
-            <path d="M40 8 L40 192" stroke="#fff" stroke-width="2.4"></path>
-            <g fill="#fff"><path d="M40 70 L54 92 L40 86 L26 92 Z"></path><path d="M40 96 L54 118 L40 112 L26 118 Z"></path><path d="M40 122 L54 144 L40 138 L26 144 Z"></path></g>
-          </svg>
-        </div>
-      </div>
-
-      <!-- 불가사리 · 오렌지 · 아이스크림 -->
-      <div class="decor-fun" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
-        <div class="deco" style="top:18%; left:17%; width:clamp(34px,6vw,52px); --rot:-8deg; animation:bobA 6.2s ease-in-out infinite;">
-          <svg viewBox="0 0 100 100" style="overflow:visible;">
-            <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
-            <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
-          </svg>
-        </div>
-        <div class="deco" style="bottom:22%; right:24%; width:clamp(36px,6.5vw,56px); --rot:12deg; animation:bobA 7s ease-in-out infinite;">
-          <svg viewBox="0 0 100 100" style="overflow:visible;">
-            <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
-            <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
-          </svg>
-        </div>
-        <div class="deco" style="top:8%; right:20%; width:clamp(32px,5.5vw,50px); --rot:0deg; animation:bobA 6.6s ease-in-out infinite;">
-          <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
-            <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
-            <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
-          </svg>
-        </div>
-        <div class="deco" style="bottom:10%; left:5%; width:clamp(34px,6vw,54px); --rot:0deg; animation:bobA 7.4s ease-in-out infinite;">
-          <svg viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
-            <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
-            <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
-          </svg>
-        </div>
-        <div class="deco" style="top:33%; left:4%; width:clamp(28px,5vw,46px); --rot:-12deg; animation:bobA 6.8s ease-in-out infinite;">
-          <svg viewBox="0 0 70 152" style="overflow:visible;">
-            <rect x="28" y="104" width="14" height="46" rx="6" fill="#d6a05c"></rect>
-            <rect x="6" y="6" width="58" height="116" rx="27" fill="#ff7fb0"></rect>
-            <path d="M12 30 C12 16 24 8 35 8 C28 16 24 24 24 36 Z" fill="#ffa6cb" opacity="0.85"></path>
-            <g fill="#ec3f86"><circle cx="26" cy="40" r="3"></circle><circle cx="42" cy="56" r="3"></circle><circle cx="30" cy="74" r="3"></circle><circle cx="46" cy="86" r="2.6"></circle><circle cx="34" cy="98" r="2.6"></circle></g>
-          </svg>
-        </div>
+      <!-- ============ 가을 장식 ============ -->
+      <div class="only-autumn" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;"><circle cx="6" cy="20" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="13" cy="10" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="21" cy="26" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="10" cy="44" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="30" cy="8" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="38" cy="22" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="47" cy="6" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="17" cy="60" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="7" cy="72" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="26" cy="80" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="38" cy="90" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="14" cy="92" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="50" cy="92" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="58" cy="10" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="67" cy="22" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="76" cy="8" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="85" cy="20" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="93" cy="34" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="70" cy="40" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="89" cy="56" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="62" cy="76" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="80" cy="84" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="93" cy="90" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="55" cy="86" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="6" cy="54" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="95" cy="68" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="45" cy="74" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="3" cy="34" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="97" cy="46" r="1" fill="rgba(196,168,128,.5)"></circle></svg>
+        <div class="deco" style="top:-10%; left:-2%; width:clamp(59px,11vw,118px); --rot:-14deg; animation:bobA 6.4s ease-in-out infinite; animation-delay:-0.00s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
+        <div class="deco" style="top:2%; left:8%; width:clamp(27px,5vw,54px); --rot:10deg; animation:bobA 7s ease-in-out infinite; animation-delay:-0.31s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="top:-8%; left:15%; width:clamp(43px,8vw,86px); --rot:8deg; animation:bobA 6.6s ease-in-out infinite; animation-delay:-0.62s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#ef9829"></path>
+    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#b5602f"></path>
+    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
+    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
+        <div class="deco" style="top:-6%; left:25%; width:clamp(58px,11vw,116px); --rot:-6deg; animation:bobA 7.4s ease-in-out infinite; animation-delay:-0.93s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#9dbd8a"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#9dbd8a"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#9dbd8a"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#9dbd8a"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#9dbd8a"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#9dbd8a"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#9dbd8a"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#9dbd8a"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#9dbd8a"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#9dbd8a"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#9dbd8a"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#9dbd8a"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#9dbd8a"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#9dbd8a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
+        <div class="deco" style="top:6%; left:35%; width:clamp(21px,4vw,42px); --rot:12deg; animation:bobA 6.2s ease-in-out infinite; animation-delay:-1.24s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
+        <div class="deco" style="top:-8%; left:44%; width:clamp(52px,10vw,104px); --rot:16deg; animation:bobA 7.8s ease-in-out infinite; animation-delay:-1.55s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
+        <div class="deco" style="top:4%; left:56%; width:clamp(23px,4.4vw,46px); --rot:-10deg; animation:bobA 6.8s ease-in-out infinite; animation-delay:-1.86s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="top:-7%; left:62%; width:clamp(42px,8vw,84px); --rot:-8deg; animation:bobA 7.2s ease-in-out infinite; animation-delay:-2.17s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#ef9829"></path>
+    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#a85a34"></path>
+    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
+    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
+        <div class="deco" style="top:-9%; left:73%; width:clamp(53px,10vw,106px); --rot:14deg; animation:bobA 8s ease-in-out infinite; animation-delay:-2.48s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <path d="M50 126 C50 90 48 66 40 46"></path>
+      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
+    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
+        <div class="deco" style="top:2%; right:-1%; width:clamp(26px,5vw,52px); --rot:-12deg; animation:bobA 6.5s ease-in-out infinite; animation-delay:-2.79s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f3b7a0" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f3b7a0" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f3b7a0" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f3b7a0" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f3b7a0" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e88f6e"></circle></svg></div>
+        <div class="deco" style="top:26%; left:-3%; width:clamp(48px,9vw,96px); --rot:6deg; animation:bobA 7.6s ease-in-out infinite; animation-delay:-3.10s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M36 50 C36 74 32 96 29 114 C39 122 61 122 71 114 C68 96 64 74 64 50 Z" fill="#fdf3df"></path>
+    <path d="M6 46 C6 22 25 6 50 6 C75 6 94 22 94 46 C94 53 75 56 50 56 C25 56 6 53 6 46 Z" fill="#ef9829"></path>
+    <g fill="rgba(255,255,255,.92)"><circle cx="26" cy="34" r="5"></circle><circle cx="42" cy="22" r="5"></circle><circle cx="60" cy="26" r="5"></circle><circle cx="76" cy="36" r="5"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="34" cy="46" r="5"></circle><circle cx="68" cy="48" r="5"></circle></g></svg></div>
+        <div class="deco" style="top:56%; left:-1%; width:clamp(38px,7vw,76px); --rot:-8deg; animation:bobA 6.9s ease-in-out infinite; animation-delay:-3.41s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#a9713f"></path>
+    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#8a5a34"></path>
+    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
+    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
+        <div class="deco" style="top:44%; left:9%; width:clamp(19px,3.6vw,38px); --rot:14deg; animation:bobA 7.3s ease-in-out infinite; animation-delay:-3.72s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f2b48e" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f2b48e" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f2b48e" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f2b48e" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f2b48e" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8926a"></circle></svg></div>
+        <div class="deco" style="top:24%; right:-2%; width:clamp(38px,7vw,76px); --rot:18deg; animation:bobA 7.1s ease-in-out infinite; animation-delay:-4.03s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#e8862a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
+        <div class="deco" style="top:52%; right:-3%; width:clamp(49px,9vw,98px); --rot:-6deg; animation:bobA 7.7s ease-in-out infinite; animation-delay:-4.34s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M36 50 C36 74 32 96 29 114 C39 122 61 122 71 114 C68 96 64 74 64 50 Z" fill="#fdf3df"></path>
+    <path d="M6 46 C6 22 25 6 50 6 C75 6 94 22 94 46 C94 53 75 56 50 56 C25 56 6 53 6 46 Z" fill="#e34a3f"></path>
+    <g fill="rgba(255,255,255,.92)"><circle cx="26" cy="34" r="5"></circle><circle cx="42" cy="22" r="5"></circle><circle cx="60" cy="26" r="5"></circle><circle cx="76" cy="36" r="5"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="34" cy="46" r="5"></circle><circle cx="68" cy="48" r="5"></circle></g></svg></div>
+        <div class="deco" style="top:38%; right:9%; width:clamp(18px,3.4vw,36px); --rot:-14deg; animation:bobA 6.3s ease-in-out infinite; animation-delay:-4.65s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#d9c9a8"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="bottom:-10%; left:-2%; width:clamp(54px,10vw,108px); --rot:12deg; animation:bobA 6.7s ease-in-out infinite; animation-delay:-4.96s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#a85a34"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
+        <div class="deco" style="bottom:-6%; left:9%; width:clamp(44px,8vw,88px); --rot:-10deg; animation:bobA 7.5s ease-in-out infinite; animation-delay:-5.27s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#e8862a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
+        <div class="deco" style="bottom:4%; left:19%; width:clamp(21px,4vw,42px); --rot:8deg; animation:bobA 6.1s ease-in-out infinite; animation-delay:-5.58s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#8aab78"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="bottom:-8%; left:27%; width:clamp(52px,10vw,104px); --rot:-12deg; animation:bobA 8.2s ease-in-out infinite; animation-delay:-5.89s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <path d="M50 126 C50 90 48 66 40 46"></path>
+      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
+    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
+        <div class="deco" style="bottom:4%; left:40%; width:clamp(23px,4.4vw,46px); --rot:16deg; animation:bobA 6.6s ease-in-out infinite; animation-delay:-6.20s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
+        <div class="deco" style="bottom:-9%; left:47%; width:clamp(48px,9vw,96px); --rot:10deg; animation:bobA 7.9s ease-in-out infinite; animation-delay:-6.51s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 14"></path><path d="M50 36 L34 26"></path><path d="M50 36 L66 26"></path><path d="M50 54 L30 42"></path><path d="M50 54 L70 42"></path><path d="M50 72 L36 60"></path><path d="M50 72 L64 60"></path></g></svg></div>
+        <div class="deco" style="bottom:-7%; left:58%; width:clamp(53px,10vw,106px); --rot:-8deg; animation:bobA 7s ease-in-out infinite; animation-delay:-6.82s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
+        <div class="deco" style="bottom:4%; left:70%; width:clamp(21px,4vw,42px); --rot:-14deg; animation:bobA 6.4s ease-in-out infinite; animation-delay:-7.13s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#f5cf5a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="bottom:-6%; left:76%; width:clamp(43px,8vw,86px); --rot:20deg; animation:bobA 8.1s ease-in-out infinite; animation-delay:-7.44s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 14"></path><path d="M50 36 L34 26"></path><path d="M50 36 L66 26"></path><path d="M50 54 L30 42"></path><path d="M50 54 L70 42"></path><path d="M50 72 L36 60"></path><path d="M50 72 L64 60"></path></g></svg></div>
+        <div class="deco" style="bottom:-9%; right:-2%; width:clamp(54px,10vw,108px); --rot:-10deg; animation:bobA 7.4s ease-in-out infinite; animation-delay:-7.75s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#8aab78"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#8aab78"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#8aab78"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#8aab78"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#8aab78"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#8aab78"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#8aab78"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#8aab78"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#8aab78"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#8aab78"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#8aab78"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#8aab78"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#8aab78"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#8aab78"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
       </div>
 
       <!-- 텍스트 -->
       <div class="text-dim"></div>
       <div class="text-block">
         <div class="headline-brand" style="display:flex; flex-direction:column; align-items:center;">
-          <img class="logo" src="dankkume-logo.png" alt="단꿈e" style="width:clamp(74px,12vw,112px); margin-bottom:clamp(8px,1.6vw,14px);" />
+          <img class="logo" src="dankkume-logo.png" onerror="this.style.display='none'" alt="단꿈e" style="width:clamp(74px,12vw,112px); margin-bottom:clamp(8px,1.6vw,14px);" />
           <span class="eyebrow">신규 결제 고객님께 드리는</span>
           <h1 class="headline">특별 <span class="accent">사은품</span> 증정</h1>
         </div>
         <div class="headline-hello is-hidden" style="display:flex; flex-direction:column; align-items:center;">
           <span class="hello-script">Hello</span>
-          <span class="hello-summer">SUMMER</span>
-          <img class="logo" src="dankkume-logo.png" alt="단꿈e" style="width:clamp(60px,9vw,86px); margin-top:clamp(8px,1.6vw,14px);" />
+          <span class="hello-season only-summer">SUMMER</span>
+          <span class="hello-season only-autumn">AUTUMN</span>
+          <img class="logo" src="dankkume-logo.png" onerror="this.style.display='none'" alt="단꿈e" style="width:clamp(60px,9vw,86px); margin-top:clamp(8px,1.6vw,14px);" />
         </div>
       </div>
     </header>
@@ -258,9 +396,14 @@
     <!-- ===================== 푸터 ===================== -->
     <footer>
       <div class="water"></div>
-      <svg viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.5;">
+      <svg class="only-summer" viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.5;">
         <g stroke="rgba(255,255,255,.4)" stroke-width="2.2" fill="none" stroke-linecap="round">
           <path d="M40 60 q16 -7 32 0 t32 0"></path><path d="M240 50 q16 -7 32 0 t32 0"></path><path d="M150 92 q16 -7 32 0 t32 0"></path>
+        </g>
+      </svg>
+      <svg class="only-autumn" viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.4;">
+        <g stroke="rgba(255,255,255,.45)" stroke-width="2" fill="none" stroke-linecap="round">
+          <path d="M20 66 q44 -16 88 0 t88 -2"></path><path d="M200 96 q44 -16 88 0 t88 -2"></path>
         </g>
       </svg>
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
@@ -269,16 +412,35 @@
       <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
         <path d="M-180,52 q90,28 180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 L1620,40 L-180,40 Z" fill="rgba(255,255,255,.55)"></path>
       </svg>
-      <div class="deco" style="bottom:-26%; left:-2%; width:clamp(76px,13vw,140px); z-index:3; transform-origin:50% 100%; animation:swayL 7s ease-in-out infinite;">
-        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(8deg);">
-          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
-        </svg>
+
+      <!-- 여름 잎 -->
+      <div class="only-summer">
+        <div class="deco" style="bottom:-26%; left:-2%; width:clamp(76px,13vw,140px); z-index:3; transform-origin:50% 100%; animation:swayL 7s ease-in-out infinite;">
+          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(8deg);">
+            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
+          </svg>
+        </div>
+        <div class="deco" style="bottom:-30%; right:-2%; width:clamp(80px,14vw,150px); z-index:3; transform-origin:50% 100%; animation:swayR 8s ease-in-out infinite;">
+          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-10deg) scaleX(-1);">
+            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
+          </svg>
+        </div>
       </div>
-      <div class="deco" style="bottom:-30%; right:-2%; width:clamp(80px,14vw,150px); z-index:3; transform-origin:50% 100%; animation:swayR 8s ease-in-out infinite;">
-        <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-10deg) scaleX(-1);">
-          <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
-        </svg>
+
+      <!-- 가을 잎 -->
+      <div class="only-autumn">
+        <div class="deco" style="bottom:-14%; left:-2%; width:clamp(56px,10vw,108px); z-index:3; --rot:12deg; animation:bobA 7s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
+        <div class="deco" style="bottom:-4%; left:11%; width:clamp(40px,7vw,76px); z-index:3; --rot:-14deg; animation:bobA 6.4s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
+        <div class="deco" style="bottom:6%; left:23%; width:clamp(24px,4vw,40px); z-index:3; --rot:8deg; animation:bobA 7.8s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
+        <div class="deco" style="bottom:-6%; left:34%; width:clamp(46px,8vw,88px); z-index:3; --rot:16deg; animation:bobA 8.2s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#9dbd8a"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#9dbd8a"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#9dbd8a"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#9dbd8a"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#9dbd8a"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#9dbd8a"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#9dbd8a"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#9dbd8a"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#9dbd8a"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#9dbd8a"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#9dbd8a"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#9dbd8a"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#9dbd8a"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#9dbd8a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
+        <div class="deco" style="bottom:2%; right:36%; width:clamp(26px,4.4vw,44px); z-index:3; --rot:-8deg; animation:bobA 6.8s ease-in-out infinite;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
+        <div class="deco" style="bottom:-6%; right:20%; width:clamp(48px,8.4vw,92px); z-index:3; --rot:-18deg; animation:bobA 7.4s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
+      <path d="M50 126 C50 90 48 66 40 46"></path>
+      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
+    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
+        <div class="deco" style="bottom:-12%; right:-2%; width:clamp(58px,10vw,110px); z-index:3; --rot:-10deg; animation:bobA 8s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#a85a34"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
       </div>
+
       <div class="footer-text">초등공부 신의 한 수 · 단꿈e</div>
     </footer>
 
@@ -286,19 +448,27 @@
 
   <script>
     /* =====================================================
-       단꿈e 사은품 신청 — 디자인 설정 (원하는 값으로 변경하세요)
-       water    : "turquoise" | "deepblue" | "teal" | "lagoon"
-       density  : "full" | "medium" | "minimal"
-       headline : "brand" | "hello"
+       단꿈e 사은품 신청 — 디자인 설정
+       summerWater : "turquoise" | "deepblue" | "teal" | "lagoon"
+       autumnWater : "maple" | "amber" | "harvest" | "sunset"
+       density     : "full" | "medium" | "minimal"
+       headline    : "brand" | "hello"
        ===================================================== */
-    var CONFIG = { water: "deepblue", density: "full", headline: "brand" };
+    var CONFIG = { summerWater: "deepblue", autumnWater: "cream", density: "full", headline: "brand" };
 
     var WATERS = {
       turquoise: "linear-gradient(165deg,#86e3ea 0%,#3fc8d8 45%,#1fa6cb 100%)",
       deepblue:  "linear-gradient(165deg,#7cd0f7 0%,#3a98e6 48%,#1f6fd0 100%)",
       teal:      "linear-gradient(165deg,#7fe0d4 0%,#2cc1b6 48%,#0f9a92 100%)",
-      lagoon:    "linear-gradient(165deg,#9fe9cf 0%,#3fcfb4 46%,#159fbf 100%)"
+      lagoon:    "linear-gradient(165deg,#9fe9cf 0%,#3fcfb4 46%,#159fbf 100%)",
+      cream:     "linear-gradient(165deg,#f2e7d1 0%,#ecdfc5 55%,#e6d6b8 100%)",
+      maple:     "linear-gradient(165deg,#ffc98c 0%,#ee8446 45%,#c9452c 100%)",
+      amber:     "linear-gradient(165deg,#ffdda6 0%,#f2a055 46%,#dd6b2f 100%)",
+      harvest:   "linear-gradient(165deg,#ffd98f 0%,#e89a3c 48%,#b8551f 100%)",
+      sunset:    "linear-gradient(165deg,#ffcf9e 0%,#ef7f52 46%,#b03a45 100%)"
     };
+
+    var IS_AUTUMN = window.__IS_AUTUMN__;
 
     /* === Google Apps Script 폼 주소 (날짜 분기) === */
     var GAS_OLD = "https://script.google.com/macros/s/AKfycbzuw-vJIFvx5y4X5IGygbkRtMwBxEh6l17CKQjOQRw36zSEReamhs5S5hqWNq0L7KBI/exec";
@@ -314,17 +484,17 @@
 
     /* === 디자인 설정 적용 === */
     (function applyConfig() {
-      var grad = WATERS[CONFIG.water] || WATERS.turquoise;
-      var waters = document.querySelectorAll(".water");
-      for (var i = 0; i < waters.length; i++) waters[i].style.background = grad;
+      var key = IS_AUTUMN ? CONFIG.autumnWater : CONFIG.summerWater;
+      var grad = WATERS[key];
+      if (grad) document.documentElement.style.setProperty("--water-grad", grad);
 
-      if (CONFIG.density !== "full") {
-        document.querySelector(".decor-fun").classList.add("is-hidden");
+      var seasonScope = IS_AUTUMN ? ".only-autumn" : ".only-summer";
+      function hideIn(sel) {
+        var nodes = document.querySelectorAll(seasonScope + " " + sel);
+        for (var i = 0; i < nodes.length; i++) nodes[i].classList.add("is-hidden");
       }
-      if (CONFIG.density === "minimal") {
-        document.querySelector(".decor-floats").classList.add("is-hidden");
-        document.querySelector(".leaf-extra").classList.add("is-hidden");
-      }
+      if (CONFIG.density !== "full") hideIn(".decor-fun");
+      if (CONFIG.density === "minimal") { hideIn(".decor-floats"); hideIn(".leaf-extra"); }
 
       if (CONFIG.headline === "hello") {
         document.querySelector(".headline-brand").classList.add("is-hidden");
@@ -388,10 +558,20 @@
     }
     setInterval(postHeightToParent, 1000);
 
-    /* === 물방울 버블 === */
-    (function bubbles() {
+    /* === 파티클: 여름=물방울, 가을=낙엽 === */
+    (function particles() {
       var layer = document.getElementById("bubbleLayer");
-      function spawn() {
+
+      var LEAF_SVGS = [
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z\" fill=\"#ef9829\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 22\"></path><path d=\"M50 58 L26 42\"></path><path d=\"M50 58 L74 42\"></path><path d=\"M50 74 L32 64\"></path><path d=\"M50 74 L68 64\"></path></g></svg>",
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z\" fill=\"#b5602f\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 126 L50 18\"></path><path d=\"M50 42 L28 30\"></path><path d=\"M50 42 L72 30\"></path><path d=\"M50 62 L22 50\"></path><path d=\"M50 62 L78 50\"></path><path d=\"M50 80 L32 70\"></path><path d=\"M50 80 L68 70\"></path></g></svg>",
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z\" fill=\"#cdb994\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 14\"></path><path d=\"M50 36 L34 26\"></path><path d=\"M50 36 L66 26\"></path><path d=\"M50 54 L30 42\"></path><path d=\"M50 54 L70 42\"></path><path d=\"M50 72 L36 60\"></path><path d=\"M50 72 L64 60\"></path></g></svg>",
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z\" fill=\"#a85a34\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 22\"></path><path d=\"M50 58 L26 42\"></path><path d=\"M50 58 L74 42\"></path><path d=\"M50 74 L32 64\"></path><path d=\"M50 74 L68 64\"></path></g></svg>",
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"overflow:visible;\"><path d=\"M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z\" fill=\"#8aab78\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 92 L50 18\"></path><path d=\"M50 44 L34 34\"></path><path d=\"M50 44 L66 34\"></path><path d=\"M50 64 L36 54\"></path><path d=\"M50 64 L64 54\"></path></g></svg>",
+        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z\" fill=\"#e8862a\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 126 L50 18\"></path><path d=\"M50 42 L28 30\"></path><path d=\"M50 42 L72 30\"></path><path d=\"M50 62 L22 50\"></path><path d=\"M50 62 L78 50\"></path><path d=\"M50 80 L32 70\"></path><path d=\"M50 80 L68 70\"></path></g></svg>"
+      ];
+
+      function spawnBubble() {
         var b = document.createElement("div");
         var size = 8 + Math.random() * 20;
         b.style.cssText = [
@@ -408,7 +588,32 @@
         layer.appendChild(b);
         setTimeout(function () { b.remove(); }, 14000);
       }
-      setInterval(spawn, 850);
+
+      function spawnLeaf() {
+        var el = document.createElement("div");
+        var size = 16 + Math.random() * 20;
+        var dur = 9 + Math.random() * 6;
+        el.innerHTML = LEAF_SVGS[Math.floor(Math.random() * LEAF_SVGS.length)];
+        el.style.cssText = [
+          "position:fixed", "top:0",
+          "left:" + (Math.random() * 100) + "vw",
+          "width:" + size + "px", "height:" + (size * 1.16) + "px",
+          "opacity:0",
+          "--dx:" + (Math.random() * 120 - 60) + "px",
+          "--spin:" + (360 + Math.random() * 540) + "deg",
+          "filter:drop-shadow(0 2px 4px rgba(120,60,20,.18))",
+          "pointer-events:none",
+          "animation:leafFall " + dur + "s linear forwards"
+        ].join(";");
+        var svg = el.firstChild;
+        if (svg && svg.style) { svg.style.width = "100%"; svg.style.height = "100%"; svg.style.display = "block"; }
+        layer.appendChild(el);
+        setTimeout(function () { el.remove(); }, (dur + 1) * 1000);
+      }
+
+      var spawn = IS_AUTUMN ? spawnLeaf : spawnBubble;
+      if (IS_AUTUMN) { for (var i = 0; i < 4; i++) setTimeout(spawnLeaf, i * 600); }
+      setInterval(spawn, IS_AUTUMN ? 1100 : 850);
     })();
   </script>
 </body>
