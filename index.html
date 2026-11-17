@@ -8,498 +8,688 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-
-  <script>
-    /* =====================================================
-       시즌 분기 — 2026-09-01 00:00 (KST) 부터 가을 테마
-       ?season=summer / ?season=autumn 으로 미리보기 가능
-       ===================================================== */
-    (function () {
-      var AUTUMN_START = new Date("2026-09-01T00:00:00+09:00");
-      var q = new URLSearchParams(location.search).get("season");
-      var isAutumn = q === "autumn" || (q !== "summer" && new Date() >= AUTUMN_START);
-      document.documentElement.classList.add(isAutumn ? "season-autumn" : "season-summer");
-      window.__IS_AUTUMN__ = isAutumn;
-    })();
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    /* ===== 시즌 토큰 ===== */
+    /* ===== 색상 토큰 ===== */
     :root {
-      --page-bg: linear-gradient(180deg, #cfeafb 0px, #ddf1fb 200px, #eaf6fc 440px, #e7f5f5 100%);
-      --water-grad: linear-gradient(165deg,#7cd0f7 0%,#3a98e6 48%,#1f6fd0 100%);
-      --banner-shadow: rgba(31,140,180,.2);
-      --dim: radial-gradient(62% 72% at 50% 50%, rgba(7,62,88,.36) 0%, rgba(7,62,88,.14) 46%, transparent 72%);
-      --eyebrow-fg: #0f88a0;
-      --eyebrow-shadow: rgba(0,80,110,.18);
-      --accent: #ffd84d;
-      --headline-shadow-1: rgba(3,42,62,.6);
-      --headline-shadow-2: rgba(3,42,62,.45);
-      --info-bg: linear-gradient(135deg,#e9fcff 0%,#d7f4f4 46%,#e8f6ff 100%);
-      --info-border: rgba(38,199,191,.4);
-      --info-strong: #00827c;
-      --info-shadow: rgba(38,199,191,.12);
-      --divider: rgba(38,199,191,.5);
-      --spinner: #00bab1;
-      --spinner-track: rgba(38,199,191,.3);
-      --footer-text-shadow: rgba(0,90,120,.4);
-      --headline-fg: #fff;
-      --stroke-fg: #fff;
-      --footer-grad: var(--water-grad);
-      --footer-fg: rgba(255,255,255,.97);
-      --link: #0f88a0;
-      --link-hover: #00827c;
-    }
-    html.season-autumn {
-      --page-bg: linear-gradient(180deg, #f9e7cd 0px, #fbeedb 200px, #fdf5e9 440px, #fbf3e7 100%);
-      --water-grad: linear-gradient(165deg,#f2e7d1 0%,#ecdfc5 55%,#e6d6b8 100%);
-      --banner-shadow: rgba(180,120,60,.2);
-      --dim: radial-gradient(46% 58% at 50% 50%, rgba(246,238,222,.9) 0%, rgba(246,238,222,.55) 55%, transparent 78%);
-      --eyebrow-fg: #c0561d;
-      --eyebrow-shadow: rgba(140,60,20,.2);
-      --accent: #a8443a;
-      --headline-shadow-1: rgba(255,255,255,.95);
-      --headline-shadow-2: rgba(255,255,255,.8);
-      --info-bg: linear-gradient(135deg,#fff6e6 0%,#fbe9cf 46%,#fff3e2 100%);
-      --info-border: rgba(226,140,58,.45);
-      --info-strong: #b8541b;
-      --info-shadow: rgba(226,140,58,.14);
-      --divider: rgba(226,140,58,.55);
-      --spinner: #e2762a;
-      --spinner-track: rgba(226,140,58,.3);
-      --footer-text-shadow: rgba(255,255,255,.85);
-      --headline-fg: #4a3323;
-      --stroke-fg: #fffdf7;
-      --footer-grad: linear-gradient(165deg,#eddfc2 0%,#e5d2ae 55%,#dcc79c 100%);
-      --footer-fg: #6b4a2c;
-      --link: #c0561d;
-      --link-hover: #8a3d12;
+      --hero-1: #2f3860; --hero-2: #232a46; --hero-3: #1b2138;
+      --hero-fg: #ffffff; --hero-sub: rgba(255,255,255,.88); --hero-deco: #ffffff; --hero-dot: #ffffff;
+      --script-c: #f28b78; --accent-c: #f4c64a;
+      --hill-1: #cfe2d8; --foot-bar: #232a46;
+      --navy: #232a46;
+      --navy-2: #2d3557;
+      --navy-dark: #1b2138;
+      --coral: #f28b78;
+      --mint-bg: #e9f1ed;
+      --mint: #d5e6dc;
+      --mint-line: #b9d3c3;
+      --green: #3f7a5a;
+      --red: #c9282f;
+      --gold: #f4c64a;
+      --snow: #ffffff;
+      --text: #2a2f3a;
+      --muted: #6d7584;
     }
 
     body {
       font-family: "Paperlogy", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, "Noto Sans KR", sans-serif;
-      background: var(--page-bg);
-      color: #25282b;
-      line-height: 1.4;
+      background: var(--mint-bg);
+      color: var(--text);
+      line-height: 1.45;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--link); }
-    a:hover { color: var(--link-hover); }
     .wrap { min-height: 100vh; display: flex; flex-direction: column; }
 
-    /* ===== 시즌별 표시/숨김 ===== */
-    html.season-summer .only-autumn { display: none !important; }
-    html.season-autumn .only-summer { display: none !important; }
+    /* ===================== 헤더 (밤하늘) ===================== */
+    .hero {
+      position: relative; overflow: hidden;
+      background: radial-gradient(120% 90% at 50% 0%, var(--hero-1) 0%, var(--hero-2) 55%, var(--hero-3) 100%);
+      padding: clamp(38px,5vw,64px) 20px clamp(120px,14vw,190px);
+      text-align: center; color: var(--hero-fg);
+    }
+    .sky-dots { position: absolute; inset: 0; pointer-events: none; }
+    .hang { position: absolute; top: 0; width: 2px; background: var(--hero-deco); opacity: .75; pointer-events: none; transform-origin: 50% 0; animation: swing 5s ease-in-out infinite; }
+    .hang svg { position: absolute; left: 50%; bottom: -12px; transform: translateX(-50%); width: 24px; height: 24px; }
+    .sleigh { color: var(--hero-deco); position: absolute; top: clamp(30px,4vw,54px); left: clamp(12px,5vw,70px); width: clamp(90px,12vw,150px); pointer-events: none; animation: fly 6s ease-in-out infinite; }
 
-    /* ===== 배너 ===== */
-    .banner {
-      position: relative;
-      width: 100%;
-      height: clamp(240px, 30vw, 380px);
-      overflow: hidden;
-      box-shadow: 0 8px 22px var(--banner-shadow);
+    .hero-inner { position: relative; z-index: 2; max-width: 760px; margin: 0 auto; }
+    .logo { display: block; margin: 0 auto clamp(10px,1.6vw,18px); width: clamp(76px,10vw,110px); height: auto; filter: brightness(0) invert(1); opacity: .95; }
+    .script {
+      font-family: 'Dancing Script', 'Brush Script MT', cursive; font-weight: 700;
+      color: var(--script-c); font-size: clamp(3rem,10vw,5.6rem); line-height: .95;
+      text-shadow: 0 3px 14px rgba(0,0,0,.25); white-space: nowrap;
     }
-    .water { position: absolute; inset: 0; z-index: 0; background: var(--water-grad); }
-    footer .water { background: var(--footer-grad); }
-    .deco { position: absolute; pointer-events: none; }
-    .deco svg, .deco > div { display: block; width: 100%; height: auto; }
+    .title {
+      margin-top: clamp(4px,1vw,10px);
+      font-size: clamp(2.1rem,6.6vw,3.6rem); font-weight: 800; letter-spacing: -.035em; line-height: 1.12;
+    }
+    .title .accent { color: var(--accent-c); }
+    .sub {
+      margin-top: clamp(14px,2vw,22px);
+      font-size: clamp(.98rem,2.6vw,1.2rem); font-weight: 500; color: var(--hero-sub); letter-spacing: -.01em;
+    }
 
-    .text-dim { position: absolute; inset: 0; z-index: 6; pointer-events: none; background: var(--dim); }
-    .text-block {
-      position: absolute; inset: 0; z-index: 8; pointer-events: none;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; padding: 0 14%;
-    }
-    .logo { height: auto; filter: drop-shadow(0 2px 7px rgba(255,255,255,.9)); }
-    .eyebrow {
-      display: inline-block; padding: 5px 16px; border-radius: 999px; background: #fff;
-      color: var(--eyebrow-fg); font-size: clamp(.72rem,2vw,.92rem); font-weight: 700; letter-spacing: -.01em;
-      box-shadow: 0 4px 12px var(--eyebrow-shadow);
-    }
-    .headline {
-      margin-top: clamp(8px,1.6vw,14px); font-size: clamp(1.7rem,5.6vw,3rem); font-weight: 800;
-      letter-spacing: -.03em; color: var(--headline-fg); white-space: nowrap;
-      text-shadow: 0 2px 4px var(--headline-shadow-1), 0 6px 18px var(--headline-shadow-2);
-    }
-    .headline .accent { color: var(--accent); }
-    .hello-script { font-family: 'Pacifico', cursive; font-size: clamp(1.9rem,6vw,3.3rem); color: var(--headline-fg); transform: rotate(-4deg); text-shadow: 0 3px 10px var(--headline-shadow-2); line-height: 1; }
-    .hello-season { margin-top: clamp(2px,.6vw,6px); font-size: clamp(2.4rem,8.4vw,4.7rem); font-weight: 800; letter-spacing: .02em; color: var(--accent); -webkit-text-stroke: 2.5px var(--stroke-fg); text-shadow: 0 5px 12px var(--headline-shadow-2); line-height: .92; }
+    /* 눈 언덕 */
+    .hills { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(90px,12vw,170px); z-index: 1; display: block; }
+    .hill-tree { position: absolute; z-index: 1; pointer-events: none; color: var(--hero-deco); }
 
-    /* ===== 본문 ===== */
-    main { width: 100%; background: #fff; padding: clamp(26px,4.5vw,46px) 16px clamp(30px,4vw,46px); }
-    .inner { max-width: 760px; margin: 0 auto; text-align: center; }
-    .info-box {
-      background: var(--info-bg);
-      border: 1.5px solid var(--info-border); border-radius: 20px; padding: 28px 24px;
-      margin: 0 auto 28px; max-width: 740px; box-shadow: 0 4px 16px var(--info-shadow);
-      font-size: clamp(.95rem,2.5vw,1rem); line-height: 1.8;
+    /* ===================== 본문 ===================== */
+    main { position: relative; background: var(--mint-bg); padding: 0 16px clamp(40px,6vw,70px); }
+    .inner { max-width: 760px; margin: 0 auto; }
+
+    .sec-title {
+      display: flex; align-items: center; justify-content: center; gap: 14px;
+      font-size: clamp(1.15rem,3.6vw,1.6rem); font-weight: 500; letter-spacing: -.03em; color: var(--navy);
+      margin: 0 auto clamp(20px,3vw,30px); text-align: center;
     }
-    .info-box strong { color: var(--info-strong); font-weight: 800; }
-    .info-box p + p { margin-top: 10px; }
-    .warning {
-      margin-top: 18px; padding-top: 16px; border-top: 1.5px dashed var(--divider);
-      font-size: clamp(.85rem,2.2vw,.95rem); line-height: 1.7; color: #c0392b; font-weight: 500;
+    .sec-title b { font-weight: 800; }
+    .sec-title::before, .sec-title::after {
+      content: ""; flex: 0 0 clamp(28px,7vw,64px); height: 7px;
+      border-top: 2px solid var(--navy); border-bottom: 2px solid var(--navy);
     }
-    .warning strong { color: #c0392b; }
-    .iframe-wrap { width: 100%; margin: 0 auto; }
+
+    /* 육각형 안내 */
+    .hexes { display: flex; justify-content: center; flex-wrap: wrap; gap: 0 clamp(4px,1.4vw,14px); }
+    .hex {
+      position: relative; width: clamp(160px,28vw,220px); aspect-ratio: 1 / 0.9;
+      clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+      background: var(--mint-line);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hex::before {
+      content: ""; position: absolute; inset: 4px;
+      clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+      background: var(--mint);
+    }
+    .hex:nth-child(2) { margin-top: clamp(40px,7vw,70px); }
+    .hex-body { position: relative; z-index: 1; padding: 0 20%; text-align: center; font-size: clamp(.8rem,1.9vw,.95rem); line-height: 1.5; color: var(--text); word-break: keep-all; }
+    .hex-num {
+      display: block; font-weight: 800;
+      font-size: clamp(1.7rem,4vw,2.3rem); line-height: 1; color: var(--navy); margin-bottom: 4px;
+    }
+    .hex-body strong { color: var(--navy); font-weight: 800; }
+
+    /* 필수 확인 사항 */
+    .notice {
+      margin: clamp(22px,3.4vw,34px) auto 0; max-width: 680px;
+      background: #fff; border: 2px dashed var(--mint-line); border-radius: var(--box-r, 16px);
+      padding: 18px 20px; text-align: center;
+      font-size: clamp(.85rem,2.2vw,.95rem); line-height: 1.75; color: #c62828; font-weight: 500;
+    }
+    .notice-title {
+      display: inline-block; margin-bottom: 8px; padding: 4px 16px; border-radius: 999px;
+      background: var(--navy); color: #fff; font-weight: 700; font-size: .9em;
+    }
+    .notice strong { color: #c62828; }
+
+    /* 신청서 카드 */
+    .form-card-wrap { position: relative; margin: clamp(56px,8vw,84px) auto 0; max-width: 760px; }
+    .bow { color: var(--navy); position: absolute; left: 50%; top: 0; transform: translate(-50%,-78%); width: clamp(88px,12vw,120px); z-index: 3; }
+    .form-card { position: relative; background: #fff; border: 3px solid var(--navy); border-radius: var(--card-r, 6px); overflow: hidden; z-index: 2; }
+    .card-head {
+      background: var(--head-c, var(--red)); color: #fff; text-align: center;
+      padding: clamp(14px,2.2vw,20px) 16px;
+    }
+    .card-head h2 { font-size: clamp(1.15rem,3.4vw,1.55rem); font-weight: 800; letter-spacing: -.03em; }
+    .card-head p { margin-top: 2px; font-size: clamp(.82rem,2.2vw,.95rem); color: rgba(255,255,255,.9); }
+    .tag {
+      position: absolute; top: -2px; right: clamp(14px,3vw,28px); z-index: 4; width: clamp(54px,7vw,70px);
+      transform-origin: 50% 0; animation: swing 4.4s ease-in-out infinite;
+    }
+    .card-body { padding: clamp(10px,2vw,20px) clamp(4px,1.4vw,12px) clamp(14px,2vw,20px); }
+    .sack { position: absolute; left: calc(-1 * clamp(40px,6vw,70px)); top: clamp(10px,2vw,30px); width: clamp(70px,9vw,104px); z-index: 1; }
+    .reindeer { position: absolute; right: calc(-1 * clamp(30px,5vw,60px)); top: calc(-1 * clamp(40px,5vw,58px)); width: clamp(80px,10vw,116px); z-index: 1; }
+
     .loading { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 0 20px; gap: 14px; }
-    .spinner { width: 36px; height: 36px; border: 3px solid var(--spinner-track); border-top: 3px solid var(--spinner); border-radius: 50%; animation: spin .9s linear infinite; }
-    .loading-text { font-size: 14px; color: var(--info-strong); font-weight: 600; letter-spacing: .03em; }
+    .spinner { width: 36px; height: 36px; border: 3px solid rgba(35,42,70,.18); border-top: 3px solid var(--navy); border-radius: 50%; animation: spin .9s linear infinite; }
+    .loading-text { font-size: 14px; color: var(--navy); font-weight: 600; letter-spacing: .03em; }
     iframe { width: 100%; border: 0; display: block; opacity: 0; transition: opacity .3s ease, height .25s ease; }
 
-    /* ===== 푸터 ===== */
-    footer { width: 100%; margin-top: auto; position: relative; overflow: hidden; height: clamp(140px,19vw,200px); }
-    .footer-text {
-      position: absolute; bottom: clamp(16px,2.6vw,26px); left: 0; right: 0; text-align: center;
-      color: var(--footer-fg); font-size: clamp(.74rem,1.8vw,.92rem); font-weight: 700;
-      letter-spacing: .02em; z-index: 4; text-shadow: 0 2px 6px var(--footer-text-shadow);
-    }
+    /* ===================== 푸터 ===================== */
+    footer { position: relative; margin-top: auto; background: var(--mint-bg); }
+    .foot-hills { display: block; width: 100%; height: clamp(70px,9vw,120px); }
+    .foot-tree { position: absolute; right: clamp(10px,6vw,90px); bottom: clamp(64px,7.4vw,96px); width: clamp(70px,9vw,120px); z-index: 2; }
+    .foot-tree.small { right: auto; left: clamp(10px,6vw,90px); width: clamp(48px,6vw,80px); }
+    .foot-bar { background: var(--foot-bar); color: rgba(255,255,255,.9); text-align: center; padding: 16px 12px 18px; font-size: clamp(.78rem,1.8vw,.92rem); font-weight: 700; letter-spacing: .02em; }
 
-    /* ===== 파티클(버블 / 낙엽) ===== */
-    #bubbleLayer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 55; }
+    /* ===================== 파티클 ===================== */
+    #snowLayer { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 55; }
 
     @keyframes spin { to { transform: rotate(360deg); } }
-    @keyframes swayL { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(3deg); } }
-    @keyframes swayR { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-3deg); } }
-    @keyframes bobA { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-9px) rotate(calc(var(--rot,0deg) + 3deg)); } }
-    @keyframes bobB { 0%,100% { transform: translate(-50%,0) rotate(0deg); } 50% { transform: translate(-50%,-10px) rotate(2deg); } }
-    @keyframes floatRot { 0%,100% { transform: translateY(0) rotate(var(--rot,0deg)); } 50% { transform: translateY(-7px) rotate(calc(var(--rot,0deg) - 4deg)); } }
-    @keyframes bubbleRise { 0% { transform: translateY(0) translateX(0); opacity: 0; } 12% { opacity:.7; } 85% { opacity:.45; } 100% { transform: translateY(-112vh) translateX(24px); opacity: 0; } }
-    @keyframes leafFall {
-      0%   { transform: translateY(-12vh) translateX(0) rotate(0deg); opacity: 0; }
+    @keyframes swing { 0%,100% { transform: rotate(4deg); } 50% { transform: rotate(-4deg); } }
+    @keyframes fly { 0%,100% { transform: translate(0,0) rotate(-6deg); } 50% { transform: translate(10px,-8px) rotate(-3deg); } }
+    @keyframes snowFall {
+      0%   { transform: translateY(-10vh) translateX(0); opacity: 0; }
       10%  { opacity: .95; }
-      50%  { transform: translateY(45vh) translateX(var(--dx,40px)) rotate(calc(var(--spin,540deg) / 2)); }
-      90%  { opacity: .85; }
-      100% { transform: translateY(115vh) translateX(0) rotate(var(--spin,540deg)); opacity: 0; }
+      50%  { transform: translateY(45vh) translateX(var(--dx,30px)); }
+      90%  { opacity: .8; }
+      100% { transform: translateY(112vh) translateX(0); opacity: 0; }
     }
 
+
+    /* ===================== 테마 ===================== */
+    html.t-red {
+      --hero-1: #c0343a; --hero-2: #9c1f26; --hero-3: #6e1218; --script-c: #ffe2a6; --accent-c: #ffd25e;
+      --mint-bg: #fbf4ea; --mint: #f5e4d0; --mint-line: #e3c7a3; --hill-1: #f1dcc4;
+      --navy: #6e1218; --foot-bar: #6e1218; --red: #2f6a4b; --gold: #f2c04a;
+    }
+    html.t-green {
+      --hero-1: #2f7154; --hero-2: #1f4d3a; --hero-3: #14352a; --script-c: #f4c64a; --accent-c: #ee3a3a;
+      --mint-bg: #f4f1e8; --mint: #e6ecdc; --mint-line: #c3d3b8; --hill-1: #dfe8d6;
+      --navy: #1f4d3a; --foot-bar: #1f4d3a; --red: #c9282f;
+    }
+    html.t-snow {
+      --hero-1: #ffffff; --hero-2: #eef5f8; --hero-3: #dbe9ef; --hero-fg: #232a46; --hero-sub: #55607a;
+      --hero-deco: #8fb4c8; --hero-dot: #a9c8d8; --script-c: #c9282f; --accent-c: #c9282f;
+      --mint-bg: #f5f9fa; --mint: #e5f0f4; --mint-line: #c3dbe4; --hill-1: #d6e6ee;
+      --navy: #232a46; --foot-bar: #232a46;
+    }
+    html.t-snow .logo { filter: none; }
+    html.t-snow .hang svg path { fill: #e5b53a; }
+
+    /* ===================== 헤더 배치 ===================== */
+    html.h-label .script { font-size: clamp(1.8rem,5vw,2.6rem); margin-bottom: 2px; }
+    html.h-label .title { font-size: clamp(2.6rem,8.6vw,4.6rem); }
+    html.h-badge .hero-inner { display: flex; flex-direction: column; align-items: center; }
+    html.h-badge .sub { order: 1; margin: 0 0 12px; padding: 6px 18px; border-radius: 999px; background: var(--accent-c); color: var(--hero-2); font-weight: 800; font-size: clamp(.85rem,2.2vw,1rem); }
+    html.h-badge .title { order: 2; font-size: clamp(2.4rem,8vw,4.2rem); }
+    html.h-badge .script { order: 3; margin-top: 4px; font-size: clamp(2rem,5.6vw,3rem); }
+    html.h-badge .logo { order: 0; }
+
+    /* ===================== 안내 형태 ===================== */
+    .info-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; max-width: 620px; margin: 0 auto; }
+    .info-card { background: #fff; border: 2px solid var(--mint-line); border-radius: var(--box-r,16px); padding: 26px 18px 20px; text-align: center; position: relative; font-size: .95rem; line-height: 1.6; word-break: keep-all; }
+    .info-card .no { position: absolute; top: -16px; left: 50%; transform: translateX(-50%); width: 34px; height: 34px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; font-size: .9rem; }
+    .info-card strong, .info-list strong { color: var(--navy); font-weight: 800; }
+    .info-list { background: #fff; border: 2px solid var(--mint-line); border-radius: var(--box-r,16px); padding: 8px 20px; max-width: 680px; margin: 0 auto; }
+    .info-list li { list-style: none; display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; border-bottom: 1px dashed var(--mint-line); text-align: left; font-size: .97rem; line-height: 1.6; word-break: keep-all; }
+    .info-list li:last-child { border-bottom: 0; }
+    .info-list .no { flex: 0 0 auto; font-weight: 800; font-size: 1.3rem; line-height: 1.2; color: var(--red); }
+    .hexes.as-other { display: block; }
+
+    /* ===================== 신청서 머리글 색 ===================== */
+    :root { --head-c: #c9282f; }
+    html.c-navy { --head-c: var(--navy); }
+    html.c-green { --head-c: #2f6a4b; }
+    html.c-gold { --head-c: #e0a92b; }
+
+    /* ===================== 장식 양 ===================== */
+    html.d-medium .sleigh, html.d-medium .reindeer, html.d-medium .sack { display: none; }
+    html.d-minimal .sleigh, html.d-minimal .reindeer, html.d-minimal .sack, html.d-minimal .hang,
+    html.d-minimal .hill-tree, html.d-minimal .foot-tree, html.d-minimal .tag, html.d-minimal .bow { display: none; }
+    html.d-minimal .form-card-wrap { margin-top: clamp(30px,5vw,48px); }
+
+
+    /* ===================== 신청서 옆 장식 ===================== */
+    .side-l, .side-r { display: none; }
+    html.s-classic .sd-classic, html.s-snow .sd-snow, html.s-sweets .sd-sweets, html.s-orn .sd-orn { display: block; }
+    .sd-orn.side-l, .sd-orn.side-r { top: calc(-1 * clamp(60px,7vw,90px)); }
+    .sd-orn.side-l { left: calc(-1 * clamp(30px,5vw,60px)); }
+
+    /* ===================== 신청서 장식 ===================== */
+    html.k-simple .sack, html.k-simple .reindeer, html.k-simple .tag { display: none; }
+    html.k-simple .bow { width: clamp(70px,9vw,92px); }
+    html.k-none .sack, html.k-none .reindeer, html.k-none .tag, html.k-none .bow { display: none; }
+    html.k-none .form-card-wrap { margin-top: clamp(30px,5vw,48px); }
+
+    /* ===================== 모서리 ===================== */
+    html.r-round { --card-r: 20px; --box-r: 20px; }
+    html.r-square { --card-r: 0px; --box-r: 4px; }
+    html.r-square .hex { clip-path: none; aspect-ratio: auto; min-height: 170px; border-radius: 4px; }
+    html.r-square .hex::before { clip-path: none; border-radius: 2px; }
+
+    /* ===================== 트윅 패널 ===================== */
+    .tw-toggle { position: fixed; right: 16px; bottom: 16px; z-index: 100; border: 0; border-radius: 999px; padding: 12px 18px; background: #232a46; color: #fff; font: inherit; font-weight: 800; font-size: 14px; box-shadow: 0 8px 22px rgba(0,0,0,.25); cursor: pointer; }
+    .tw-panel { position: fixed; right: 16px; bottom: 70px; z-index: 100; width: min(320px, calc(100vw - 32px)); max-height: calc(100vh - 110px); overflow: auto; background: #fff; border-radius: 16px; box-shadow: 0 14px 40px rgba(0,0,0,.22); padding: 16px 16px 12px; font-size: 13px; color: #2a2f3a; }
+    .tw-panel.closed { display: none; }
+    .tw-panel h3 { font-size: 15px; font-weight: 800; margin-bottom: 4px; }
+    .tw-panel .hint { color: #6d7584; font-size: 12px; margin-bottom: 10px; }
+    .tw-group { margin: 12px 0 0; }
+    .tw-group > p { font-weight: 700; margin-bottom: 6px; }
+    .tw-seg { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tw-seg button { border: 1.5px solid #d7dde2; background: #fff; border-radius: 999px; padding: 6px 11px; font: inherit; font-size: 12.5px; cursor: pointer; color: #2a2f3a; }
+    .tw-seg button.on { background: #232a46; border-color: #232a46; color: #fff; font-weight: 700; }
+    .tw-seg .sw { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+    .tw-code { margin-top: 14px; background: #f3f5f7; border-radius: 10px; padding: 10px; font-size: 12px; line-height: 1.5; word-break: break-all; }
+    .tw-copy { margin-top: 8px; width: 100%; border: 0; border-radius: 10px; padding: 9px; background: #c9282f; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+
+
+    /* ===================== 모션 그래픽 ===================== */
+    /* 헤더 등장 */
+    .hero-inner > * { animation: riseIn .9s cubic-bezier(.2,.7,.2,1) both; }
+    .hero-inner > *:nth-child(1) { animation-delay: .05s; }
+    .hero-inner > *:nth-child(2) { animation-delay: .25s; }
+    .hero-inner > *:nth-child(3) { animation-delay: .45s; }
+    .hero-inner > *:nth-child(4) { animation-delay: .65s; }
+    .title .accent { display: inline-block; -webkit-text-stroke: 3px #fff; paint-order: stroke fill; animation: glow 3.2s ease-in-out 1.4s infinite; }
+    /* 밤하늘 반짝임 */
+    .sky-dots circle { animation: dotTw 2.8s ease-in-out infinite alternate; }
+    /* 별똥별 */
+    .shoot { position: absolute; top: 14%; left: 62%; width: clamp(80px,10vw,140px); height: 2px; border-radius: 2px; z-index: 1; pointer-events: none;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95)); transform: rotate(-24deg); opacity: 0; animation: shoot 9s ease-in 3s infinite; }
+    .shoot.s2 { top: 30%; left: 18%; animation-delay: 7.5s; animation-duration: 11s; }
+    /* 썰매: 하늘을 가로질러 비행 */
+    .sleigh { left: 0 !important; top: clamp(18px,3vw,40px) !important; animation: sleighFly 18s linear 1.5s infinite !important; opacity: 0; }
+    /* 스크롤 등장 */
+    .rv { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); }
+    .rv.in { opacity: 1; transform: none; }
+    .info-card .no { animation: none; }
+    .info-card.in .no { animation: pop .5s cubic-bezier(.3,1.6,.5,1) both; animation-delay: inherit; }
+    /* 신청서 장식 */
+    .bow { animation: bowWiggle 5s ease-in-out infinite; transform-origin: 50% 80%; }
+    .side-r { animation: peek 4.6s ease-in-out infinite; }
+    .side-l { animation: hop 3.8s ease-in-out infinite; transform-origin: 50% 100%; }
+    .foot-tree { animation: treeSway 6s ease-in-out infinite; transform-origin: 50% 100%; }
+    .foot-tree.small { animation-delay: -2s; }
+    .hill-tree { animation: treeSway 7s ease-in-out infinite; transform-origin: 50% 100%; }
+
+    @keyframes riseIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+    @keyframes glow { 0%,100% { text-shadow: 0 0 0 rgba(255,255,255,0); } 50% { text-shadow: 0 0 18px rgba(255,255,255,.55); } }
+    @keyframes dotTw { from { opacity: .25; } to { opacity: 1; } }
+    @keyframes shoot { 0% { opacity: 0; transform: rotate(-24deg) translateX(0); } 3% { opacity: 1; } 10% { opacity: 0; transform: rotate(-24deg) translateX(-38vw); } 100% { opacity: 0; transform: rotate(-24deg) translateX(-38vw); } }
+    @keyframes sleighFly { 0% { transform: translate(-25vw, 30px) rotate(-8deg); opacity: 0; } 4% { opacity: 1; } 45% { transform: translate(55vw, -6px) rotate(-4deg); } 60% { transform: translate(115vw, 10px) rotate(-6deg); opacity: 1; } 61%,100% { transform: translate(115vw, 10px); opacity: 0; } }
+    @keyframes pop { from { transform: translateX(-50%) scale(0); } to { transform: translateX(-50%) scale(1); } }
+    @keyframes bowWiggle { 0%,80%,100% { transform: translate(-50%,-78%) rotate(0); } 85% { transform: translate(-50%,-82%) rotate(-6deg); } 90% { transform: translate(-50%,-80%) rotate(5deg); } 95% { transform: translate(-50%,-79%) rotate(-2deg); } }
+    @keyframes peek { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-8px) rotate(4deg); } }
+    @keyframes hop { 0%,70%,100% { transform: translateY(0) scale(1,1); } 78% { transform: translateY(0) scale(1.06,.92); } 86% { transform: translateY(-10px) scale(.96,1.05); } 94% { transform: translateY(0) scale(1.03,.97); } }
+    @keyframes treeSway { 0%,100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+
+
+    /* 부제 '크리스마스 선물' 강조 */
+    .sub .xmas { display: inline-block; font-weight: 800; white-space: nowrap; }
+    .sub .xmas i { display: inline-block; font-style: normal;
+      background: linear-gradient(100deg, #f4c64a 0%, #f4c64a 38%, #fff6d6 50%, #f4c64a 62%, #f4c64a 100%);
+      background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: xWave 3.6s ease-in-out infinite, xShine 3.6s linear infinite; }
+    .sub .xmas i.sp { width: .3em; animation: none; }
+    @keyframes xWave { 0%,62%,100% { transform: translateY(0); } 70% { transform: translateY(-6px); } 78% { transform: translateY(1px); } 84% { transform: translateY(0); } }
+    @keyframes xShine { 0% { background-position: 100% 0; } 100% { background-position: -50% 0; } }
+
+    /* 눈 결정 */
+    .flake { position: fixed; top: 0; pointer-events: none; will-change: transform; animation: flakeFall linear forwards; }
+    .flake > i { display: block; width: 100%; height: 100%; animation: flakeSway ease-in-out infinite alternate; }
+    .flake svg { display: block; width: 100%; height: 100%; animation: flakeSpin linear infinite; filter: drop-shadow(0 0 1.5px rgba(40,90,110,.55)); }
+    @keyframes flakeFall { 0% { transform: translateY(-8vh); opacity: 0; } 8% { opacity: var(--op,.9); } 88% { opacity: var(--op,.9); } 100% { transform: translateY(108vh); opacity: 0; } }
+    @keyframes flakeSway { from { transform: translateX(calc(var(--sw,24px) * -1)); } to { transform: translateX(var(--sw,24px)); } }
+    @keyframes flakeSpin { to { transform: rotate(var(--rot,360deg)); } }
+
+    /* ===================== 모바일 ===================== */
+    @media (max-width: 640px) {
+      .hexes { gap: 0 6px; }
+      .hex { width: calc(50% - 4px); max-width: 210px; }
+      .hex:nth-child(2) { margin-top: 0; }
+      .hex:nth-child(3) { margin-top: -4vw; }
+      .script { font-size: clamp(2.6rem,12vw,3.4rem); }
+      .hex-body { padding: 0 17%; }
+      .sack, .reindeer, .side-l, .side-r { display: none !important; }
+      .sleigh { width: 84px !important; }
+      .hang.hide-m { display: none; }
+      .tw-toggle { right: 10px; bottom: 10px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #snowLayer { display: none !important; }
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .rv { opacity: 1 !important; transform: none !important; }
+      .sleigh, .shoot { display: none !important; }
+      .hang, .tag, .sleigh { animation: none; }
+    }
     .is-hidden { display: none !important; }
   </style>
 </head>
 
 <body>
-  <div id="bubbleLayer"></div>
+  <div id="snowLayer"></div>
+  <!-- ===================== 디자인 옵션 패널 (미리보기용) ===================== -->
+  <button class="tw-toggle is-hidden" id="twToggle" type="button">디자인 옵션</button>
+  <div class="tw-panel is-hidden" id="twPanel">
+    <h3>디자인 옵션</h3>
+    <p class="hint">눌러서 바로 바꿔 보세요. 마음에 드는 조합의 설정값을 복사해 알려 주시면 됩니다.</p>
+    <div id="twGroups"></div>
+    <div class="tw-code" id="twCode"></div>
+    <button class="tw-copy" id="twCopy" type="button">설정값 복사</button>
+  </div>
+
 
   <div class="wrap">
 
-    <!-- ===================== 배너 ===================== -->
-    <header class="banner">
-      <div class="water"></div>
+    <!-- ===================== 헤더 ===================== -->
+    <header class="hero">
+      <svg class="sky-dots" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" id="skyDots"></svg>
 
-      <!-- 잔물결 (여름) -->
-      <svg class="only-summer" viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.55;">
-        <g stroke="rgba(255,255,255,.4)" stroke-width="2.4" fill="none" stroke-linecap="round">
-          <path d="M30 38 q16 -7 32 0 t32 0"></path><path d="M250 30 q16 -7 32 0 t32 0"></path>
-          <path d="M150 90 q18 -8 36 0 t36 0"></path><path d="M40 130 q16 -7 32 0 t32 0"></path>
-          <path d="M280 150 q16 -7 32 0 t32 0"></path><path d="M210 178 q16 -7 32 0 t32 0"></path>
-          <path d="M110 56 q12 -5 24 0 t24 0"></path>
+      <!-- 매달린 별 -->
+      <div class="hang hide-m" style="left:16%; height:clamp(34px,5vw,60px); animation-delay:-1s;"><svg viewBox="0 0 100 100"><path d="M50 6 L61 38 L94 39 L68 59 L77 92 L50 72 L23 92 L32 59 L6 39 L39 38 Z" fill="#f4c64a"/></svg></div>
+      <div class="hang" style="right:12%; height:clamp(46px,7vw,86px); animation-delay:-2.2s;"><svg viewBox="0 0 100 100"><path d="M50 6 L61 38 L94 39 L68 59 L77 92 L50 72 L23 92 L32 59 L6 39 L39 38 Z" fill="#f4c64a"/></svg></div>
+      <div class="hang" style="right:19%; height:clamp(24px,3.4vw,44px); animation-delay:-.4s;"><svg viewBox="0 0 100 100"><path d="M50 6 L61 38 L94 39 L68 59 L77 92 L50 72 L23 92 L32 59 L6 39 L39 38 Z" fill="#f4c64a"/></svg></div>
+
+      <!-- 별똥별 -->
+      <span class="shoot" aria-hidden="true"></span><span class="shoot s2" aria-hidden="true"></span>
+
+      <!-- 썰매 실루엣 -->
+      <svg class="sleigh" viewBox="0 0 160 60" aria-hidden="true">
+        <g fill="currentColor">
+          <path d="M96 30 L132 30 C140 30 144 24 146 18 L150 18 C148 30 140 40 128 40 L100 40 Z"/>
+          <path d="M94 44 L150 44 C154 44 156 41 156 38" stroke="currentColor" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          <path d="M100 40 L100 44 M128 40 L128 44" stroke="currentColor" stroke-width="2"/>
+          <circle cx="116" cy="22" r="5"/><path d="M110 30 L122 30 L120 24 L112 24 Z"/>
+          <path d="M126 26 C128 18 136 16 140 22 L132 30 Z"/>
+          <path d="M20 28 C24 22 34 22 40 24 L46 18 L48 22 L44 28 C46 32 44 36 40 36 L38 44 L35 44 L35 37 L26 37 L24 44 L21 44 L22 36 C18 34 18 30 20 28 Z"/>
+          <path d="M46 18 L44 10 M46 18 L50 11 M44 13 L41 9" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M58 28 C62 22 72 22 78 24 L84 18 L86 22 L82 28 C84 32 82 36 78 36 L76 44 L73 44 L73 37 L64 37 L62 44 L59 44 L60 36 C56 34 56 30 58 28 Z"/>
+          <path d="M84 18 L82 10 M84 18 L88 11 M82 13 L79 9" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
         </g>
+        <path d="M44 28 L58 28 M82 28 L98 32" stroke="currentColor" stroke-width="1.2" opacity=".8"/>
       </svg>
 
-      <!-- 흩날리는 결 (가을) -->
-      <svg class="only-autumn" viewBox="0 0 400 200" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.4;">
-        <g stroke="rgba(255,255,255,.5)" stroke-width="2" fill="none" stroke-linecap="round">
-          <path d="M18 44 q40 -14 80 0 t80 -2"></path>
-          <path d="M210 26 q40 -14 80 0 t80 -2"></path>
-          <path d="M60 118 q46 -16 92 0 t92 -2"></path>
-          <path d="M180 168 q40 -14 80 0 t80 -2"></path>
-        </g>
+      <div class="hero-inner">
+        <img class="logo" src="dankkume-logo.png" onerror="this.style.display='none'" alt="단꿈e" />
+        <p class="script">Merry Christmas</p>
+        <h1 class="title">특별 <span class="accent">사은품</span> 증정</h1>
+        <p class="sub">신규 결제 고객님께 드리는 <span class="xmas" aria-label="크리스마스 선물"><i style="animation-delay:1.60s">크</i><i style="animation-delay:1.67s">리</i><i style="animation-delay:1.74s">스</i><i style="animation-delay:1.81s">마</i><i style="animation-delay:1.88s">스</i><i class="sp"> </i><i style="animation-delay:2.02s">선</i><i style="animation-delay:2.09s">물</i></span></p>
+      </div>
+
+      <!-- 언덕 위 작은 나무 -->
+      <svg class="hill-tree" viewBox="0 0 40 60" style="left:4%; bottom:clamp(64px,9vw,128px); width:clamp(18px,2.4vw,30px);" aria-hidden="true"><path d="M20 2 L34 24 L28 24 L38 42 L2 42 L12 24 L6 24 Z" fill="currentColor"/><rect x="18" y="42" width="4" height="10" fill="currentColor"/></svg>
+      <svg class="hill-tree" viewBox="0 0 40 60" style="left:9%; bottom:clamp(54px,7.6vw,110px); width:clamp(14px,1.8vw,22px);" aria-hidden="true"><path d="M20 2 L34 24 L28 24 L38 42 L2 42 L12 24 L6 24 Z" fill="currentColor"/><rect x="18" y="42" width="4" height="10" fill="currentColor"/></svg>
+      <svg class="hill-tree" viewBox="0 0 40 60" style="right:5%; bottom:clamp(76px,10vw,140px); width:clamp(18px,2.4vw,30px);" aria-hidden="true"><path d="M20 2 L34 24 L28 24 L38 42 L2 42 L12 24 L6 24 Z" fill="currentColor"/><rect x="18" y="42" width="4" height="10" fill="currentColor"/></svg>
+
+      <!-- 눈 덮인 언덕 -->
+      <svg class="hills" viewBox="0 0 1440 170" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 70 C180 20 360 30 520 80 C680 128 820 140 980 96 C1140 52 1300 40 1440 70 L1440 170 L0 170 Z" style="fill:var(--hill-1)"/>
+        <path d="M0 110 C200 70 420 80 620 120 C820 158 1040 150 1220 116 C1320 98 1390 96 1440 102 L1440 170 L0 170 Z" style="fill:var(--mint-bg)"/>
       </svg>
-
-      <!-- ============ 여름 장식 ============ -->
-      <div class="only-summer" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
-        <div class="deco" style="top:-9%; left:-4%; width:clamp(96px,17vw,184px); transform-origin:50% 100%; animation:swayL 6s ease-in-out infinite;">
-          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-28deg);">
-            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
-            <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
-          </svg>
-        </div>
-        <div class="deco" style="bottom:-11%; right:-4%; width:clamp(100px,18vw,196px); transform-origin:50% 0%; animation:swayR 7s ease-in-out infinite;">
-          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(155deg);">
-            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
-            <path d="M60 192 L60 12" stroke="#0d5234" stroke-width="3" fill="none" stroke-linecap="round"></path>
-          </svg>
-        </div>
-
-        <div class="leaf-extra" style="position:absolute; inset:0; pointer-events:none;">
-          <div class="deco" style="top:-7%; right:-6%; width:clamp(86px,15vw,168px); transform-origin:50% 100%; animation:swayR 6.6s ease-in-out infinite;">
-            <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(46deg) scaleX(-1);">
-              <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#2aa56a"></path>
-              <path d="M60 192 L60 12" stroke="#11603c" stroke-width="3" fill="none" stroke-linecap="round"></path>
-            </svg>
-          </div>
-          <div class="deco" style="bottom:-8%; left:-5%; width:clamp(82px,14vw,150px); transform-origin:50% 0%; animation:swayL 7.4s ease-in-out infinite;">
-            <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(8deg);">
-              <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#176f47"></path>
-              <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
-                <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
-              </g>
-            </svg>
-          </div>
-          <div class="deco" style="top:28%; right:-6%; width:clamp(78px,13vw,140px); transform-origin:100% 50%; animation:swayR 8s ease-in-out infinite;">
-            <svg viewBox="0 0 120 124" style="overflow:visible; transform:rotate(-14deg);">
-              <path d="M60 8 C97 8 114 42 106 82 C100 108 80 118 60 118 C40 118 20 108 14 82 C6 42 23 8 60 8 Z" fill="#1c8455"></path>
-              <g stroke="#0d5234" stroke-width="2.4" fill="none" stroke-linecap="round">
-                <path d="M60 116 L60 16"></path><path d="M60 84 L24 66"></path><path d="M60 84 L96 66"></path><path d="M60 58 L30 42"></path><path d="M60 58 L90 42"></path><path d="M60 34 L42 24"></path><path d="M60 34 L78 24"></path>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <div class="decor-floats" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
-          <div class="deco" style="top:-15%; left:13%; width:clamp(74px,13vw,128px); --rot:18deg; animation:floatRot 7s ease-in-out infinite;">
-            <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#ff6fae 0 45deg,#ffd1e6 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 33%,#000 34%); mask:radial-gradient(circle,transparent 33%,#000 34%); box-shadow:0 6px 16px rgba(190,40,110,.25);"></div>
-          </div>
-          <div class="deco" style="bottom:-24%; left:50%; width:clamp(130px,24vw,250px); animation:bobB 8s ease-in-out infinite;">
-            <div style="width:100%; aspect-ratio:1; border-radius:50%; background:repeating-conic-gradient(#9466d6 0 45deg,#ddccf7 45deg 90deg); -webkit-mask:radial-gradient(circle,transparent 36%,#000 37%); mask:radial-gradient(circle,transparent 36%,#000 37%); box-shadow:0 8px 20px rgba(110,60,180,.25);"></div>
-          </div>
-          <div class="deco" style="top:-10%; right:8%; width:clamp(34px,6vw,58px); --rot:34deg; animation:floatRot 9s ease-in-out infinite;">
-            <svg viewBox="0 0 80 200" style="overflow:visible;">
-              <path d="M40 4 C58 30 60 100 56 150 C53 180 46 196 40 196 C34 196 27 180 24 150 C20 100 22 30 40 4 Z" fill="#e23b34"></path>
-              <path d="M40 8 L40 192" stroke="#fff" stroke-width="2.4"></path>
-              <g fill="#fff"><path d="M40 70 L54 92 L40 86 L26 92 Z"></path><path d="M40 96 L54 118 L40 112 L26 118 Z"></path><path d="M40 122 L54 144 L40 138 L26 144 Z"></path></g>
-            </svg>
-          </div>
-        </div>
-
-        <div class="decor-fun" style="position:absolute; inset:0; pointer-events:none; z-index:5;">
-          <div class="deco" style="top:18%; left:17%; width:clamp(34px,6vw,52px); --rot:-8deg; animation:bobA 6.2s ease-in-out infinite;">
-            <svg viewBox="0 0 100 100" style="overflow:visible;">
-              <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
-              <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
-            </svg>
-          </div>
-          <div class="deco" style="bottom:22%; right:24%; width:clamp(36px,6.5vw,56px); --rot:12deg; animation:bobA 7s ease-in-out infinite;">
-            <svg viewBox="0 0 100 100" style="overflow:visible;">
-              <path d="M50 6 L60.6 35.4 L92.8 36.1 L67.1 55.6 L76.4 86.4 L50 68 L23.6 86.4 L32.9 55.6 L7.2 36.1 L39.4 35.4 Z" fill="#ff5a4f" stroke="#ff5a4f" stroke-width="11" stroke-linejoin="round"></path>
-              <g fill="#e23b32"><circle cx="50" cy="40" r="3.2"></circle><circle cx="50" cy="52" r="2.6"></circle><circle cx="42" cy="46" r="2.2"></circle><circle cx="58" cy="46" r="2.2"></circle></g>
-            </svg>
-          </div>
-          <div class="deco" style="top:8%; right:20%; width:clamp(32px,5.5vw,50px); --rot:0deg; animation:bobA 6.6s ease-in-out infinite;">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
-              <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
-              <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
-            </svg>
-          </div>
-          <div class="deco" style="bottom:10%; left:5%; width:clamp(34px,6vw,54px); --rot:0deg; animation:bobA 7.4s ease-in-out infinite;">
-            <svg viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="48" fill="#ef9128"></circle><circle cx="50" cy="50" r="43" fill="#fff"></circle><circle cx="50" cy="50" r="39" fill="#ffab3a"></circle>
-              <g stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path d="M50 11 L50 89"></path><path d="M11 50 L89 50"></path><path d="M22 22 L78 78"></path><path d="M78 22 L22 78"></path></g>
-              <circle cx="50" cy="50" r="5" fill="#ffd9a0"></circle>
-            </svg>
-          </div>
-          <div class="deco" style="top:33%; left:4%; width:clamp(28px,5vw,46px); --rot:-12deg; animation:bobA 6.8s ease-in-out infinite;">
-            <svg viewBox="0 0 70 152" style="overflow:visible;">
-              <rect x="28" y="104" width="14" height="46" rx="6" fill="#d6a05c"></rect>
-              <rect x="6" y="6" width="58" height="116" rx="27" fill="#ff7fb0"></rect>
-              <path d="M12 30 C12 16 24 8 35 8 C28 16 24 24 24 36 Z" fill="#ffa6cb" opacity="0.85"></path>
-              <g fill="#ec3f86"><circle cx="26" cy="40" r="3"></circle><circle cx="42" cy="56" r="3"></circle><circle cx="30" cy="74" r="3"></circle><circle cx="46" cy="86" r="2.6"></circle><circle cx="34" cy="98" r="2.6"></circle></g>
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============ 가을 장식 ============ -->
-      <div class="only-autumn" style="position:absolute; inset:0; pointer-events:none; z-index:4;">
-        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;"><circle cx="6" cy="20" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="13" cy="10" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="21" cy="26" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="10" cy="44" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="30" cy="8" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="38" cy="22" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="47" cy="6" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="17" cy="60" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="7" cy="72" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="26" cy="80" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="38" cy="90" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="14" cy="92" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="50" cy="92" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="58" cy="10" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="67" cy="22" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="76" cy="8" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="85" cy="20" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="93" cy="34" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="70" cy="40" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="89" cy="56" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="62" cy="76" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="80" cy="84" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="93" cy="90" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="55" cy="86" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="6" cy="54" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="95" cy="68" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="45" cy="74" r="1" fill="rgba(196,168,128,.5)"></circle><circle cx="3" cy="34" r="1.5" fill="rgba(196,168,128,.5)"></circle><circle cx="97" cy="46" r="1" fill="rgba(196,168,128,.5)"></circle></svg>
-        <div class="deco" style="top:-10%; left:-2%; width:clamp(59px,11vw,118px); --rot:-14deg; animation:bobA 6.4s ease-in-out infinite; animation-delay:-0.00s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-        <div class="deco" style="top:2%; left:8%; width:clamp(27px,5vw,54px); --rot:10deg; animation:bobA 7s ease-in-out infinite; animation-delay:-0.31s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="top:-8%; left:15%; width:clamp(43px,8vw,86px); --rot:8deg; animation:bobA 6.6s ease-in-out infinite; animation-delay:-0.62s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#ef9829"></path>
-    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#b5602f"></path>
-    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
-    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
-        <div class="deco" style="top:-6%; left:25%; width:clamp(58px,11vw,116px); --rot:-6deg; animation:bobA 7.4s ease-in-out infinite; animation-delay:-0.93s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#9dbd8a"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#9dbd8a"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#9dbd8a"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#9dbd8a"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#9dbd8a"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#9dbd8a"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#9dbd8a"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#9dbd8a"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#9dbd8a"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#9dbd8a"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#9dbd8a"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#9dbd8a"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#9dbd8a"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#9dbd8a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
-        <div class="deco" style="top:6%; left:35%; width:clamp(21px,4vw,42px); --rot:12deg; animation:bobA 6.2s ease-in-out infinite; animation-delay:-1.24s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
-        <div class="deco" style="top:-8%; left:44%; width:clamp(52px,10vw,104px); --rot:16deg; animation:bobA 7.8s ease-in-out infinite; animation-delay:-1.55s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
-        <div class="deco" style="top:4%; left:56%; width:clamp(23px,4.4vw,46px); --rot:-10deg; animation:bobA 6.8s ease-in-out infinite; animation-delay:-1.86s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="top:-7%; left:62%; width:clamp(42px,8vw,84px); --rot:-8deg; animation:bobA 7.2s ease-in-out infinite; animation-delay:-2.17s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#ef9829"></path>
-    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#a85a34"></path>
-    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
-    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
-        <div class="deco" style="top:-9%; left:73%; width:clamp(53px,10vw,106px); --rot:14deg; animation:bobA 8s ease-in-out infinite; animation-delay:-2.48s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
-      <path d="M50 126 C50 90 48 66 40 46"></path>
-      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
-    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
-        <div class="deco" style="top:2%; right:-1%; width:clamp(26px,5vw,52px); --rot:-12deg; animation:bobA 6.5s ease-in-out infinite; animation-delay:-2.79s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f3b7a0" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f3b7a0" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f3b7a0" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f3b7a0" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f3b7a0" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e88f6e"></circle></svg></div>
-        <div class="deco" style="top:26%; left:-3%; width:clamp(48px,9vw,96px); --rot:6deg; animation:bobA 7.6s ease-in-out infinite; animation-delay:-3.10s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M36 50 C36 74 32 96 29 114 C39 122 61 122 71 114 C68 96 64 74 64 50 Z" fill="#fdf3df"></path>
-    <path d="M6 46 C6 22 25 6 50 6 C75 6 94 22 94 46 C94 53 75 56 50 56 C25 56 6 53 6 46 Z" fill="#ef9829"></path>
-    <g fill="rgba(255,255,255,.92)"><circle cx="26" cy="34" r="5"></circle><circle cx="42" cy="22" r="5"></circle><circle cx="60" cy="26" r="5"></circle><circle cx="76" cy="36" r="5"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="34" cy="46" r="5"></circle><circle cx="68" cy="48" r="5"></circle></g></svg></div>
-        <div class="deco" style="top:56%; left:-1%; width:clamp(38px,7vw,76px); --rot:-8deg; animation:bobA 6.9s ease-in-out infinite; animation-delay:-3.41s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 46 C70 46 80 60 77 76 C74 90 63 98 50 98 C37 98 26 90 23 76 C20 60 30 46 50 46 Z" fill="#a9713f"></path>
-    <path d="M18 40 C18 26 32 18 50 18 C68 18 82 26 82 40 C82 46 70 49 50 49 C30 49 18 46 18 40 Z" fill="#8a5a34"></path>
-    <g stroke="rgba(0,0,0,.16)" stroke-width="2" fill="none"><path d="M22 22 L22 46"></path><path d="M33 22 L33 46"></path><path d="M44 22 L44 46"></path><path d="M55 22 L55 46"></path><path d="M66 22 L66 46"></path><path d="M77 22 L77 46"></path></g>
-    <path d="M50 18 C52 10 56 8 60 8" stroke="#3d2b1f" stroke-width="4" fill="none" stroke-linecap="round"></path></svg></div>
-        <div class="deco" style="top:44%; left:9%; width:clamp(19px,3.6vw,38px); --rot:14deg; animation:bobA 7.3s ease-in-out infinite; animation-delay:-3.72s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f2b48e" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f2b48e" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f2b48e" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f2b48e" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f2b48e" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8926a"></circle></svg></div>
-        <div class="deco" style="top:24%; right:-2%; width:clamp(38px,7vw,76px); --rot:18deg; animation:bobA 7.1s ease-in-out infinite; animation-delay:-4.03s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#e8862a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-        <div class="deco" style="top:52%; right:-3%; width:clamp(49px,9vw,98px); --rot:-6deg; animation:bobA 7.7s ease-in-out infinite; animation-delay:-4.34s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M36 50 C36 74 32 96 29 114 C39 122 61 122 71 114 C68 96 64 74 64 50 Z" fill="#fdf3df"></path>
-    <path d="M6 46 C6 22 25 6 50 6 C75 6 94 22 94 46 C94 53 75 56 50 56 C25 56 6 53 6 46 Z" fill="#e34a3f"></path>
-    <g fill="rgba(255,255,255,.92)"><circle cx="26" cy="34" r="5"></circle><circle cx="42" cy="22" r="5"></circle><circle cx="60" cy="26" r="5"></circle><circle cx="76" cy="36" r="5"></circle><circle cx="50" cy="40" r="6"></circle><circle cx="34" cy="46" r="5"></circle><circle cx="68" cy="48" r="5"></circle></g></svg></div>
-        <div class="deco" style="top:38%; right:9%; width:clamp(18px,3.4vw,36px); --rot:-14deg; animation:bobA 6.3s ease-in-out infinite; animation-delay:-4.65s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#d9c9a8"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="bottom:-10%; left:-2%; width:clamp(54px,10vw,108px); --rot:12deg; animation:bobA 6.7s ease-in-out infinite; animation-delay:-4.96s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#a85a34"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-        <div class="deco" style="bottom:-6%; left:9%; width:clamp(44px,8vw,88px); --rot:-10deg; animation:bobA 7.5s ease-in-out infinite; animation-delay:-5.27s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#e8862a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
-        <div class="deco" style="bottom:4%; left:19%; width:clamp(21px,4vw,42px); --rot:8deg; animation:bobA 6.1s ease-in-out infinite; animation-delay:-5.58s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#8aab78"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="bottom:-8%; left:27%; width:clamp(52px,10vw,104px); --rot:-12deg; animation:bobA 8.2s ease-in-out infinite; animation-delay:-5.89s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
-      <path d="M50 126 C50 90 48 66 40 46"></path>
-      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
-    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
-        <div class="deco" style="bottom:4%; left:40%; width:clamp(23px,4.4vw,46px); --rot:16deg; animation:bobA 6.6s ease-in-out infinite; animation-delay:-6.20s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
-        <div class="deco" style="bottom:-9%; left:47%; width:clamp(48px,9vw,96px); --rot:10deg; animation:bobA 7.9s ease-in-out infinite; animation-delay:-6.51s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 14"></path><path d="M50 36 L34 26"></path><path d="M50 36 L66 26"></path><path d="M50 54 L30 42"></path><path d="M50 54 L70 42"></path><path d="M50 72 L36 60"></path><path d="M50 72 L64 60"></path></g></svg></div>
-        <div class="deco" style="bottom:-7%; left:58%; width:clamp(53px,10vw,106px); --rot:-8deg; animation:bobA 7s ease-in-out infinite; animation-delay:-6.82s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-        <div class="deco" style="bottom:4%; left:70%; width:clamp(21px,4vw,42px); --rot:-14deg; animation:bobA 6.4s ease-in-out infinite; animation-delay:-7.13s;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#f5cf5a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="bottom:-6%; left:76%; width:clamp(43px,8vw,86px); --rot:20deg; animation:bobA 8.1s ease-in-out infinite; animation-delay:-7.44s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 14"></path><path d="M50 36 L34 26"></path><path d="M50 36 L66 26"></path><path d="M50 54 L30 42"></path><path d="M50 54 L70 42"></path><path d="M50 72 L36 60"></path><path d="M50 72 L64 60"></path></g></svg></div>
-        <div class="deco" style="bottom:-9%; right:-2%; width:clamp(54px,10vw,108px); --rot:-10deg; animation:bobA 7.4s ease-in-out infinite; animation-delay:-7.75s;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#8aab78"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#8aab78"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#8aab78"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#8aab78"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#8aab78"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#8aab78"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#8aab78"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#8aab78"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#8aab78"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#8aab78"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#8aab78"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#8aab78"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#8aab78"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#8aab78"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
-      </div>
-
-      <!-- 텍스트 -->
-      <div class="text-dim"></div>
-      <div class="text-block">
-        <div class="headline-brand" style="display:flex; flex-direction:column; align-items:center;">
-          <img class="logo" src="dankkume-logo.png" onerror="this.style.display='none'" alt="단꿈e" style="width:clamp(74px,12vw,112px); margin-bottom:clamp(8px,1.6vw,14px);" />
-          <span class="eyebrow">신규 결제 고객님께 드리는</span>
-          <h1 class="headline">특별 <span class="accent">사은품</span> 증정</h1>
-        </div>
-        <div class="headline-hello is-hidden" style="display:flex; flex-direction:column; align-items:center;">
-          <span class="hello-script">Hello</span>
-          <span class="hello-season only-summer">SUMMER</span>
-          <span class="hello-season only-autumn">AUTUMN</span>
-          <img class="logo" src="dankkume-logo.png" onerror="this.style.display='none'" alt="단꿈e" style="width:clamp(60px,9vw,86px); margin-top:clamp(8px,1.6vw,14px);" />
-        </div>
-      </div>
     </header>
 
     <!-- ===================== 본문 ===================== -->
     <main>
       <div class="inner">
-        <section class="info-box" id="infoBox">
-          <div id="infoContent"></div>
-          <div class="warning">
-            <p style="font-weight:700;">필수 확인 사항</p>
+
+        <!-- 안내 (기존 문구 그대로) -->
+        <section id="infoBox">
+          <h2 class="sec-title"><span><b>사은품 신청</b> 안내</span></h2>
+          <div class="hexes" id="infoContent"></div>
+
+          <div class="notice">
+            <p class="notice-title">필수 확인 사항</p>
             <span style="display:block;">※ 주소지 오기입으로 인한 반송 건은 재발송 되지 않습니다.</span>
             <span style="display:block;">※ 주소 입력을 완료하지 못하신 경우, 단꿈e 고객센터(<strong>1670-0285</strong>)로 문의해 주세요.</span>
           </div>
         </section>
 
-        <div class="iframe-wrap">
-          <div class="loading" id="loadingWrap">
-            <div class="spinner"></div>
-            <div class="loading-text">잠시만 기다려 주세요...</div>
+        <!-- 신청서 카드 (구글 앱스 스크립트 폼) -->
+        <div class="form-card-wrap">
+          <!-- 산타 자루 -->
+          <svg class="sack side-l sd-classic" viewBox="0 0 110 110" aria-hidden="true">
+            <path d="M30 34 C10 52 6 90 26 102 C44 110 70 110 88 100 C106 88 100 52 78 34 Z" fill="#c9282f"/>
+            <g fill="#a01c22"><circle cx="40" cy="62" r="3"/><circle cx="58" cy="78" r="3"/><circle cx="74" cy="58" r="3"/><circle cx="36" cy="88" r="3"/><circle cx="80" cy="88" r="3"/><circle cx="56" cy="52" r="3"/></g>
+            <path d="M28 34 C40 26 68 26 82 34 L76 40 C64 34 46 34 34 40 Z" fill="#f4c64a"/>
+            <path d="M50 30 C40 14 30 18 34 26 C38 32 46 32 50 30Z M58 30 C66 12 80 16 74 26 C70 32 62 32 58 30Z" fill="#c9282f"/>
+          </svg>
+          <!-- 루돌프 -->
+          <svg class="reindeer side-r sd-classic" viewBox="0 0 120 110" aria-hidden="true">
+            <g stroke="#7a4a2c" stroke-width="5" stroke-linecap="round" fill="none">
+              <path d="M40 40 C30 26 20 22 12 10 M26 26 L14 30 M32 32 L24 14"/>
+              <path d="M80 40 C90 26 100 22 108 10 M94 26 L106 30 M88 32 L96 14"/>
+            </g>
+            <ellipse cx="34" cy="52" rx="12" ry="6" fill="#a8704a" transform="rotate(-25 34 52)"/>
+            <ellipse cx="86" cy="52" rx="12" ry="6" fill="#a8704a" transform="rotate(25 86 52)"/>
+            <path d="M60 36 C82 36 90 56 88 74 C86 92 74 104 60 104 C46 104 34 92 32 74 C30 56 38 36 60 36Z" fill="#a8704a"/>
+            <ellipse cx="60" cy="88" rx="17" ry="13" fill="#e8c9a6"/>
+            <circle cx="50" cy="66" r="4.4" fill="#2a2a2a"/><circle cx="70" cy="66" r="4.4" fill="#2a2a2a"/>
+            <circle cx="51.4" cy="64.6" r="1.4" fill="#fff"/><circle cx="71.4" cy="64.6" r="1.4" fill="#fff"/>
+            <circle cx="60" cy="82" r="9" fill="#d8262e"/><circle cx="57" cy="79" r="2.6" fill="rgba(255,255,255,.6)"/>
+            <path d="M54 94 Q60 99 66 94" stroke="#7a4a2c" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+          </svg>
+
+
+          <!-- [옆 장식: 눈사람] 왼쪽 선물 더미 / 오른쪽 눈사람 -->
+          <svg class="sack side-l sd-snow" viewBox="0 0 110 120" aria-hidden="true">
+            <rect x="8" y="58" width="80" height="58" rx="4" fill="#c9282f"/><rect x="42" y="58" width="12" height="58" fill="#f4c64a"/><rect x="8" y="80" width="80" height="10" fill="#f4c64a"/>
+            <rect x="28" y="22" width="56" height="38" rx="4" fill="#2f6a4b"/><rect x="50" y="22" width="10" height="38" fill="#fff"/>
+            <path d="M55 22 C44 4 30 10 38 18 C42 22 50 22 55 22Z M55 22 C66 4 80 10 72 18 C68 22 60 22 55 22Z" fill="none" stroke="#c9282f" stroke-width="5" stroke-linejoin="round"/>
+            <circle cx="55" cy="22" r="5" fill="#c9282f"/>
+          </svg>
+          <svg class="reindeer side-r sd-snow" viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M92 70 L114 50 M106 56 L112 44" stroke="#7a4a2c" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+            <circle cx="60" cy="74" r="38" fill="#fff" stroke="#dfe7ea" stroke-width="2.5"/>
+            <path d="M24 56 C26 22 52 8 80 16 C94 20 100 34 98 56 Z" fill="#c9282f"/>
+            <rect x="20" y="50" width="82" height="16" rx="8" fill="#fff" stroke="#efe6e6" stroke-width="1.5"/>
+            <circle cx="96" cy="16" r="10" fill="#fff" stroke="#efe6e6" stroke-width="1.5"/>
+            <circle cx="48" cy="78" r="4.4" fill="#2a2a2a"/><circle cx="72" cy="78" r="4.4" fill="#2a2a2a"/>
+            <path d="M60 86 L80 92 L60 94 Z" fill="#f08a2c"/>
+            <circle cx="38" cy="92" r="6" fill="#f6b8b0"/><circle cx="82" cy="94" r="6" fill="#f6b8b0"/>
+            <path d="M48 102 Q58 108 68 102" stroke="#2a2a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+          </svg>
+
+          <!-- [옆 장식: 과자] 왼쪽 지팡이 사탕 / 오른쪽 진저브레드 -->
+          <svg class="sack side-l sd-sweets" viewBox="0 0 110 120" aria-hidden="true">
+            <path d="M30 116 L64 30 C72 10 100 16 94 38" stroke="#fff" stroke-width="13" fill="none" stroke-linecap="round"/>
+            <path d="M30 116 L64 30 C72 10 100 16 94 38" stroke="#c9282f" stroke-width="13" fill="none" stroke-dasharray="9 9"/>
+            <path d="M80 116 L46 30 C38 10 10 16 16 38" stroke="#fff" stroke-width="13" fill="none" stroke-linecap="round"/>
+            <path d="M80 116 L46 30 C38 10 10 16 16 38" stroke="#2f6a4b" stroke-width="13" fill="none" stroke-dasharray="9 9"/>
+            <path d="M55 70 C40 54 30 66 42 74 Z M55 70 C70 54 80 66 68 74 Z" fill="#f4c64a"/><circle cx="55" cy="70" r="6" fill="#f4c64a"/>
+          </svg>
+          <svg class="reindeer side-r sd-sweets" viewBox="0 0 120 120" aria-hidden="true">
+            <path d="M60 60 C46 60 40 70 42 78 L18 70 C6 68 2 84 14 88 L40 96 L36 118 L84 118 L80 96 L104 70 C112 60 100 48 90 56 L78 66 C80 66 74 60 60 60Z" fill="#a8704a"/>
+            <circle cx="60" cy="40" r="28" fill="#a8704a"/>
+            <path d="M16 76 L20 82 L16 88 M94 58 L98 64 L94 70" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="50" cy="38" r="3.8" fill="#2a2a2a"/><circle cx="70" cy="38" r="3.8" fill="#2a2a2a"/>
+            <circle cx="44" cy="48" r="4.4" fill="#f6b8b0"/><circle cx="76" cy="48" r="4.4" fill="#f6b8b0"/>
+            <path d="M52 50 Q60 57 68 50" stroke="#2a2a2a" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+            <circle cx="60" cy="82" r="4.4" fill="#fff"/><circle cx="60" cy="98" r="4.4" fill="#fff"/>
+            <path d="M48 70 L60 64 L72 70" stroke="#c9282f" stroke-width="5" fill="none" stroke-linecap="round"/>
+          </svg>
+
+          <!-- [옆 장식: 오너먼트] 양쪽 매달린 오너먼트 -->
+          <svg class="sack side-l sd-orn" viewBox="0 0 110 150" aria-hidden="true">
+            <path d="M30 0 L30 80 M76 0 L76 52" stroke="#4a3a2f" stroke-width="2"/>
+            <rect x="22" y="78" width="16" height="10" rx="2" fill="#f4c64a"/><circle cx="30" cy="112" r="26" fill="#c9282f"/><path d="M8 104 Q30 116 52 104" stroke="#fff" stroke-width="3" fill="none"/><circle cx="21" cy="100" r="5" fill="rgba(255,255,255,.5)"/>
+            <path d="M76 50 L83 66 L100 67 L87 78 L91 95 L76 86 L61 95 L65 78 L52 67 L69 66 Z" fill="#f4c64a" stroke="#f4c64a" stroke-width="5" stroke-linejoin="round"/>
+          </svg>
+          <svg class="reindeer side-r sd-orn" viewBox="0 0 110 150" aria-hidden="true">
+            <path d="M34 0 L34 46 M80 0 L80 86" stroke="#4a3a2f" stroke-width="2"/>
+            <rect x="26" y="44" width="16" height="10" rx="2" fill="#f4c64a"/><circle cx="34" cy="76" r="22" fill="#2f6a4b"/><path d="M14 70 L54 70 M14 82 L54 82" stroke="#fff" stroke-width="3"/>
+            <rect x="72" y="84" width="16" height="10" rx="2" fill="#f4c64a"/><path d="M80 94 C102 112 102 134 80 146 C58 134 58 112 80 94Z" fill="#c9282f"/><path d="M66 120 L94 120" stroke="#f4c64a" stroke-width="4"/>
+          </svg>
+
+          <!-- 리본 -->
+          <svg class="bow" viewBox="0 0 120 60" aria-hidden="true">
+            <path d="M60 46 L14 14 C8 10 4 14 6 20 L14 52 C16 58 22 58 26 56 Z" fill="currentColor"/>
+            <path d="M60 46 L106 14 C112 10 116 14 114 20 L106 52 C104 58 98 58 94 56 Z" fill="currentColor"/>
+            <rect x="50" y="38" width="20" height="20" rx="4" fill="currentColor" style="filter:brightness(.7)"/>
+          </svg>
+
+          <div class="form-card">
+            <!-- 선물 태그 -->
+            <svg class="tag" viewBox="0 0 70 96" aria-hidden="true">
+              <path d="M35 0 L35 22" stroke="#232a46" stroke-width="2"/>
+              <path d="M12 30 L35 18 L58 30 L58 86 C58 90 55 92 52 92 L18 92 C15 92 12 90 12 86 Z" fill="#f4c64a"/>
+              <circle cx="35" cy="32" r="4" fill="#fff"/>
+              <path d="M24 56 L46 56 M24 66 L46 66" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".0"/>
+              <text x="35" y="64" text-anchor="middle" font-family="Paperlogy, sans-serif" font-weight="800" font-size="15" fill="#232a46">GIFT</text>
+            </svg>
+
+            <div class="card-head">
+              <h2>사은품 신청서</h2>
+              <p>아래 항목을 빠짐없이 입력해 주세요</p>
+            </div>
+            <div class="card-body">
+              <div class="loading" id="loadingWrap">
+                <div class="spinner"></div>
+                <div class="loading-text">잠시만 기다려 주세요...</div>
+              </div>
+              <iframe id="giftFormFrame" src="" title="단꿈e 사은품 신청 폼"></iframe>
+            </div>
           </div>
-          <iframe id="giftFormFrame" src="" title="단꿈e 사은품 신청 폼"></iframe>
         </div>
+
       </div>
     </main>
 
     <!-- ===================== 푸터 ===================== -->
     <footer>
-      <div class="water"></div>
-      <svg class="only-summer" viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.5;">
-        <g stroke="rgba(255,255,255,.4)" stroke-width="2.2" fill="none" stroke-linecap="round">
-          <path d="M40 60 q16 -7 32 0 t32 0"></path><path d="M240 50 q16 -7 32 0 t32 0"></path><path d="M150 92 q16 -7 32 0 t32 0"></path>
-        </g>
+      <svg class="foot-tree small" viewBox="0 0 80 110" aria-hidden="true">
+        <rect x="34" y="88" width="12" height="20" fill="#7a4a2c"/>
+        <path d="M40 4 L62 38 L52 38 L70 64 L58 64 L76 92 L4 92 L22 64 L10 64 L28 38 L18 38 Z" fill="#3f7a5a"/>
+        <path d="M40 4 L52 22 C46 26 40 22 34 26 L28 22 Z M22 64 C34 68 46 62 58 66 L52 58 L28 58 Z M10 90 C26 84 50 94 76 88 L72 82 L8 82Z" fill="#fff"/>
       </svg>
-      <svg class="only-autumn" viewBox="0 0 400 120" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; opacity:.4;">
-        <g stroke="rgba(255,255,255,.45)" stroke-width="2" fill="none" stroke-linecap="round">
-          <path d="M20 66 q44 -16 88 0 t88 -2"></path><path d="M200 96 q44 -16 88 0 t88 -2"></path>
-        </g>
+      <svg class="foot-tree" viewBox="0 0 80 110" aria-hidden="true">
+        <rect x="34" y="88" width="12" height="20" fill="#7a4a2c"/>
+        <path d="M40 4 L62 38 L52 38 L70 64 L58 64 L76 92 L4 92 L22 64 L10 64 L28 38 L18 38 Z" fill="#2f6a4b"/>
+        <path d="M40 4 L52 22 C46 26 40 22 34 26 L28 22 Z M22 64 C34 68 46 62 58 66 L52 58 L28 58 Z M10 90 C26 84 50 94 76 88 L72 82 L8 82Z" fill="#fff"/>
       </svg>
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
-        <path d="M-180,42 q90,28 180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 L1620,-10 L-180,-10 Z" fill="#ffffff"></path>
+      <svg class="foot-hills" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 60 C240 10 480 20 720 60 C960 100 1200 90 1440 40 L1440 120 L0 120 Z" fill="#ffffff"/>
+        <path d="M0 96 C300 70 620 74 900 96 C1120 112 1300 104 1440 90 L1440 120 L0 120 Z" style="fill:var(--foot-bar)"/>
       </svg>
-      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" style="position:absolute; top:-1px; left:0; width:200%; height:46%; z-index:2;">
-        <path d="M-180,52 q90,28 180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 t180,0 L1620,40 L-180,40 Z" fill="rgba(255,255,255,.55)"></path>
-      </svg>
-
-      <!-- 여름 잎 -->
-      <div class="only-summer">
-        <div class="deco" style="bottom:-26%; left:-2%; width:clamp(76px,13vw,140px); z-index:3; transform-origin:50% 100%; animation:swayL 7s ease-in-out infinite;">
-          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(8deg);">
-            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#1f8a5b"></path>
-          </svg>
-        </div>
-        <div class="deco" style="bottom:-30%; right:-2%; width:clamp(80px,14vw,150px); z-index:3; transform-origin:50% 100%; animation:swayR 8s ease-in-out infinite;">
-          <svg viewBox="0 0 120 200" style="overflow:visible; transform:rotate(-10deg) scaleX(-1);">
-            <path d="M60 196 C46 162 30 160 12 132 C34 138 46 134 56 146 C40 110 22 104 14 80 C36 88 48 86 57 100 C44 66 28 56 22 38 C42 48 52 50 59 66 C50 40 44 22 60 6 C76 22 70 40 61 66 C68 50 78 48 98 38 C92 56 76 66 63 100 C72 86 84 88 106 80 C98 104 78 110 64 146 C74 134 86 138 108 132 C90 160 74 162 60 196 Z" fill="#177a4f"></path>
-          </svg>
-        </div>
-      </div>
-
-      <!-- 가을 잎 -->
-      <div class="only-autumn">
-        <div class="deco" style="bottom:-14%; left:-2%; width:clamp(56px,10vw,108px); z-index:3; --rot:12deg; animation:bobA 7s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#ef9829"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-        <div class="deco" style="bottom:-4%; left:11%; width:clamp(40px,7vw,76px); z-index:3; --rot:-14deg; animation:bobA 6.4s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z" fill="#b5602f"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 18"></path><path d="M50 42 L28 30"></path><path d="M50 42 L72 30"></path><path d="M50 62 L22 50"></path><path d="M50 62 L78 50"></path><path d="M50 80 L32 70"></path><path d="M50 80 L68 70"></path></g></svg></div>
-        <div class="deco" style="bottom:6%; left:23%; width:clamp(24px,4vw,40px); z-index:3; --rot:8deg; animation:bobA 7.8s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><ellipse cx="50" cy="22" rx="15" ry="12" fill="#f5cf5a" transform="rotate(0 50 22)"></ellipse><ellipse cx="70.92324335849338" cy="37.201626123751154" rx="15" ry="12" fill="#f5cf5a" transform="rotate(72 70.92324335849338 37.201626123751154)"></ellipse><ellipse cx="62.93127555043441" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(144 62.93127555043441 61.798373876248846)"></ellipse><ellipse cx="37.06872444956559" cy="61.798373876248846" rx="15" ry="12" fill="#f5cf5a" transform="rotate(216 37.06872444956559 61.798373876248846)"></ellipse><ellipse cx="29.076756641506623" cy="37.20162612375115" rx="15" ry="12" fill="#f5cf5a" transform="rotate(288 29.076756641506623 37.20162612375115)"></ellipse><circle cx="50" cy="44" r="8" fill="#e8b03c"></circle></svg></div>
-        <div class="deco" style="bottom:-6%; left:34%; width:clamp(46px,8vw,88px); z-index:3; --rot:16deg; animation:bobA 8.2s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 28 C20 24 16 14 35 12 C44 18 50 22 50 28 Z" fill="#9dbd8a"></path><path d="M50 34 C80 30 84 20 65 18 C56 24 50 28 50 34 Z" fill="#9dbd8a"></path><path d="M50 40 C22.6 36 18.6 26 36.3 24 C44.519999999999996 30 50 34 50 40 Z" fill="#9dbd8a"></path><path d="M50 46 C77.4 42 81.4 32 63.7 30 C55.480000000000004 36 50 40 50 46 Z" fill="#9dbd8a"></path><path d="M50 52 C25.2 48 21.2 38 37.6 36 C45.04 42 50 46 50 52 Z" fill="#9dbd8a"></path><path d="M50 58 C74.8 54 78.8 44 62.4 42 C54.96 48 50 52 50 58 Z" fill="#9dbd8a"></path><path d="M50 64 C27.8 60 23.8 50 38.9 48 C45.56 54 50 58 50 64 Z" fill="#9dbd8a"></path><path d="M50 70 C72.2 66 76.2 56 61.1 54 C54.44 60 50 64 50 70 Z" fill="#9dbd8a"></path><path d="M50 76 C30.4 72 26.4 62 40.2 60 C46.08 66 50 70 50 76 Z" fill="#9dbd8a"></path><path d="M50 82 C69.6 78 73.6 68 59.8 66 C53.92 72 50 76 50 82 Z" fill="#9dbd8a"></path><path d="M50 88 C33 84 29 74 41.5 72 C46.6 78 50 82 50 88 Z" fill="#9dbd8a"></path><path d="M50 94 C67 90 71 80 58.5 78 C53.4 84 50 88 50 94 Z" fill="#9dbd8a"></path><path d="M50 100 C35.6 96 31.6 86 42.8 84 C47.12 90 50 94 50 100 Z" fill="#9dbd8a"></path><path d="M50 106 C64.4 102 68.4 92 57.2 90 C52.88 96 50 100 50 106 Z" fill="#9dbd8a"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 126 L50 10"></path></g></svg></div>
-        <div class="deco" style="bottom:2%; right:36%; width:clamp(26px,4.4vw,44px); z-index:3; --rot:-8deg; animation:bobA 6.8s ease-in-out infinite;"><svg viewBox="0 0 100 100" style="overflow:visible;"><path d="M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z" fill="#cdb994"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 92 L50 18"></path><path d="M50 44 L34 34"></path><path d="M50 44 L66 34"></path><path d="M50 64 L36 54"></path><path d="M50 64 L64 54"></path></g></svg></div>
-        <div class="deco" style="bottom:-6%; right:20%; width:clamp(48px,8.4vw,92px); z-index:3; --rot:-18deg; animation:bobA 7.4s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><g stroke="#ef7d78" stroke-width="2.6" fill="none" stroke-linecap="round">
-      <path d="M50 126 C50 90 48 66 40 46"></path>
-      <path d="M44 56 L16 28"></path><path d="M42 48 L30 18"></path><path d="M44 46 L46 14"></path><path d="M45 48 L62 18"></path><path d="M47 54 L78 28"></path><path d="M44 62 L34 44"></path><path d="M46 60 L56 42"></path><path d="M48 74 L24 58"></path>
-    </g><circle cx="16" cy="26" r="7" fill="#ef7d78"></circle><circle cx="30" cy="14" r="7" fill="#ef7d78"></circle><circle cx="46" cy="10" r="7" fill="#ef7d78"></circle><circle cx="62" cy="14" r="7" fill="#ef7d78"></circle><circle cx="78" cy="24" r="7" fill="#ef7d78"></circle><circle cx="34" cy="40" r="7" fill="#ef7d78"></circle><circle cx="56" cy="38" r="7" fill="#ef7d78"></circle><circle cx="24" cy="54" r="7" fill="#ef7d78"></circle></svg></div>
-        <div class="deco" style="bottom:-12%; right:-2%; width:clamp(58px,10vw,110px); z-index:3; --rot:-10deg; animation:bobA 8s ease-in-out infinite;"><svg viewBox="0 0 100 132" style="overflow:visible;"><path d="M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z" fill="#a85a34"></path><g stroke="#3d2b1f" stroke-width="2.4" fill="none" stroke-linecap="round"><path d="M50 124 L50 22"></path><path d="M50 58 L26 42"></path><path d="M50 58 L74 42"></path><path d="M50 74 L32 64"></path><path d="M50 74 L68 64"></path></g></svg></div>
-      </div>
-
-      <div class="footer-text">초등공부 신의 한 수 · 단꿈e</div>
+      <div class="foot-bar">초등공부 신의 한 수 · 단꿈e</div>
     </footer>
 
   </div>
 
   <script>
     /* =====================================================
-       단꿈e 사은품 신청 — 디자인 설정
-       summerWater : "turquoise" | "deepblue" | "teal" | "lagoon"
-       autumnWater : "maple" | "amber" | "harvest" | "sunset"
-       density     : "full" | "medium" | "minimal"
-       headline    : "brand" | "hello"
+       단꿈e 크리스마스 사은품 신청 — 디자인 설정
+       theme  : "navy" | "red" | "green" | "snow"    (색 테마)
+       hero   : "script" | "label" | "badge"         (헤더 문구 배치)
+       info   : "hex" | "cards" | "list"             (안내 형태)
+       head   : "red" | "navy" | "green" | "gold"    (신청서 머리글 색)
+       deco   : "full" | "medium" | "minimal"        (장식 양)
+       card   : "full" | "simple" | "none"           (신청서 장식: 기본 / 리본만 / 없음)
+       side   : "snow" | "sweets" | "orn" | "classic" (신청서 옆 장식: 눈사람 / 과자 / 오너먼트 / 자루·루돌프)
+       corner : "soft" | "round" | "square"          (모서리)
+       snow   : true | false                         (떨어지는 눈)
+       panel  : true | false  (디자인 옵션 패널 표시 — 실제 게시 땐 false)
+       ※ 주소 뒤에 ?tweaks=1 을 붙이면 패널이 나타납니다.
        ===================================================== */
-    var CONFIG = { summerWater: "deepblue", autumnWater: "cream", density: "full", headline: "brand" };
+    var CONFIG = { theme: "green", hero: "label", info: "cards", head: "red", deco: "full", card: "full", side: "sweets", corner: "round", snow: true, panel: false };
 
-    var WATERS = {
-      turquoise: "linear-gradient(165deg,#86e3ea 0%,#3fc8d8 45%,#1fa6cb 100%)",
-      deepblue:  "linear-gradient(165deg,#7cd0f7 0%,#3a98e6 48%,#1f6fd0 100%)",
-      teal:      "linear-gradient(165deg,#7fe0d4 0%,#2cc1b6 48%,#0f9a92 100%)",
-      lagoon:    "linear-gradient(165deg,#9fe9cf 0%,#3fcfb4 46%,#159fbf 100%)",
-      cream:     "linear-gradient(165deg,#f2e7d1 0%,#ecdfc5 55%,#e6d6b8 100%)",
-      maple:     "linear-gradient(165deg,#ffc98c 0%,#ee8446 45%,#c9452c 100%)",
-      amber:     "linear-gradient(165deg,#ffdda6 0%,#f2a055 46%,#dd6b2f 100%)",
-      harvest:   "linear-gradient(165deg,#ffd98f 0%,#e89a3c 48%,#b8551f 100%)",
-      sunset:    "linear-gradient(165deg,#ffcf9e 0%,#ef7f52 46%,#b03a45 100%)"
-    };
+    var TW_OPTIONS = [
+      { key: "theme", label: "색 테마", items: [["navy","네이비 밤하늘","#232a46"],["red","레드 크리스마스","#9c1f26"],["green","포레스트 그린","#1f4d3a"],["snow","스노우 화이트","#dbe9ef"]] },
+      { key: "hero", label: "헤더 문구 배치", items: [["script","영문 크게"],["label","한글 크게"],["badge","배지 강조"]] },
+      { key: "info", label: "안내 형태", items: [["hex","육각형"],["cards","카드 3단"],["list","번호 목록"]] },
+      { key: "head", label: "신청서 머리글 색", items: [["red","빨강","#c9282f"],["navy","테마색","#232a46"],["green","초록","#2f6a4b"],["gold","금색","#e0a92b"]] },
+      { key: "deco", label: "장식 양", items: [["full","많이"],["medium","보통"],["minimal","최소"]] },
+      { key: "card", label: "신청서 장식", items: [["full","기본"],["simple","리본만"],["none","없음"]] },
+      { key: "side", label: "신청서 옆 장식", items: [["snow","눈사람·선물"],["sweets","사탕·쿠키"],["orn","오너먼트"],["classic","자루·루돌프"]] },
+      { key: "corner", label: "모서리", items: [["soft","기본"],["round","둥글게"],["square","각지게"]] },
+      { key: "snow", label: "떨어지는 눈", items: [[true,"켜기"],[false,"끄기"]] }
+    ];
 
-    var IS_AUTUMN = window.__IS_AUTUMN__;
+    (function readParams() {
+      var p = new URLSearchParams(location.search);
+      ["theme","hero","info","head","deco","card","side","corner"].forEach(function (k) { if (p.get(k)) CONFIG[k] = p.get(k); });
+      if (p.get("snow")) CONFIG.snow = p.get("snow") !== "0";
+      if (p.get("tweaks") === "1") CONFIG.panel = true;
+    })();
+
+    function applyDesign() {
+      var h = document.documentElement;
+      h.className = h.className.replace(/\b(t|h|c|d|k|s|r)-[a-z]+\b/g, "").trim();
+      if (CONFIG.theme !== "navy") h.classList.add("t-" + CONFIG.theme);
+      if (CONFIG.hero !== "script") h.classList.add("h-" + CONFIG.hero);
+      if (CONFIG.head !== "red") h.classList.add("c-" + CONFIG.head);
+      if (CONFIG.deco !== "full") h.classList.add("d-" + CONFIG.deco);
+      if (CONFIG.card !== "full") h.classList.add("k-" + CONFIG.card);
+      h.classList.add("s-" + CONFIG.side);
+      if (CONFIG.corner !== "soft") h.classList.add("r-" + CONFIG.corner);
+      var box = document.getElementById("infoContent");
+      if (box && CURRENT_INFO.length) box.innerHTML = renderInfo(CURRENT_INFO);
+      var layer = document.getElementById("snowLayer");
+      if (layer) layer.style.display = CONFIG.snow ? "" : "none";
+      if (window.__onDesign) window.__onDesign();
+      updatePanel();
+      setupReveal();
+    }
+
+    function updatePanel() {
+      var g = document.getElementById("twGroups");
+      if (!g || !CONFIG.panel) return;
+      g.innerHTML = TW_OPTIONS.map(function (o) {
+        return '<div class="tw-group"><p>' + o.label + '</p><div class="tw-seg">' + o.items.map(function (it) {
+          var on = CONFIG[o.key] === it[0] ? " on" : "";
+          var sw = it[2] ? '<span class="sw" style="background:' + it[2] + '"></span>' : "";
+          return '<button type="button" class="' + on.trim() + '" data-k="' + o.key + '" data-v="' + it[0] + '">' + sw + it[1] + '</button>';
+        }).join("") + '</div></div>';
+      }).join("");
+      var code = {}; ["theme","hero","info","head","deco","card","side","corner","snow"].forEach(function (k) { code[k] = CONFIG[k]; });
+      document.getElementById("twCode").textContent = JSON.stringify(code).replace(/"([a-z]+)":/g, "$1: ").replace(/,/g, ", ");
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      if (!CONFIG.panel) return;
+      var tg = document.getElementById("twToggle"), pn = document.getElementById("twPanel");
+      tg.classList.remove("is-hidden"); pn.classList.remove("is-hidden");
+      if (window.innerWidth <= 640) pn.classList.add("closed");
+      tg.addEventListener("click", function () { pn.classList.toggle("closed"); });
+      document.getElementById("twGroups").addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        var v = b.getAttribute("data-v");
+        CONFIG[b.getAttribute("data-k")] = v === "true" ? true : v === "false" ? false : v;
+        applyDesign();
+      });
+      document.getElementById("twCopy").addEventListener("click", function () {
+        var t = document.getElementById("twCode").textContent;
+        if (navigator.clipboard) navigator.clipboard.writeText(t);
+        this.textContent = "복사했습니다"; var self = this; setTimeout(function () { self.textContent = "설정값 복사"; }, 1400);
+      });
+    });
 
     /* === Google Apps Script 폼 주소 (날짜 분기) === */
     var GAS_OLD = "https://script.google.com/macros/s/AKfycby2gPMQDhyagAv1fSR-V7rLHaquVI4ggoNS-vD2GwvUmZQiQCvoqkqWH2mlMi56JRo9/exec";
     var GAS_NEW = "https://script.google.com/macros/s/AKfycby2gPMQDhyagAv1fSR-V7rLHaquVI4ggoNS-vD2GwvUmZQiQCvoqkqWH2mlMi56JRo9/exec";
 
-    var INFO_OLD =
-      '<p>종합 프리패스 결제 고객님께<br><strong>웰컴 키트</strong>가 지급될 예정입니다.</p>' +
-       '<p style="margin-top:12px;">정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>정보를 정확하게 입력 부탁드립니다.</p>';
-    var INFO_NEW =
-      '<p>종합 프리패스 결제 고객님께<br><strong>웰컴 키트</strong>가 지급될 예정입니다.</p>' +
-      '<p style="margin-top:12px;">정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등<br>정보를 정확하게 입력 부탁드립니다.</p>';
+    /* === 안내 문구 (기존 문구 그대로, 육각형 1칸 = 문단 1개) === */
+    var INFO_OLD = [
+      '종합 프리패스 결제 고객님께 <strong>웰컴 키트</strong>가 지급될 예정입니다.',
+      '정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 정보를 정확하게 입력 부탁드립니다.'
+    ];
+    var INFO_NEW = [
+      '종합 프리패스 결제 고객님께 <strong>웰컴 키트</strong>가 지급될 예정입니다.',
+      '정확한 배송을 위해 <strong>이름, 연락처, 주소</strong> 등 정보를 정확하게 입력 부탁드립니다.'
+    ];
 
-    /* === 디자인 설정 적용 === */
-    (function applyConfig() {
-      var key = IS_AUTUMN ? CONFIG.autumnWater : CONFIG.summerWater;
-      var grad = WATERS[key];
-      if (grad) document.documentElement.style.setProperty("--water-grad", grad);
-
-      var seasonScope = IS_AUTUMN ? ".only-autumn" : ".only-summer";
-      function hideIn(sel) {
-        var nodes = document.querySelectorAll(seasonScope + " " + sel);
-        for (var i = 0; i < nodes.length; i++) nodes[i].classList.add("is-hidden");
+    /* === 스크롤 등장 모션 === */
+    var revealIO = ("IntersectionObserver" in window) ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); revealIO.unobserve(e.target); } });
+    }, { threshold: 0.15 }) : null;
+    function setupReveal() {
+      var groups = [".sec-title", ".info-card, .hex, .info-list li", ".notice", ".form-card-wrap"];
+      groups.forEach(function (sel) {
+        var els = document.querySelectorAll(sel);
+        for (var i = 0; i < els.length; i++) {
+          var el = els[i];
+          if (el.classList.contains("in")) continue;
+          el.classList.add("rv");
+          el.style.transitionDelay = (i * 0.12) + "s";
+          if (revealIO) revealIO.observe(el); else el.classList.add("in");
+        }
+      });
+    }
+    var CURRENT_INFO = [];
+    function renderInfo(list) {
+      CURRENT_INFO = list;
+      var box = document.getElementById("infoContent");
+      if (CONFIG.info === "cards") {
+        box.className = "hexes as-other";
+        return '<div class="info-cards">' + list.map(function (txt, i) {
+          return '<div class="info-card"><span class="no">0' + (i + 1) + '</span>' + txt + '</div>';
+        }).join("") + '</div>';
       }
-      if (CONFIG.density !== "full") hideIn(".decor-fun");
-      if (CONFIG.density === "minimal") { hideIn(".decor-floats"); hideIn(".leaf-extra"); }
-
-      if (CONFIG.headline === "hello") {
-        document.querySelector(".headline-brand").classList.add("is-hidden");
-        document.querySelector(".headline-hello").classList.remove("is-hidden");
+      if (CONFIG.info === "list") {
+        box.className = "hexes as-other";
+        return '<ul class="info-list">' + list.map(function (txt, i) {
+          return '<li><span class="no">0' + (i + 1) + '</span><span>' + txt + '</span></li>';
+        }).join("") + '</ul>';
       }
-    })();
+      box.className = "hexes";
+      return list.map(function (txt, i) {
+        return '<div class="hex"><p class="hex-body"><span class="hex-num">0' + (i + 1) + '</span>' + txt + '</p></div>';
+      }).join("");
+    }
 
     /* === iframe 폼 분기 + 안내 문구 === */
     document.addEventListener("DOMContentLoaded", function () {
@@ -514,7 +704,8 @@
       var isMobile = window.innerWidth <= 768;
       iframe.style.height = (isNew ? (isMobile ? 600 : 800) : (isMobile ? 1250 : 2000)) + "px";
 
-      document.getElementById("infoContent").innerHTML = isNew ? INFO_NEW : INFO_OLD;
+      document.getElementById("infoContent").innerHTML = renderInfo(isNew ? INFO_NEW : INFO_OLD);
+      applyDesign();
     });
 
     /* === iframe 로드 완료 === */
@@ -557,62 +748,59 @@
     }
     setInterval(postHeightToParent, 1000);
 
-    /* === 파티클: 여름=물방울, 가을=낙엽 === */
+    /* === 밤하늘 눈 점 === */
+    (function skyDots() {
+      var svg = document.getElementById("skyDots"), html = "";
+      for (var i = 0; i < 46; i++) {
+        var x = Math.random() * 100, y = Math.random() * 70, r = 0.25 + Math.random() * 0.45;
+        html += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(2) + '" fill="var(--hero-dot)" opacity="' + (0.4 + Math.random() * 0.5).toFixed(2) + '" style="fill:var(--hero-dot); animation-delay:-' + (Math.random() * 3).toFixed(2) + 's; animation-duration:' + (1.8 + Math.random() * 2.4).toFixed(2) + 's"/>';
+      }
+      svg.innerHTML = html;
+    })();
+
+    /* === 떨어지는 눈 결정 (모양 4종 · 원근 3단계) === */
     (function particles() {
-      var layer = document.getElementById("bubbleLayer");
-
-      var LEAF_SVGS = [
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z\" fill=\"#ef9829\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 22\"></path><path d=\"M50 58 L26 42\"></path><path d=\"M50 58 L74 42\"></path><path d=\"M50 74 L32 64\"></path><path d=\"M50 74 L68 64\"></path></g></svg>",
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z\" fill=\"#b5602f\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 126 L50 18\"></path><path d=\"M50 42 L28 30\"></path><path d=\"M50 42 L72 30\"></path><path d=\"M50 62 L22 50\"></path><path d=\"M50 62 L78 50\"></path><path d=\"M50 80 L32 70\"></path><path d=\"M50 80 L68 70\"></path></g></svg>",
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C72 26 78 60 50 90 C22 60 28 26 50 6 Z\" fill=\"#cdb994\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 14\"></path><path d=\"M50 36 L34 26\"></path><path d=\"M50 36 L66 26\"></path><path d=\"M50 54 L30 42\"></path><path d=\"M50 54 L70 42\"></path><path d=\"M50 72 L36 60\"></path><path d=\"M50 72 L64 60\"></path></g></svg>",
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C55 20 61 26 69 24 C67 31 64 36 68 38 C76 36 84 32 90 28 C86 38 80 48 74 54 C80 56 86 56 92 54 C84 62 74 68 64 72 C67 76 73 78 79 78 C69 84 58 86 50 86 C42 86 31 84 21 78 C27 78 33 76 36 72 C26 68 16 62 8 54 C14 56 20 56 26 54 C20 48 14 38 10 28 C16 32 24 36 32 38 C36 36 33 31 31 24 C39 26 45 20 50 6 Z\" fill=\"#a85a34\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 124 L50 22\"></path><path d=\"M50 58 L26 42\"></path><path d=\"M50 58 L74 42\"></path><path d=\"M50 74 L32 64\"></path><path d=\"M50 74 L68 64\"></path></g></svg>",
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\" style=\"overflow:visible;\"><path d=\"M50 10 C74 28 78 62 50 88 C22 62 26 28 50 10 Z\" fill=\"#8aab78\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 92 L50 18\"></path><path d=\"M50 44 L34 34\"></path><path d=\"M50 44 L66 34\"></path><path d=\"M50 64 L36 54\"></path><path d=\"M50 64 L64 54\"></path></g></svg>",
-        "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 132\" style=\"overflow:visible;\"><path d=\"M50 6 C58 8 62 16 59 24 C69 20 78 25 77 34 C86 32 92 40 88 48 C96 52 95 62 87 65 C90 74 82 81 73 77 C71 85 61 88 55 82 C55 88 52 94 50 100 C48 94 45 88 45 82 C39 88 29 85 27 77 C18 81 10 74 13 65 C5 62 4 52 12 48 C8 40 14 32 23 34 C22 25 31 20 41 24 C38 16 42 8 50 6 Z\" fill=\"#e8862a\"></path><g stroke=\"#3d2b1f\" stroke-width=\"2.4\" fill=\"none\" stroke-linecap=\"round\"><path d=\"M50 126 L50 18\"></path><path d=\"M50 42 L28 30\"></path><path d=\"M50 42 L72 30\"></path><path d=\"M50 62 L22 50\"></path><path d=\"M50 62 L78 50\"></path><path d=\"M50 80 L32 70\"></path><path d=\"M50 80 L68 70\"></path></g></svg>"
+      var layer = document.getElementById("snowLayer");
+      function arms(n, f) { var d = ""; for (var k = 0; k < n; k++) d += f(k * 360 / n); return d; }
+      function pt(a, r) { var t = (a - 90) * Math.PI / 180; return (r * Math.cos(t)).toFixed(1) + " " + (r * Math.sin(t)).toFixed(1); }
+      function line(a1, r1, a2, r2) { return "M" + pt(a1, r1) + " L" + pt(a2, r2); }
+      var SHAPES = [
+        /* 1. 고사리형: 가지 2쌍 */
+        function () { return arms(6, function (a) { return line(a, 0, a, 44) + line(a, 16, a - 28, 30) + line(a, 16, a + 28, 30) + line(a, 30, a - 22, 40) + line(a, 30, a + 22, 40); }); },
+        /* 2. 육각판 + 갈래 끝 */
+        function () { return arms(6, function (a) { return line(a, 14, a, 44) + line(a, 36, a - 16, 46) + line(a, 36, a + 16, 46) + line(a, 14, a + 60, 14); }); },
+        /* 3. 별 모양 결정: 긴 팔·짧은 팔 교차 */
+        function () { return arms(12, function (a) { var r = (Math.round(a / 30) % 2) ? 26 : 44; return line(a, 0, a, r) + (r > 30 ? line(a, 24, a - 18, 32) + line(a, 24, a + 18, 32) : ""); }); },
+        /* 4. 바늘형 + 가운데 고리 */
+        function () { return arms(6, function (a) { return line(a, 10, a, 46) + line(a, 22, a - 34, 28) + line(a, 22, a + 34, 28); }) + "M10 0 A10 10 0 1 0 -10 0 A10 10 0 1 0 10 0"; }
       ];
-
-      function spawnBubble() {
-        var b = document.createElement("div");
-        var size = 8 + Math.random() * 20;
-        b.style.cssText = [
-          "position:fixed", "bottom:-30px",
-          "left:" + (Math.random() * 100) + "vw",
-          "width:" + size + "px", "height:" + size + "px",
-          "border-radius:50%",
-          "background:radial-gradient(circle at 32% 30%, rgba(255,255,255,.9), rgba(160,230,245,.35) 48%, rgba(120,205,228,.12) 72%)",
-          "border:1px solid rgba(255,255,255,.55)",
-          "box-shadow:inset 0 0 6px rgba(255,255,255,.5)",
-          "pointer-events:none",
-          "animation:bubbleRise " + (8 + Math.random() * 5) + "s linear forwards"
-        ].join(";");
-        layer.appendChild(b);
-        setTimeout(function () { b.remove(); }, 14000);
-      }
-
-      function spawnLeaf() {
+      var SVGS = SHAPES.map(function (f) {
+        return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100"><path d="' + f() + '" stroke="#ffffff" stroke-width="5" stroke-linecap="round" fill="none"/></svg>';
+      });
+      var DEPTHS = [
+        { p: 0.45, size: [8, 13], dur: [15, 20], op: 0.55, blur: 0.6, sway: [10, 18] },
+        { p: 0.40, size: [14, 21], dur: [10, 14], op: 0.85, blur: 0, sway: [18, 32] },
+        { p: 0.15, size: [24, 34], dur: [7, 10], op: 0.95, blur: 0, sway: [26, 44] }
+      ];
+      function rnd(a) { return a[0] + Math.random() * (a[1] - a[0]); }
+      function spawn() {
+        if (!CONFIG.snow || document.hidden) return;
+        var r = Math.random(), d = DEPTHS[0];
+        if (r > DEPTHS[0].p) d = (r > DEPTHS[0].p + DEPTHS[1].p) ? DEPTHS[2] : DEPTHS[1];
+        var size = rnd(d.size), dur = rnd(d.dur);
         var el = document.createElement("div");
-        var size = 16 + Math.random() * 20;
-        var dur = 9 + Math.random() * 6;
-        el.innerHTML = LEAF_SVGS[Math.floor(Math.random() * LEAF_SVGS.length)];
-        el.style.cssText = [
-          "position:fixed", "top:0",
-          "left:" + (Math.random() * 100) + "vw",
-          "width:" + size + "px", "height:" + (size * 1.16) + "px",
-          "opacity:0",
-          "--dx:" + (Math.random() * 120 - 60) + "px",
-          "--spin:" + (360 + Math.random() * 540) + "deg",
-          "filter:drop-shadow(0 2px 4px rgba(120,60,20,.18))",
-          "pointer-events:none",
-          "animation:leafFall " + dur + "s linear forwards"
-        ].join(";");
-        var svg = el.firstChild;
-        if (svg && svg.style) { svg.style.width = "100%"; svg.style.height = "100%"; svg.style.display = "block"; }
+        el.className = "flake";
+        el.innerHTML = "<i>" + SVGS[Math.floor(Math.random() * SVGS.length)] + "</i>";
+        el.style.cssText = "left:" + (Math.random() * 100) + "vw;width:" + size + "px;height:" + size + "px;" +
+          "--op:" + d.op + ";animation-duration:" + dur + "s;" + (d.blur ? "filter:blur(" + d.blur + "px);" : "");
+        var inner = el.firstChild, svg = inner.firstChild;
+        inner.style.cssText = "--sw:" + rnd(d.sway).toFixed(0) + "px;animation-duration:" + (2.2 + Math.random() * 2.2).toFixed(2) + "s;animation-delay:-" + (Math.random() * 2).toFixed(2) + "s";
+        svg.style.cssText = "--rot:" + (Math.random() > .5 ? 360 : -360) + "deg;animation-duration:" + (6 + Math.random() * 10).toFixed(1) + "s";
         layer.appendChild(el);
-        setTimeout(function () { el.remove(); }, (dur + 1) * 1000);
+        setTimeout(function () { el.remove(); }, (dur + 0.5) * 1000);
       }
-
-      var spawn = IS_AUTUMN ? spawnLeaf : spawnBubble;
-      if (IS_AUTUMN) { for (var i = 0; i < 4; i++) setTimeout(spawnLeaf, i * 600); }
-      setInterval(spawn, IS_AUTUMN ? 1100 : 850);
+      for (var i = 0; i < 10; i++) setTimeout(spawn, i * 250);
+      setInterval(spawn, 420);
     })();
   </script>
 </body>
